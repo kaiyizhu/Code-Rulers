@@ -17,6 +17,7 @@ public class Frame extends javax.swing.JFrame {
     public Frame() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
