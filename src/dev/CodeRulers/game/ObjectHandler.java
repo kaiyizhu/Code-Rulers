@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dev.CodeRulers.display;
+package dev.CodeRulers.game;
+
+import dev.CodeRulers.game.CodeRulers;
+import dev.CodeRulers.graphics.GameCamera;
 
 
 /**
  *
  * @author seanz
  */
-public class Handler {
+public class ObjectHandler {
     private CodeRulers game;
     private World world;
     
-    public Handler(Game game) {
+    public ObjectHandler(CodeRulers game) {
         this.game=game;
     }
     

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
  */
 
 public class Display {
-    //creates the jframe window for our game
+    //creates the JFrame window for our game
     private JFrame frame;
     //creates the panel for us to draw our graphics on our game
     private JPanel panel;
@@ -89,4 +89,6 @@ public class Display {
     public JFrame getFrame() {
         return frame;
     }
+    
+   
 }

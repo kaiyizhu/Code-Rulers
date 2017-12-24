@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dev.CodeRulers.display;
+package dev.CodeRulers.game;
 
+import dev.CodeRulers.display.Display;
+import dev.CodeRulers.graphics.GameCamera;
+import dev.CodeRulers.state.State;
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
 
 /**
  * This class is responsible for running the game. 
@@ -25,14 +27,14 @@ public class CodeRulers implements Runnable{
     //this boolean states whether this object is running or not.
     private boolean running = false;
     
-    //creates thread object
+    //creates a thread variable
     private Thread thread;
+    
+    //this is the display varaible for the game.
     private Display display;
     
-    //a buffer is something that holds the same data as ur 
-    //computer screen
-    //buffers prevent flickering
-    private BufferStrategy bs;
+    //this is the "camera" that will pan around the map.
+    private GameCamera gameCamera;
     
     /**
      * This method initializes all components of the game. 
@@ -47,13 +49,14 @@ public class CodeRulers implements Runnable{
      * This method updates game variables every frame.
      */
     private void tick() {
-        /*
-        keyManager.tick();
         
+        //keyManager.tick();
+        
+        //as long as there is a state active, it will update any variables in that state
+        //by calling its tick method.
         if(State.getState()!=null) {
             State.getState().tick();
         }
-        */
     }
     
     /**
@@ -62,16 +65,11 @@ public class CodeRulers implements Runnable{
     private void render() {
         //as long as there is a state active, it will draw whatever is in that state by
         //calling the render method in state.
-        if(State.getState()!=null) {
+        if(State.getState()!=null) 
+        {
+            //render the stuff in that state.
             State.getState().render(g);
         }
-
-        
-        /*
-        //properly disposes and releases system resources
-        //it is using. This will prevent any mishaps
-        g.dispose();
-        */
     }
     
     @Override
@@ -94,10 +92,9 @@ public class CodeRulers implements Runnable{
         long lastTime=System.nanoTime(); 
         //time until we get to 1 sec
         long timer=0;
-        //
         int ticks=0;
         
-        //gameLoop
+        //This is our Basic Game Loop :)
         //loops while running. 
         while(running) {
             //sets the now time variable to the current system time.
@@ -139,7 +136,9 @@ public class CodeRulers implements Runnable{
         stop();
     }
     
-    //method that starts the thread
+    /**
+     * This method will be responsible for starting the thread.
+     */
     public synchronized void start() {
         //ensures that there is no thread running at the
         //moment. If there is, it will result in another new thread
@@ -154,7 +153,9 @@ public class CodeRulers implements Runnable{
         thread.start();
     }
     
-    //stops the thread
+    /**
+     * This method will be responsible for stopping the thread.
+     */
     public synchronized void stop() {
         //if the thread is not running, we do not want to stop it again
         //so we exit the loop if the boolean is false
@@ -169,6 +170,33 @@ public class CodeRulers implements Runnable{
             //prints the exception
             ex.printStackTrace();
         }
+    }
+    
+   
+    /**
+     * Gives the user the gameCamera object.
+     * The gameCamera object basically is an engine responsible for handling 
+     * what to show of the map in the display of the game.
+     * @return the gameCamera object
+     */
+    public GameCamera getGameCamera() {
+        return gameCamera;
+    }
+
+    /**
+     * Gives the user the width of the game window
+     * @return the width of the JFrame
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * Gives the height dimension of the game window
+     * @return the height of the JFrame
+     */
+    public int getHeight() {
+        return height;
     }
     
 }

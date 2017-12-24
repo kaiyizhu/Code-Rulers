@@ -5,6 +5,7 @@
  */
 package dev.CodeRulers.state;
 
+import dev.CodeRulers.game.ObjectHandler;
 import java.awt.Graphics;
 
 /**
@@ -27,11 +28,11 @@ public abstract class State {
     }
     
     //protected varaible handler object. This will be inherited in subclasses.
-    protected Handler handler;
+    protected ObjectHandler handler;
     
     //constructor takes in game object and assigns it to local varaible 
     //game.
-    public State(Handler handler) {
+    public State(ObjectHandler handler) {
         //sets handler to the parameter handler
         this.handler = handler;
     }
