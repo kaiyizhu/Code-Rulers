@@ -7,7 +7,7 @@ package dev.CodeRulers.entity;
 
 /**
  *
- * @author seanz
+ * @author Sean Zhang
  */
 public abstract class Entity {
     /**

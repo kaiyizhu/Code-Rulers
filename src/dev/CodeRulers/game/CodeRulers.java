@@ -5,9 +5,8 @@
  */
 package dev.CodeRulers.game;
 
-import dev.CodeRulers.display.Display;
-import dev.CodeRulers.graphics.GameCamera;
-import dev.CodeRulers.state.State;
+import dev.CodeRulers.display.Displays;
+import java.awt.Font;
 import java.awt.Graphics;
 
 /**
@@ -31,15 +30,18 @@ public class CodeRulers implements Runnable{
     private Thread thread;
     
     //this is the display varaible for the game.
-    private Display display;
+    private Displays display;
     
-    //this is the "camera" that will pan around the map.
-    private GameCamera gameCamera;
+    public CodeRulers() {
+        
+    }
+    
     
     /**
      * This method initializes all components of the game. 
      */
-    public void init() {
+    private void init() {
+        display = new Displays();
         //gets the graphics in the JPanel and assings by reference the graphics
         //object there to the graphics object in this class.
         g=display.getPanel().getGraphics();
@@ -50,26 +52,17 @@ public class CodeRulers implements Runnable{
      */
     private void tick() {
         
-        //keyManager.tick();
         
-        //as long as there is a state active, it will update any variables in that state
-        //by calling its tick method.
-        if(State.getState()!=null) {
-            State.getState().tick();
-        }
     }
     
     /**
      * This method draws all of the graphics in the window.
      */
     private void render() {
-        //as long as there is a state active, it will draw whatever is in that state by
-        //calling the render method in state.
-        if(State.getState()!=null) 
-        {
-            //render the stuff in that state.
-            State.getState().render(g);
-        }
+        Font f = new Font("Myriad", Font.BOLD, 16);
+        g.setFont(f);
+        g.drawString("sean xhang", 25, 25);
+        //g.drawRect(10, 20, 20, 20);
     }
     
     @Override
@@ -151,6 +144,7 @@ public class CodeRulers implements Runnable{
         thread = new Thread(this);
         //starts the thread.
         thread.start();
+
     }
     
     /**
@@ -171,17 +165,7 @@ public class CodeRulers implements Runnable{
             ex.printStackTrace();
         }
     }
-    
    
-    /**
-     * Gives the user the gameCamera object.
-     * The gameCamera object basically is an engine responsible for handling 
-     * what to show of the map in the display of the game.
-     * @return the gameCamera object
-     */
-    public GameCamera getGameCamera() {
-        return gameCamera;
-    }
 
     /**
      * Gives the user the width of the game window

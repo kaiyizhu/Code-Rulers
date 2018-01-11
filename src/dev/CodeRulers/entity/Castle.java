@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dev.CodeRulers.state;
+package dev.CodeRulers.entity;
 
 /**
  *
  * @author seanz
  */
-public class MenuState {
+public class Castle extends Entity{
+    
+    public Castle(int x, int y, int ruler, int ID) {
+        super(x, y, ruler, ID);
+    }
     
 }
