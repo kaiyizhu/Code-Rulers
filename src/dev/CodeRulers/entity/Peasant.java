@@ -10,10 +10,15 @@ package dev.CodeRulers.entity;
  * @author seanz
  */
 public class Peasant extends Entity{
-    
+    /**
+     * Construct a new Peasant at the given location, under the given ruler.
+     * @param x The x coordinate of this peasant
+     * @param y The y coordinate of this peasant
+     * @param ruler The ID of the ruler that this peasant serves
+     */
     public Peasant(int x, int y, int ruler) {
+        //call the entity constructer
         super(x, y, ruler);
-        
     }
 
     @Override
@@ -26,6 +31,7 @@ public class Peasant extends Entity{
         if(changePos(dir)){
             //claim this peice of land
         }else{
+            //if the move was obstructed somehow, print it out to the console
             System.out.println("Illegal Movement attempted by ruler " + ruler +
                     " and Peasant at " + x + " , " + y );
         }

@@ -5,6 +5,8 @@
  */
 package dev.CodeRulers.ruler;
 import dev.CodeRulers.entity.*;
+import dev.CodeRulers.world.World;
+import java.util.Stack;
 /**
  *
  * @author Luke
@@ -52,27 +54,9 @@ public abstract class AbstractRuler {
      */
     public void move(Entity moved, int dir){
         //test to see if it has movement & is not a castle
-        //test to see whether the space is empty
-        //if so, call its move method in the given direction
-        if(moved.isAlive() && moved.hasAction()){
-            //#### also test whether there is already someone there ####
-            
-        }
-        
-        //see if this movement claimed land
+        moved.move(dir);
     }
-    /**
-     * Commands a knight to attack the specified subject. If the subject is more
-     * than 1 block away, nothing will happen.
-     * @param attacking The knight under this ruler's command
-     * @param attacked The entity which is to be attacked
-     */
-//    public void capture(Knight attacking, Entity attacked){
-//        //check that this knight can attack
-//        //check that the attacked is within 1 space of this knight
-//        //check that it is not one of this ruler's subjects
-//        //call the attack
-//    }
+
     /**
      * Commands a knight to attack whatever is in the given direction.
      * If no suitable target exists, nothing will happen.
@@ -81,9 +65,18 @@ public abstract class AbstractRuler {
      */
     public void capture(Knight attacking, int dir){
         //check that this knight can attack
-        //see if anything is in that space
-        //check that it is not one of this ruler's subjects
-        //call the attack
+        if(attacking.isAlive() && attacking.hasAction()){
+            //see if anything is in that space
+            int[] xy = translateDir(dir);
+            Entity attacked = World.getEntityAt(attacking.getX()+xy[1], attacking.getY()+xy[2]);
+            if(attacked != null){
+                //check that it is not one of this ruler's subjects
+                if(attacked.getRuler() != rulerID ){
+                //call the attack
+                    attacking.capture(attacked);
+                }
+            }
+        }
     }
     /**
      * Sets the castle to start creating knights instead of peasants.
@@ -91,6 +84,7 @@ public abstract class AbstractRuler {
      */
     public void createKnights(Castle commanded){
         //tell the castle to create knights
+        commanded.createKnights();
     }
     /**
      * Sets the castle to start creating peasants instead of knights.
@@ -98,6 +92,7 @@ public abstract class AbstractRuler {
      */
     public void createPeasants(Castle commanded){
         //tell the castle to create peasants
+        commanded.createPeasants();
     }
     /**
      * Gets the name of the school, team, or individual who created this Ruler AI
@@ -131,10 +126,18 @@ public abstract class AbstractRuler {
      */
     public Peasant[] getPeasants(){
         //get the list of all peasants from world
+        Peasant[] all = World.getPeasants();
+        Stack<Peasant> ours = new Stack<>();
         //sort through the list, add every peasant that has this ruler to stack?
+        for(Peasant p: all){
+            if(p.getRuler() == rulerID){
+                ours.add(p);
+            }
+        }
         //convert stack to array
+        Peasant[] returned = (Peasant[])ours.toArray();
         //return array
-        return null;
+        return returned;
     }
     
     /**
@@ -143,10 +146,17 @@ public abstract class AbstractRuler {
      */
     public Knight[] getKnights(){
         //get the list of all knights from world
+        Knight[] all = World.getKnights();
+        Stack<Knight> ours = new Stack<>();
         //sort through the list, add every knight that has this ruler to stack?
+        for(Knight k : all){
+            if(k.getRuler() == rulerID)
+            ours.add(k);
+        }
         //convert stack to array?
+        Knight[] returned = (Knight[]) ours.toArray();
         //return array
-        return null;
+        return returned;
     }
     
     /**
@@ -155,11 +165,84 @@ public abstract class AbstractRuler {
      */
     public Castle[] getCastles(){
         //get the list of all castles from world
+        Castle[] all = World.getCastles();
+        Stack<Castle> ours = new Stack<>();
+        
         //sort through the list, add every castles that has this ruler to stack?
+        for(Castle i : all){
+            if(i.getRuler() == rulerID){
+                ours.add(i);
+            }
+        }
         //convert stack to array?
+        Castle[] returned = (Castle[]) ours.toArray();
         //return array
-        return null;
+        return returned;
     }
+    
+    
+    
+    /**
+     * Gets the array of all enemy peasants.
+     * @return Array containing all peasants owned by other rulers.
+     */
+    public Peasant[] getOtherPeasants(){
+        //get the list of all peasants from world
+        Peasant[] all = World.getPeasants();
+        Stack<Peasant> others = new Stack<>();
+        //sort through the list, add every peasant that has this ruler to stack?
+        for(Peasant p: all){
+            if(p.getRuler() != rulerID){
+                others.add(p);
+            }
+        }
+        //convert stack to array
+        Peasant[] returned = (Peasant[])others.toArray();
+        //return array
+        return returned;
+    }
+    
+    /**
+     * Gets the array of all enemy knights.
+     * @return Array containing all knights owned by other rulers
+     */
+    public Knight[] getOtherKnights(){
+        //get the list of all knights from world
+        Knight[] all = World.getKnights();
+        Stack<Knight> others = new Stack<>();
+        //sort through the list, add every knight that has this ruler to stack?
+        for(Knight k : all){
+            if(k.getRuler() != rulerID)
+            others.add(k);
+        }
+        //convert stack to array?
+        Knight[] returned = (Knight[]) others.toArray();
+        //return array
+        return returned;
+    }
+    
+    /**
+     * Gets the array of all enemy castles.
+     * @return Array containing all castles owned by other rulers.
+     */
+    public Castle[] getOtherCastles(){
+        //get the list of all castles from world
+        Castle[] all = World.getCastles();
+        Stack<Castle> others = new Stack<>();
+        
+        //sort through the list, add every castles that has this ruler to stack?
+        for(Castle i : all){
+            if(i.getRuler() != rulerID){
+                others.add(i);
+            }
+        }
+        //convert stack to array?
+        Castle[] returned = (Castle[]) others.toArray();
+        //return array
+        return returned;
+    }
+    
+    
     
     /**
      * Gets the number of tiles owned by this ruler
@@ -178,5 +261,39 @@ public abstract class AbstractRuler {
     public int getPoints(){
         //grab from game or add field in ruler
         return 0;
+    }
+    /**
+     * Translates an integer direction into a x,y difference. Based on the
+     * board's origin at the top left.
+     * @param dir The cardinal direction
+     * @return The change in x and change in y as an array
+     */
+    public static int[] translateDir(int dir){
+        //create an array with 2 elements, where [1] is x, [2] is y
+        int[] xy =new int[2];
+        //if the direction involves moving east
+        if(dir < 5 && dir >1){
+            //set change in x to positive 1
+            xy[1] = 1;
+        //otherwise, if the direction involves moving west
+        }else if(dir > 5 && dir <9){
+            //set change in x to -1
+            xy[1] = -1;
+        }
+        //if the direction involves moving north (and not west)
+        if(dir >0 && dir<3){
+            //set the change in y to -1
+            xy[2] = -1;
+        //otherwsie, if the direction involves moving northwest    
+        }else if(dir == 8){
+            //set the change in y to -1
+            xy[2] = -1;
+        //otherwise if the direction involves moving south
+        }else if(dir > 3 && dir <7){
+            //set the change in y to positive 1
+            xy[2] = 1;
+        }
+        //return the directional coordinates
+        return xy;
     }
 }

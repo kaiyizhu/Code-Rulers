@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package dev.CodeRulers.entity;
-
+import dev.CodeRulers.ruler.AbstractRuler;
+import dev.CodeRulers.world.World;
 /**
  *
  * @author Sean Zhang
@@ -15,7 +16,6 @@ public abstract class Entity {
      * @param x The x value of the coordinate where the entity is located
      * @param y The y value of the coordinate where the entity is located
      * @param ruler The ID number of the ruler
-     * @param ID The ID number of this entity
      */
     public Entity(int x, int y, int ruler) {
         this.x = x;
@@ -69,18 +69,7 @@ public abstract class Entity {
         public boolean isAlive() {
             return alive;
         }
-        
-//    //  Identification Number -> All entities should have an ID number that is unique to each entity
-//        protected int ID;
-//        
-//        /**
-//         * Tells the user the ID number of that entity. Each entity should have a unique
-//         * entity identification number.
-//         * @return the ID number of the entity.
-//         */
-//        public int getID() {
-//            return ID;
-//        }
+
     
     //  Width and height of the Entity -> All entities should have a width and height.
         protected int width,height;
@@ -128,55 +117,35 @@ public abstract class Entity {
          * @return Whether it was moved.
          */
         protected boolean changePos(int dir){
+            //check whether the direction is valid
             if(dir > 8 || dir <1 || !hasAction()){
                 return false;
             }
-            switch(dir){
-                case 1: 
-                    y--;
-                    break;
-                case 2:
-                    y--;
-                    x++;
-                    break;
-                case 3:
-                    x++;
-                    break;
-                case 4:
-                    y++;
-                    x++;
-                    break;
-                case 5:
-                    y++;
-                    break;
-                case 6:
-                    y++;
-                    x--;
-                    break;
-                case 7:
-                    x--;
-                    break;
-                case 8:
-                    x--;
-                    y--;
-                    break;
+            //translate the direction into x,y differences
+            int[] xy = AbstractRuler.translateDir(dir);
+            //check if someone is at the location where they are trying to move
+            Entity inLocation = World.getEntityAt(x+xy[1], y+xy[2]);
+            if(inLocation != null){
+                if(this instanceof Knight && inLocation instanceof Peasant){
+                    //capture the peasant, and continue to move
+                    inLocation.ruler = this.ruler;
+                }else{
+                    //return false, stopping from moving
+                    return false;
+                }
             }
-            //if they are out of bounds, move them back
-            if(x<0){
-                x++;
-                return false;
-            }else if(x>=64){
-                x--;
+            //move the peice in that direction
+            x+=xy[1];
+            y+=xy[2];
+            //if they are out of bounds, move them back and return false
+            if(x<0 || x>=64){
+                x-= xy[1];
                 return false;
             }
-            if(y<0){
-                y++;
+            if(y<0 || y>=64){
+                y-= xy[2];
                 return false;
-            }else if(y >-64){
-                y--;
-                return false;
-            }
-            //check whether they moved into someones space
+            }    
             return true;
         }
 }

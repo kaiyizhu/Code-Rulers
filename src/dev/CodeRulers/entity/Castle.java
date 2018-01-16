@@ -10,18 +10,46 @@ package dev.CodeRulers.entity;
  * @author seanz
  */
 public class Castle extends Entity{
-    
+    //whether this castle is currently creating peasants
+    private boolean creatingPeasants = true;
+    //the amount of damage this castle can resist
+    protected int strength;
+    /**
+     * Constructs a new Castle object. Should only be preformed at the
+     * start of a game
+     * @param x The x location of the castle on the board
+     * @param y The y location of the castle on the board
+     * @param ruler The ID of the ruler owning this castle
+     */
     public Castle(int x, int y, int ruler) {
+        //call the entity constructer
         super(x, y, ruler);
+        //also initialize strength
+        strength = 1000;
     }
 
     @Override
     public boolean hasAction() {
+        //castles never have actions
         return false;
     }
     
     @Override
     public void move(int dir){
-        //do nothing.
+        //do nothing. Castles cant move
+    }
+    /**
+     * Tells this castle to make Peasants instead of Knights.
+     */
+    public void createPeasants(){
+        //set this castle to manufacture peasants
+        creatingPeasants = true;
+    }
+    /**
+     * Tells this castle to make Knights instead of Peasants.
+     */
+    public void createKnights(){
+        //set this castle to manufacture knights
+        creatingPeasants = false;
     }
 }
