@@ -54,6 +54,11 @@ public abstract class AbstractRuler {
         //test to see if it has movement & is not a castle
         //test to see whether the space is empty
         //if so, call its move method in the given direction
+        if(! (moved instanceof Castle) && moved.isAlive()){
+            //#### also test whether there is already someone there ####
+            
+        }
+        
         //see if this movement claimed land
     }
     /**
@@ -62,12 +67,12 @@ public abstract class AbstractRuler {
      * @param attacking The knight under this ruler's command
      * @param attacked The entity which is to be attacked
      */
-    public void capture(Knight attacking, Entity attacked){
-        //check that this knight can attack
-        //check that the attacked is within 1 space of this knight
-        //check that it is not one of this ruler's subjects
-        //call the attack
-    }
+//    public void capture(Knight attacking, Entity attacked){
+//        //check that this knight can attack
+//        //check that the attacked is within 1 space of this knight
+//        //check that it is not one of this ruler's subjects
+//        //call the attack
+//    }
     /**
      * Commands a knight to attack whatever is in the given direction.
      * If no suitable target exists, nothing will happen.
