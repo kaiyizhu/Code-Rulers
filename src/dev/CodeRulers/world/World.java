@@ -45,31 +45,35 @@ public class World {
         return castles;
     }
     
-    public static String getEntityAt(int x, int y) {
+    public static Entity getEntityAt(int x, int y) {
         if(x>63 || y>63 || x<0 || y<0) {
-            return "Invalid Coordinate";
+            System.out.println("Coordinates out of bounds.");
+            return null;
         }
         
         for(int i=0;i<knights.length;i++) {
             if(knights[i].getX()==x && knights[i].getY()==y) {
-                return "Knight";
+                return knights[i];
             }
         }
         
         for(int i=0;i<peasants.length;i++) {
             if(peasants[i].getX()==x && peasants[i].getY()==y) {
-                return "Peasant";
+                return peasants[i];
             }
         }
         
         for(int i=0;i<castles.length;i++) {
             if(castles[i].getX()==x && castles[i].getY()==y) {
-                return "Castle";
+                return castles[i];
             }
         }
         
-        return "No Entity";
+        System.out.println("No Entity Found.");
+        return null;
     }
+    
+    public static 
     
     
 }
