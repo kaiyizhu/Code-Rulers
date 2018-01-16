@@ -9,18 +9,28 @@ import dev.CodeRulers.entity.Castle;
 import dev.CodeRulers.entity.Entity;
 import dev.CodeRulers.entity.Knight;
 import dev.CodeRulers.entity.Peasant;
+import java.awt.Graphics;
 
 /**
  *
  * @author seanzhang
  */
 public class World {
+    //image icons for the entities on the board
+    
+    //image for the background of the world
+    
+    
+    
     //these are all the knights that exist in the game.
     private static Knight[] knights;
     //these are all the peasants that exist in the game.
     private static Peasant[] peasants;
     //these are all the castles that exist in the game.
     private static Castle[] castles;
+    
+    //these are all the land owned by the ruler.
+    private static int[][] landOwned;
     
     
     
@@ -73,7 +83,15 @@ public class World {
         return null;
     }
     
-    public static 
+    public static int getLandOwner(int x, int y) {
+        return landOwned[x][y];
+    }
     
+    
+    
+    public void render(Graphics g) {
+        
+        
+    }
     
 }
