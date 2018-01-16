@@ -12,9 +12,25 @@ package dev.CodeRulers.entity;
 public class Knight extends Entity{
     int[] thing;
     
-    public Knight(int x, int y, int ruler, int ID,int[] thing) {
-        super(x, y, ruler, ID);
+    public Knight(int x, int y, int ruler,int[] thing) {
+        super(x, y, ruler);
         this.thing = thing;
+        
+    }
+
+    @Override
+    public boolean hasAction(){
+        return hasAction;
     }
     
+    @Override
+    public void move(int dir){
+        //if the piece can be move correctly in that direction
+        if(changePos(dir)){
+            //do nothing. Its a knight
+        }else{
+            System.out.println("Illegal Movement attempted by " + ruler +
+                    " and Knight at " + x + " , " + y );
+        }    
+    }
 }

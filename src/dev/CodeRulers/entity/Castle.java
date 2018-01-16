@@ -11,8 +11,17 @@ package dev.CodeRulers.entity;
  */
 public class Castle extends Entity{
     
-    public Castle(int x, int y, int ruler, int ID) {
-        super(x, y, ruler, ID);
+    public Castle(int x, int y, int ruler) {
+        super(x, y, ruler);
+    }
+
+    @Override
+    public boolean hasAction() {
+        return false;
     }
     
+    @Override
+    public void move(int dir){
+        //do nothing.
+    }
 }

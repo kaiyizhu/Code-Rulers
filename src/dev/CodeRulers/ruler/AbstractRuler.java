@@ -54,7 +54,7 @@ public abstract class AbstractRuler {
         //test to see if it has movement & is not a castle
         //test to see whether the space is empty
         //if so, call its move method in the given direction
-        if(! (moved instanceof Castle) && moved.isAlive()){
+        if(moved.isAlive() && moved.hasAction()){
             //#### also test whether there is already someone there ####
             
         }
