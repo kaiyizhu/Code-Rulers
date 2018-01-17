@@ -6,6 +6,7 @@
 package dev.CodeRulers.ruler;
 import dev.CodeRulers.entity.*;
 import dev.CodeRulers.world.World;
+import java.util.ArrayList;
 import java.util.Stack;
 /**
  *
@@ -20,7 +21,8 @@ public abstract class AbstractRuler {
     private String rulerName;
     //integer used to identify this ruler in game(roughly equivalent to player number)
     private final int rulerID; //not sure about final or not
-    
+    //the number of points this ruler has
+    private int points;
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
      * initialize() method within implementing classes.
@@ -29,6 +31,7 @@ public abstract class AbstractRuler {
     public AbstractRuler(int rulerID){
         this.rulerID = rulerID;
         initialize();
+        points = 0;
     }
     /**
      * This is where the Ruler can perform actions. Every turn, the implementation
@@ -127,7 +130,7 @@ public abstract class AbstractRuler {
     public Peasant[] getPeasants(){
         //get the list of all peasants from world
         Peasant[] all = World.getPeasants();
-        Stack<Peasant> ours = new Stack<>();
+        ArrayList<Peasant> ours = new ArrayList<>(0);
         //sort through the list, add every peasant that has this ruler to stack?
         for(Peasant p: all){
             if(p.getRuler() == rulerID){
@@ -151,7 +154,7 @@ public abstract class AbstractRuler {
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
             if(k.getRuler() == rulerID)
-            ours.add(k);
+            ours.push(k);
         }
         //convert stack to array?
         Knight[] returned = (Knight[]) ours.toArray();
@@ -171,7 +174,7 @@ public abstract class AbstractRuler {
         //sort through the list, add every castles that has this ruler to stack?
         for(Castle i : all){
             if(i.getRuler() == rulerID){
-                ours.add(i);
+                ours.push(i);
             }
         }
         //convert stack to array?
@@ -193,7 +196,7 @@ public abstract class AbstractRuler {
         //sort through the list, add every peasant that has this ruler to stack?
         for(Peasant p: all){
             if(p.getRuler() != rulerID){
-                others.add(p);
+                others.push(p);
             }
         }
         //convert stack to array
@@ -213,7 +216,7 @@ public abstract class AbstractRuler {
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
             if(k.getRuler() != rulerID)
-            others.add(k);
+            others.push(k);
         }
         //convert stack to array?
         Knight[] returned = (Knight[]) others.toArray();
@@ -233,7 +236,7 @@ public abstract class AbstractRuler {
         //sort through the list, add every castles that has this ruler to stack?
         for(Castle i : all){
             if(i.getRuler() != rulerID){
-                others.add(i);
+                others.push(i);
             }
         }
         //convert stack to array?
@@ -250,6 +253,7 @@ public abstract class AbstractRuler {
      */
     public int LandCount(){
         //get the 2d int[] from the world
+   //     int[][] allLand = World.getLandOwned();
         //sort through it, increment integer with every tile that has this ID
         return 0;
     }
@@ -260,7 +264,7 @@ public abstract class AbstractRuler {
      */
     public int getPoints(){
         //grab from game or add field in ruler
-        return 0;
+        return points;
     }
     /**
      * Translates an integer direction into a x,y difference. Based on the

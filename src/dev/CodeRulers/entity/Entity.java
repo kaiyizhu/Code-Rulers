@@ -128,7 +128,7 @@ public abstract class Entity {
             if(inLocation != null){
                 if(this instanceof Knight && inLocation instanceof Peasant){
                     //capture the peasant, and continue to move
-                    inLocation.ruler = this.ruler;
+                    inLocation.alive = false;
                 }else{
                     //return false, stopping from moving
                     return false;

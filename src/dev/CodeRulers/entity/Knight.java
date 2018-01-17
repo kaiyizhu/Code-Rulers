@@ -47,14 +47,12 @@ public class Knight extends Entity{
      * @param attacked The entity which is to be attacked
      */
     public void capture(Entity attacked){
-        //set damage to a random number between 1 and 25
-        int damage = (int)Math.ceil(Math.random()*25);
         //if the attacked entity is a knight
         if(attacked instanceof Knight){
             //create a reference for it as a knight
             Knight k = (Knight)attacked;
-            //reduce its strength
-            k.strength -= damage;
+            //reduce its strength by a random number from 1-25
+            k.strength -= (int)Math.ceil(Math.random()*25);
             //check if it has strenght left
             if(k.strength <1){
                 //if not, set it to not be alive
@@ -66,15 +64,8 @@ public class Knight extends Entity{
         }else if (attacked instanceof Castle){
             //create a castle reference
             Castle c = (Castle)attacked;
-            //reduce its strength
-            c.strength -= damage;
-            //if it does not have any more strength
-            if(c.strength <1){
-                //set this ruler to own the castle
-                c.ruler = this.ruler;
-                //set the castle's health to 250
-                c.strength = 250;
-            }
+            //set this ruler to own the castle
+            c.ruler = this.ruler;
         //otherwise, if it is a peasant
         }else if(attacked instanceof Peasant){
             //create a peasant reference to it
