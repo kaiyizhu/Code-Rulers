@@ -7,7 +7,6 @@ package dev.CodeRulers.ruler;
 import dev.CodeRulers.entity.*;
 import dev.CodeRulers.world.World;
 import java.util.ArrayList;
-import java.util.Stack;
 /**
  *
  * @author Luke

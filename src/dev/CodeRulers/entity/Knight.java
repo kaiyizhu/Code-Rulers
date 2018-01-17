@@ -70,8 +70,8 @@ public class Knight extends Entity{
         }else if(attacked instanceof Peasant){
             //create a peasant reference to it
             Peasant p = (Peasant)attacked;
-            //assign the peasant under this ruler
-            p.ruler = this.ruler;
+            //capture (kill) the peasant
+            p.alive = false;
         }
     }
 }

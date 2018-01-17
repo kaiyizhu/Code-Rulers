@@ -134,7 +134,7 @@ public abstract class Entity {
                     return false;
                 }
             }
-            //move the peice in that direction
+            //move the piece in that direction
             x+=xy[1];
             y+=xy[2];
             //if they are out of bounds, move them back and return false
