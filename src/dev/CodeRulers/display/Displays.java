@@ -5,6 +5,7 @@
  */
 package dev.CodeRulers.display;
 
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,8 +30,11 @@ public class Displays extends JFrame {
     public Displays() {
         System.out.println("hi");
         logo = new ImageIcon(getClass().getResource("/resources/logo/logo.png"));
+        
         initComponents();
         this.setVisible(true);
+        this.setIconImage(logo.getImage());
+        this.setTitle("CodeRulers - An AI Program For Noobs");
     }
     
     /**
@@ -50,6 +54,7 @@ public class Displays extends JFrame {
         logo = new ImageIcon(getClass().getResource("/res/logo/"+imageName));
         //initializes graphical components
         initComponents();
+        this.setIconImage(logo.getImage());
     }
 
     /**
