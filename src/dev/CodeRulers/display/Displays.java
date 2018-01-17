@@ -35,6 +35,7 @@ public class Displays extends JFrame {
         this.setVisible(true);
         this.setIconImage(logo.getImage());
         this.setTitle("CodeRulers - An AI Program For Noobs");
+        
     }
     
     /**
