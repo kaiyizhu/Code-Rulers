@@ -150,11 +150,11 @@ public abstract class AbstractRuler {
     public Knight[] getKnights(){
         //get the list of all knights from world
         Knight[] all = World.getKnights();
-        Stack<Knight> ours = new Stack<>();
+        ArrayList<Knight> ours = new ArrayList<>();
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
             if(k.getRuler() == rulerID)
-            ours.push(k);
+            ours.add(k);
         }
         //convert stack to array?
         Knight[] returned = (Knight[]) ours.toArray();
@@ -169,12 +169,12 @@ public abstract class AbstractRuler {
     public Castle[] getCastles(){
         //get the list of all castles from world
         Castle[] all = World.getCastles();
-        Stack<Castle> ours = new Stack<>();
+        ArrayList<Castle> ours = new ArrayList<>();
         
         //sort through the list, add every castles that has this ruler to stack?
         for(Castle i : all){
             if(i.getRuler() == rulerID){
-                ours.push(i);
+                ours.add(i);
             }
         }
         //convert stack to array?
@@ -192,11 +192,11 @@ public abstract class AbstractRuler {
     public Peasant[] getOtherPeasants(){
         //get the list of all peasants from world
         Peasant[] all = World.getPeasants();
-        Stack<Peasant> others = new Stack<>();
+        ArrayList<Peasant> others = new ArrayList<>();
         //sort through the list, add every peasant that has this ruler to stack?
         for(Peasant p: all){
             if(p.getRuler() != rulerID){
-                others.push(p);
+                others.add(p);
             }
         }
         //convert stack to array
@@ -212,11 +212,11 @@ public abstract class AbstractRuler {
     public Knight[] getOtherKnights(){
         //get the list of all knights from world
         Knight[] all = World.getKnights();
-        Stack<Knight> others = new Stack<>();
+        ArrayList<Knight> others = new ArrayList<>();
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
             if(k.getRuler() != rulerID)
-            others.push(k);
+            others.add(k);
         }
         //convert stack to array?
         Knight[] returned = (Knight[]) others.toArray();
@@ -231,12 +231,12 @@ public abstract class AbstractRuler {
     public Castle[] getOtherCastles(){
         //get the list of all castles from world
         Castle[] all = World.getCastles();
-        Stack<Castle> others = new Stack<>();
+        ArrayList<Castle> others = new ArrayList<>();
         
         //sort through the list, add every castles that has this ruler to stack?
         for(Castle i : all){
             if(i.getRuler() != rulerID){
-                others.push(i);
+                others.add(i);
             }
         }
         //convert stack to array?
@@ -247,16 +247,7 @@ public abstract class AbstractRuler {
     
     
     
-    /**
-     * Gets the number of tiles owned by this ruler
-     * @return The amount of land owned by this ruler
-     */
-    public int LandCount(){
-        //get the 2d int[] from the world
-   //     int[][] allLand = World.getLandOwned();
-        //sort through it, increment integer with every tile that has this ID
-        return 0;
-    }
+    
     
     /**
      * Gets this Ruler's number of points.

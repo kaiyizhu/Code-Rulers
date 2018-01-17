@@ -48,4 +48,8 @@ public class Castle extends Entity{
         //set this castle to manufacture knights
         creatingPeasants = false;
     }
+    
+    public void produce(){
+     //   int land = AbstractRuler.landCount();
+    }
 }
