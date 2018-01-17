@@ -112,7 +112,7 @@ public abstract class Entity {
         /**
          * This is a convenience method for the move method. Its used to 
          * check whether the entity can move, and to translate direction
-         * to actual movement.
+         * to actual movement. Note that it also move the entity if possible.
          * @param dir The direction to move in.
          * @return Whether it was moved.
          */
