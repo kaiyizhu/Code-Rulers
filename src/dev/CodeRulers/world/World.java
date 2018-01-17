@@ -31,6 +31,10 @@ public class World {
     
     //these are all the land owned by the ruler.
     private static int[][] landOwned;
+
+    public static int[][] getLandOwned() {
+        return landOwned;
+    }
     
     
     
