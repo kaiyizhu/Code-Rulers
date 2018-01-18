@@ -12,8 +12,6 @@ package dev.CodeRulers.entity;
 public class Castle extends Entity{
     //whether this castle is currently creating peasants
     private boolean creatingPeasants = true;
-    //the amount of damage this castle can resist
-    protected int strength;
     /**
      * Constructs a new Castle object. Should only be preformed at the
      * start of a game
@@ -24,8 +22,6 @@ public class Castle extends Entity{
     public Castle(int x, int y, int ruler) {
         //call the entity constructer
         super(x, y, ruler);
-        //also initialize strength
-        strength = 1000;
     }
 
     @Override
@@ -51,5 +47,9 @@ public class Castle extends Entity{
     public void createKnights(){
         //set this castle to manufacture knights
         creatingPeasants = false;
+    }
+    
+    public void produce(){
+     //   int land = AbstractRuler.landCount();
     }
 }

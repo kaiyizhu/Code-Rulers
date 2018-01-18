@@ -6,7 +6,7 @@
 package dev.CodeRulers.ruler;
 import dev.CodeRulers.entity.*;
 import dev.CodeRulers.world.World;
-import java.util.Stack;
+import java.util.ArrayList;
 /**
  *
  * @author Luke
@@ -20,7 +20,8 @@ public abstract class AbstractRuler {
     private String rulerName;
     //integer used to identify this ruler in game(roughly equivalent to player number)
     private final int rulerID; //not sure about final or not
-    
+    //the number of points this ruler has
+    private int points;
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
      * initialize() method within implementing classes.
@@ -29,6 +30,7 @@ public abstract class AbstractRuler {
     public AbstractRuler(int rulerID){
         this.rulerID = rulerID;
         initialize();
+        points = 0;
     }
     /**
      * This is where the Ruler can perform actions. Every turn, the implementation
@@ -127,7 +129,7 @@ public abstract class AbstractRuler {
     public Peasant[] getPeasants(){
         //get the list of all peasants from world
         Peasant[] all = World.getPeasants();
-        Stack<Peasant> ours = new Stack<>();
+        ArrayList<Peasant> ours = new ArrayList<>(0);
         //sort through the list, add every peasant that has this ruler to stack?
         for(Peasant p: all){
             if(p.getRuler() == rulerID){
@@ -147,7 +149,7 @@ public abstract class AbstractRuler {
     public Knight[] getKnights(){
         //get the list of all knights from world
         Knight[] all = World.getKnights();
-        Stack<Knight> ours = new Stack<>();
+        ArrayList<Knight> ours = new ArrayList<>();
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
             if(k.getRuler() == rulerID)
@@ -166,7 +168,7 @@ public abstract class AbstractRuler {
     public Castle[] getCastles(){
         //get the list of all castles from world
         Castle[] all = World.getCastles();
-        Stack<Castle> ours = new Stack<>();
+        ArrayList<Castle> ours = new ArrayList<>();
         
         //sort through the list, add every castles that has this ruler to stack?
         for(Castle i : all){
@@ -189,7 +191,7 @@ public abstract class AbstractRuler {
     public Peasant[] getOtherPeasants(){
         //get the list of all peasants from world
         Peasant[] all = World.getPeasants();
-        Stack<Peasant> others = new Stack<>();
+        ArrayList<Peasant> others = new ArrayList<>();
         //sort through the list, add every peasant that has this ruler to stack?
         for(Peasant p: all){
             if(p.getRuler() != rulerID){
@@ -209,7 +211,7 @@ public abstract class AbstractRuler {
     public Knight[] getOtherKnights(){
         //get the list of all knights from world
         Knight[] all = World.getKnights();
-        Stack<Knight> others = new Stack<>();
+        ArrayList<Knight> others = new ArrayList<>();
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
             if(k.getRuler() != rulerID)
@@ -228,7 +230,7 @@ public abstract class AbstractRuler {
     public Castle[] getOtherCastles(){
         //get the list of all castles from world
         Castle[] all = World.getCastles();
-        Stack<Castle> others = new Stack<>();
+        ArrayList<Castle> others = new ArrayList<>();
         
         //sort through the list, add every castles that has this ruler to stack?
         for(Castle i : all){
@@ -244,15 +246,7 @@ public abstract class AbstractRuler {
     
     
     
-    /**
-     * Gets the number of tiles owned by this ruler
-     * @return The amount of land owned by this ruler
-     */
-    public int LandCount(){
-        //get the 2d int[] from the world
-        //sort through it, increment integer with every tile that has this ID
-        return 0;
-    }
+    
     
     /**
      * Gets this Ruler's number of points.
@@ -260,7 +254,7 @@ public abstract class AbstractRuler {
      */
     public int getPoints(){
         //grab from game or add field in ruler
-        return 0;
+        return points;
     }
     /**
      * Translates an integer direction into a x,y difference. Based on the

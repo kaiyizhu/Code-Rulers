@@ -31,6 +31,10 @@ public class World {
     
     //these are all the land owned by the ruler.
     private static int[][] landOwned;
+
+    public static int[][] getLandOwned() {
+        return landOwned;
+    }
     
     
     
@@ -94,4 +98,24 @@ public class World {
         
     }
     
+    /**
+     * Gets the number of tiles owned by the ruler with the given ID.
+     * @return The amount of land owned by this ruler
+     * @param rulerID the ID of the ruler who's count you need
+     */
+    public int LandCount(int rulerID){
+        //get the 2d int[] from the world
+        int[][] allLand = getLandOwned();
+        //initailize an integer to store the number of tiles
+        int count = 0;
+        //sort through it, increment integer with every tile that has this ID
+        for(int[] i: allLand){
+            for(int j: i){
+                if(j == rulerID){
+                    count++;
+                }    
+            }
+        }
+        return count;
+    }
 }

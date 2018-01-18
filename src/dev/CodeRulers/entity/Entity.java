@@ -112,7 +112,7 @@ public abstract class Entity {
         /**
          * This is a convenience method for the move method. Its used to 
          * check whether the entity can move, and to translate direction
-         * to actual movement.
+         * to actual movement. Note that it also move the entity if possible.
          * @param dir The direction to move in.
          * @return Whether it was moved.
          */
@@ -128,13 +128,13 @@ public abstract class Entity {
             if(inLocation != null){
                 if(this instanceof Knight && inLocation instanceof Peasant){
                     //capture the peasant, and continue to move
-                    inLocation.ruler = this.ruler;
+                    inLocation.alive = false;
                 }else{
                     //return false, stopping from moving
                     return false;
                 }
             }
-            //move the peice in that direction
+            //move the piece in that direction
             x+=xy[1];
             y+=xy[2];
             //if they are out of bounds, move them back and return false
