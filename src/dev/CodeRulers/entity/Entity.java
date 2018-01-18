@@ -156,7 +156,7 @@ public abstract class Entity {
          * @return the closest direction to the point
          */
         protected int getDirectionTo(int x, int y) {
-            
+            return 0;
         }
         
         /**
