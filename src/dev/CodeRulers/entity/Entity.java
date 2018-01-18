@@ -166,6 +166,9 @@ public abstract class Entity {
          * @return the double distance between this entity and a given point
          */
         protected double getDistanceTo(int x, int y) {
+            int dx = this.x - x;
+            int dy = this.y - y;
             
+            return Math.sqrt(dx*dx + dy*dy);
         }
 }
