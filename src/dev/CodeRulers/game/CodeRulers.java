@@ -6,6 +6,7 @@
 package dev.CodeRulers.game;
 
 import dev.CodeRulers.display.Display;
+import dev.CodeRulers.world.World;
 import java.awt.Font;
 import java.awt.Graphics;
 
@@ -51,7 +52,7 @@ public class CodeRulers implements Runnable{
      * This method updates game variables every frame.
      */
     private void tick() {
-        
+        World.tick();
         
     }
     
