@@ -46,7 +46,7 @@ public class Knight extends Entity{
      * AbstractRuler class.
      * @param attacked The entity which is to be attacked
      */
-    public void capture(Entity attacked){
+    public int capture(Entity attacked){
         //if the attacked entity is a knight
         if(attacked instanceof Knight){
             //create a reference for it as a knight
@@ -59,6 +59,7 @@ public class Knight extends Entity{
                 k.alive = false;
                 //increase this unit's strength by 20
                 this.strength +=20;
+                return 6;
             }
         //otherwise, if the attacked entity is a castle
         }else if (attacked instanceof Castle){
@@ -66,12 +67,15 @@ public class Knight extends Entity{
             Castle c = (Castle)attacked;
             //set this ruler to own the castle
             c.ruler = this.ruler;
+            return 15;
         //otherwise, if it is a peasant
         }else if(attacked instanceof Peasant){
             //create a peasant reference to it
             Peasant p = (Peasant)attacked;
             //assign the peasant under this ruler
             p.ruler = this.ruler;
+            return 4;
         }
+        return 0;
     }
 }

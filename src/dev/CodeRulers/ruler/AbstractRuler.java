@@ -7,7 +7,6 @@ package dev.CodeRulers.ruler;
 import dev.CodeRulers.entity.*;
 import dev.CodeRulers.world.World;
 import java.util.ArrayList;
-import java.util.Stack;
 /**
  *
  * @author Luke
@@ -22,7 +21,7 @@ public abstract class AbstractRuler {
     //integer used to identify this ruler in game(roughly equivalent to player number)
     private final int rulerID; //not sure about final or not
     //the number of points this ruler has
-    private int points;
+    int points;
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
      * initialize() method within implementing classes.
@@ -76,7 +75,7 @@ public abstract class AbstractRuler {
                 //check that it is not one of this ruler's subjects
                 if(attacked.getRuler() != rulerID ){
                 //call the attack
-                    attacking.capture(attacked);
+                    points += attacking.capture(attacked);
                 }
             }
         }
