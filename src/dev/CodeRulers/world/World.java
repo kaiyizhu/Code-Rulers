@@ -103,7 +103,7 @@ public class World {
      * @return The amount of land owned by this ruler
      * @param rulerID the ID of the ruler who's count you need
      */
-    public static int landCount(int rulerID){
+    public int LandCount(int rulerID){
         //get the 2d int[] from the world
         int[][] allLand = getLandOwned();
         //initailize an integer to store the number of tiles

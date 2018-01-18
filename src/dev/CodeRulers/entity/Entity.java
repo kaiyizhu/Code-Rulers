@@ -134,7 +134,7 @@ public abstract class Entity {
                     return false;
                 }
             }
-            //move the peice in that direction
+            //move the piece in that direction
             x+=xy[1];
             y+=xy[2];
             //if they are out of bounds, move them back and return false
@@ -147,5 +147,28 @@ public abstract class Entity {
                 return false;
             }    
             return true;
+        }
+        
+        /**
+         * This method returns an integer (1-8) direction for the closest direction to a point on the board
+         * @param x The X-Coordinate
+         * @param y The Y-Coordinate
+         * @return the closest direction to the point
+         */
+        protected int getDirectionTo(int x, int y) {
+            return 0;
+        }
+        
+        /**
+         * This method just returns the double for distance between this entity and a given point
+         * @param x The X-Coordinate
+         * @param y The Y-Coordinate
+         * @return the double distance between this entity and a given point
+         */
+        protected double getDistanceTo(int x, int y) {
+            int dx = this.x - x;
+            int dy = this.y - y;
+            
+            return Math.sqrt(dx*dx + dy*dy);
         }
 }
