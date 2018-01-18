@@ -12,7 +12,6 @@
             </test-roots>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
-            <word>netbeans</word>
             <word>ruler's</word>
         </spellchecker-wordlist>
     </configuration>
