@@ -19,19 +19,22 @@ public abstract class AbstractRuler {
     //name of this ruler (given by students)
     private String rulerName;
     //integer used to identify this ruler in game(roughly equivalent to player number)
-    private final int rulerID; //not sure about final or not
+    private int rulerID; //not sure about final or not
     //the number of points this ruler has
     int points;
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
      * initialize() method within implementing classes.
-     * @param rulerID number by which this ruler is identified
      */
-    public AbstractRuler(int rulerID){
-        this.rulerID = rulerID;
+    public AbstractRuler(){
         initialize();
         points = 0;
     }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
     /**
      * This is where the Ruler can perform actions. Every turn, the implementation
      * of this method will be called. Within this method is the strategy of 

@@ -97,9 +97,9 @@ public class World {
     
     public static void render(Graphics g) {
         
-        g.setFont(new Font());
-        Font f = new Font("Myriad", Font.BOLD, 16);
+        g.setFont(new Font("Myriad", Font.BOLD, 16));
         
+        g.drawString("Welcome to CodeRulers!", 10, 10);
     }
     
     public static void tick() {

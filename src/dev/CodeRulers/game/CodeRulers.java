@@ -6,9 +6,11 @@
 package dev.CodeRulers.game;
 
 import dev.CodeRulers.display.Display;
+import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.world.World;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.Arrays;
 
 /**
  * This class is responsible for running the game. 
@@ -33,13 +35,16 @@ public class CodeRulers implements Runnable{
     //this is the display varaible for the game.
     private Display display;
     
-    public CodeRulers() {
+    private AbstractRuler [] r;
+    
+    public CodeRulers(AbstractRuler[] r) {
+        this.r = Arrays.copyOf(r, r.length);
         
     }
     
     
     /**
-     * This method initializes all components of the game. 
+     * This method initializes all components of the game. This is called in the run method.
      */
     private void init() {
         display = new Display();
@@ -60,6 +65,8 @@ public class CodeRulers implements Runnable{
      * This method draws all of the graphics in the window.
      */
     private void render() {
+        World.render(g);
+        
         Font f = new Font("Myriad", Font.BOLD, 16);
         g.setFont(f);
         g.drawString("sean xhang", 25, 25);
