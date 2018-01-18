@@ -5,7 +5,7 @@
  */
 package dev.CodeRulers.game;
 
-import dev.CodeRulers.display.Displays;
+import dev.CodeRulers.display.Display;
 import java.awt.Font;
 import java.awt.Graphics;
 
@@ -30,7 +30,7 @@ public class CodeRulers implements Runnable{
     private Thread thread;
     
     //this is the display varaible for the game.
-    private Displays display;
+    private Display display;
     
     public CodeRulers() {
         
@@ -41,7 +41,7 @@ public class CodeRulers implements Runnable{
      * This method initializes all components of the game. 
      */
     private void init() {
-        display = new Displays();
+        display = new Display();
         //gets the graphics in the JPanel and assings by reference the graphics
         //object there to the graphics object in this class.
         g=display.getPanel().getGraphics();
