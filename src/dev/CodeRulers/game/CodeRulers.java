@@ -8,6 +8,7 @@ package dev.CodeRulers.game;
 import dev.CodeRulers.display.Display;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.world.World;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Arrays;
@@ -65,6 +66,14 @@ public class CodeRulers implements Runnable{
      * This method draws all of the graphics in the window.
      */
     private void render() {
+        g.setColor(Color.red);
+        
+        for(int i=0;i<r.length;i++) {
+            //i*50+(i*20)
+            g.fillRect(getWidth()-120,0 , 120, 50);
+        }
+        
+        
         World.render(g);
         
         Font f = new Font("Myriad", Font.BOLD, 16);
