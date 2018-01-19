@@ -180,12 +180,15 @@ public abstract class Entity {
          * This method just returns the double for distance between this entity and a given point
          * @param x The X-Coordinate
          * @param y The Y-Coordinate
-         * @return the double distance between this entity and a given point
+         * @return the tile distance between this entity and a given point
          */
-        protected double getDistanceTo(int x, int y) {
+        protected int getDistanceTo(int x, int y) {
             int dx = this.x - x;
             int dy = this.y - y;
             
-            return Math.sqrt(dx*dx + dy*dy);
+            int distance = Math.min(dx, dy);
+            distance += Math.abs(dx - dy);
+            
+            return distance;
         }
 }
