@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dev.CodeRulers.sampleAI;
+package dev.CodeRulers.SampleAI;
 
 import dev.CodeRulers.ruler.AbstractRuler;
 import java.util.Random;
@@ -14,9 +14,6 @@ import java.util.Random;
  */
 public class RandomBot extends AbstractRuler {
 
-    public RandomBot(int rulerID) {
-        super(rulerID);
-    }
 
     @Override
     public void orderSubjects() {
@@ -67,7 +64,7 @@ public class RandomBot extends AbstractRuler {
 
     @Override
     public void initialize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
 }
