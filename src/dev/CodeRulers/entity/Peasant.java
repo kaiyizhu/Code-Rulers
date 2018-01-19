@@ -38,6 +38,5 @@ public class Peasant extends Entity{
             System.out.println("Illegal Movement attempted by ruler " + ruler +
                     " and Peasant at " + x + " , " + y );
         }
-        
     }
 }
