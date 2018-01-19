@@ -14,6 +14,9 @@ import java.util.Random;
  */
 public class RandomBot extends AbstractRuler {
 
+    public RandomBot(){
+        super();
+    }
 
     @Override
     public void orderSubjects() {
