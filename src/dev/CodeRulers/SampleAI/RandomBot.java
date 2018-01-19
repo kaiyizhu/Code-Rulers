@@ -63,7 +63,7 @@ public class RandomBot extends AbstractRuler {
 
     @Override
     public void initialize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
 }
