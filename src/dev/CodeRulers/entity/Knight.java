@@ -41,8 +41,12 @@ public class Knight extends Entity{
                     " and Knight at " + x + " , " + y );
         }    
     }
-    
-    public int getSTrength() {
+    /**
+     * Returns the strength(health) of this knight. A knights begin with
+     * 100 strength, and if reduced to 0 health by other knights, are captured.
+     * @return 
+     */
+    public int getStrength() {
         return strength;
     }
     

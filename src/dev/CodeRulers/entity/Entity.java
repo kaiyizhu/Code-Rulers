@@ -152,7 +152,7 @@ public abstract class Entity {
          * @param y The Y-Coordinate
          * @return the closest direction to the point
          */
-        protected int getDirectionTo(int x, int y) {
+        public int getDirectionTo(int x, int y) {
             //Calculate the Coordinate
             double dy = -1;
             double dx = 1;
@@ -182,7 +182,7 @@ public abstract class Entity {
          * @param y The Y-Coordinate
          * @return the tile distance between this entity and a given point
          */
-        protected int getDistanceTo(int x, int y) {
+        public int getDistanceTo(int x, int y) {
             int dx = this.x - x;
             int dy = this.y - y;
             

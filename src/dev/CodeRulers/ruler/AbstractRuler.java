@@ -15,7 +15,7 @@ public abstract class AbstractRuler {
     
 /*Fields and features of the Ruler class*/
     //integer used to identify this ruler in game(roughly equivalent to player number)
-    private int rulerID; //not sure about final or not
+    protected int rulerID; //not sure about final or not
     //the number of points this ruler has
     int points;
     /**
@@ -27,9 +27,6 @@ public abstract class AbstractRuler {
         points = 0;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
     
     /**
      * This is where the Ruler can perform actions. Every turn, the implementation
