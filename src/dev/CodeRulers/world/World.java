@@ -9,6 +9,7 @@ import dev.CodeRulers.entity.Castle;
 import dev.CodeRulers.entity.Entity;
 import dev.CodeRulers.entity.Knight;
 import dev.CodeRulers.entity.Peasant;
+import java.awt.Font;
 import java.awt.Graphics;
 
 /**
@@ -17,6 +18,7 @@ import java.awt.Graphics;
  */
 public class World {
     //image icons for the entities on the board
+    
     
     //image for the background of the world
     
@@ -93,7 +95,14 @@ public class World {
     
     
     
-    public void render(Graphics g) {
+    public static void render(Graphics g) {
+        
+        g.setFont(new Font("Myriad", Font.BOLD, 16));
+        
+        g.drawString("Welcome to CodeRulers!", 10, 10);
+    }
+    
+    public static void tick() {
         
         
     }

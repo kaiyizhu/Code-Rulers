@@ -5,17 +5,21 @@
  */
 package dev.CodeRulers.game;
 
+import dev.CodeRulers.SampleAI.RandomBot;
+import dev.CodeRulers.ruler.AbstractRuler;
+
 /**
  *
  * @author seanz
  */
 public class Launch {
     public static  void main(String[]args) {
-    //creates new game object with parameters
-        //1. Window name 2.Width (in px)  3.Height (in px)
-        //4. Logo file name (path is handled automatically if you 
-        //   put it in the right folder)
-        CodeRulers game = new CodeRulers();
+    //creates new game object
+    
+        //this statement is just for testing's sake.
+        AbstractRuler[] r = {new RandomBot(),new RandomBot()};
+        
+        CodeRulers game = new CodeRulers(r);
         //starts the thread
         game.start();
         

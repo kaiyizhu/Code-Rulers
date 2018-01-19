@@ -5,6 +5,8 @@
  */
 package dev.CodeRulers.entity;
 
+import dev.CodeRulers.world.World;
+
 /**
  *
  * @author seanz
@@ -30,6 +32,7 @@ public class Peasant extends Entity{
     public void move(int dir) {
         if(changePos(dir)){
             //claim this peice of land
+            World.getLandOwned()[x][y]=ruler;
         }else{
             //if the move was obstructed somehow, print it out to the console
             System.out.println("Illegal Movement attempted by ruler " + ruler +

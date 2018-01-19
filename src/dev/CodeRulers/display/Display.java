@@ -29,12 +29,8 @@ public class Display extends JFrame {
 
     
     /**
-     * The Constructor for the Display Class. This will contain all of the
-     * variables responsible for the window of the game.
-     * @param title the title of the program/JFrame. This title will be shown as the name of the program when the program is run.
-     * @param width this is the width of the program window.
-     * @param height this is the height of the program window.
-     * @param imageName this is the directory where the logo image is stored.
+     * The Constructor for the Display Class. In this block of code, all graphical
+     * components of the game are initialized.
      */
     public Display() {
         System.out.println("hi");

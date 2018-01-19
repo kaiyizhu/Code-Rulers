@@ -156,7 +156,27 @@ public abstract class Entity {
          * @return the closest direction to the point
          */
         protected int getDirectionTo(int x, int y) {
-            return 0;
+            //Calculate the Coordinate
+            double dy = -1;
+            double dx = 1;
+            
+            //Find the angle of from this entity to the tile
+            double hypot = Math.sqrt(dy*dy + dx*dx);
+            double angle = Math.toDegrees(Math.asin(dy/hypot)) + 360;
+            
+            //Find the raw direction
+            if(dx < 0) {
+                angle = 180 + 360 - angle;
+            }
+            angle = angle%360;
+            
+            int dir = (int) Math.round(angle / 45);
+            
+            //Find Game Direction
+            dir = 8 - dir + 3;
+            dir %= 8;
+            
+            return dir;
         }
         
         /**
