@@ -134,18 +134,15 @@ public abstract class Entity {
                     return false;
                 }
             }
+            
+            //Check if the entity would move out of bounds
+            if(x + xy[1] < 0 || x + xy[1] >= 64 || y + xy[2] < 0 || y + xy[2] >= 64) {
+                return false;
+            }
+            
             //move the piece in that direction
             x+=xy[1];
             y+=xy[2];
-            //if they are out of bounds, move them back and return false
-            if(x<0 || x>=64){
-                x-= xy[1];
-                return false;
-            }
-            if(y<0 || y>=64){
-                y-= xy[2];
-                return false;
-            }    
             return true;
         }
         
