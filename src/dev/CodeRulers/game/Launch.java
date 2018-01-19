@@ -15,7 +15,7 @@ public class Launch {
         //1. Window name 2.Width (in px)  3.Height (in px)
         //4. Logo file name (path is handled automatically if you 
         //   put it in the right folder)
-        CodeRulers game = new CodeRulers();
+        CodeRulers game = new CodeRulers({new RandomBot()});
         //starts the thread
         game.start();
         
