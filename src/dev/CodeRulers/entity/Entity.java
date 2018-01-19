@@ -134,18 +134,15 @@ public abstract class Entity {
                     return false;
                 }
             }
+            
+            //Check if the entity would move out of bounds
+            if(x + xy[1] < 0 || x + xy[1] >= 64 || y + xy[2] < 0 || y + xy[2] >= 64) {
+                return false;
+            }
+            
             //move the piece in that direction
             x+=xy[1];
             y+=xy[2];
-            //if they are out of bounds, move them back and return false
-            if(x<0 || x>=64){
-                x-= xy[1];
-                return false;
-            }
-            if(y<0 || y>=64){
-                y-= xy[2];
-                return false;
-            }    
             return true;
         }
         
@@ -183,12 +180,15 @@ public abstract class Entity {
          * This method just returns the double for distance between this entity and a given point
          * @param x The X-Coordinate
          * @param y The Y-Coordinate
-         * @return the double distance between this entity and a given point
+         * @return the tile distance between this entity and a given point
          */
-        protected double getDistanceTo(int x, int y) {
+        protected int getDistanceTo(int x, int y) {
             int dx = this.x - x;
             int dy = this.y - y;
             
-            return Math.sqrt(dx*dx + dy*dy);
+            int distance = Math.min(dx, dy);
+            distance += Math.abs(dx - dy);
+            
+            return distance;
         }
 }

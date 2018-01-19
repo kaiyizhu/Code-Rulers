@@ -14,10 +14,6 @@ import java.util.ArrayList;
 public abstract class AbstractRuler {
     
 /*Fields and features of the Ruler class*/
-    //name of the school/team who made this ruler
-    private String schoolName;
-    //name of this ruler (given by students)
-    private String rulerName;
     //integer used to identify this ruler in game(roughly equivalent to player number)
     private int rulerID; //not sure about final or not
     //the number of points this ruler has
@@ -43,6 +39,7 @@ public abstract class AbstractRuler {
      * castle's development using createKnights() or createPeasants().
      */
     public abstract void orderSubjects();
+    
     /**
      * This method is called when this ruler is initialized. It allows for
      * custom values to be assigned at the beginning of the match.
@@ -103,18 +100,14 @@ public abstract class AbstractRuler {
      * Gets the name of the school, team, or individual who created this Ruler AI
      * @return The given name of the developers of the AI
      */
-    public String getSchoolName() {
-        return schoolName;
-    }
+    public abstract String getSchoolName();
     /**
      * Gets the name given to this Ruler, as determined by its developers. 
      * This name may be used to describe the strategy that the AI employs 
      * (such as all Knights), or may be completely unrelated (Kaiser Wilhelm II)
      * @return The name of the Ruler, as decided by its developers
      */
-    public String getRulerName() {
-        return rulerName;
-    }
+    public abstract String getRulerName();
     /**
      * Gets the unique integer used to distinguish ruler's and their subjects.
      * The ID is roughly equivalent to player number.

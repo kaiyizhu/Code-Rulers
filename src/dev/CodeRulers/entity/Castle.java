@@ -56,6 +56,9 @@ public class Castle extends Entity{
         creatingPeasants = false;
     }
     
+    /**
+     * Produces Peasants or Knights
+     */
     public void produce(){
         //get the count of land under this ruler
         int land = World.landCount(ruler);
@@ -64,25 +67,26 @@ public class Castle extends Entity{
         //if they own fewer than 124 pieces of land
         if(land < 124){
             //do nothing
-        //between 125 and 149
+        //between 125 and 249
         }else if(land < 250){
             tempMax = 14;
         //between 250 and 499
         }else if(land < 500){
             tempMax = 12;
         //between 500 and 999
-        }else if (land <1000){
+        }else if (land < 1000){
             tempMax = 10;
         //between 1000 and 1999
         }else if(land < 2000){
             tempMax = 8;
         //between 2000 and 3999
-        }else if (land <4000){
+        }else if (land < 4000){
             tempMax = 6;
         //greater than or equal to 4000
         }else if (land >= 4000){
             tempMax = 4;
         }
+        
         //if they changed brackets
         if(maxToCreation != tempMax){
             //reduce the number of turns to that change

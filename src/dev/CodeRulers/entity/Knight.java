@@ -41,10 +41,16 @@ public class Knight extends Entity{
                     " and Knight at " + x + " , " + y );
         }    
     }
+    
+    public int getSTrength() {
+        return strength;
+    }
+    
     /**
      * Attempts to capture the given entity. Should only be called by the
      * AbstractRuler class.
-     * @param attacked The entity which is to be attacked
+     * @param attacked The entity which is to be attacked 
+     * @return  The number of points you earn from attacking that entity
      */
     public int capture(Entity attacked){
         //if the attacked entity is a knight
