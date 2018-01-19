@@ -39,6 +39,7 @@ public abstract class AbstractRuler {
      * castle's development using createKnights() or createPeasants().
      */
     public abstract void orderSubjects();
+    
     /**
      * This method is called when this ruler is initialized. It allows for
      * custom values to be assigned at the beginning of the match.
