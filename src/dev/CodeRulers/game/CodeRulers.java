@@ -66,11 +66,10 @@ public class CodeRulers implements Runnable{
      * This method draws all of the graphics in the window.
      */
     private void render() {
-        g.setColor(Color.red);
         
         for(int i=0;i<r.length;i++) {
             //i*50+(i*20)
-            g.fillRect(getWidth()-120,0 , 120, 50);
+            g.fillRect(display.getPanel().getWidth()-120,20+i*50+(i*20), 120, 50);
         }
         
         
