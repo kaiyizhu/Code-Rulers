@@ -18,6 +18,9 @@ public abstract class AbstractRuler {
     protected int rulerID; //not sure about final or not
     //the number of points this ruler has
     int points;
+    
+    protected String profileURL="http://www.havoca.org/wp-content/uploads/2016/03/icon-user-default-300x300.png";
+    
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
      * initialize() method within implementing classes.
@@ -283,4 +286,13 @@ public abstract class AbstractRuler {
         //return the directional coordinates
         return xy;
     }
+
+    public void setProfileURL(String profileURL) {
+        this.profileURL = profileURL;
+    }
+
+    public String getProfileURL() {
+        return profileURL;
+    }
+    
 }
