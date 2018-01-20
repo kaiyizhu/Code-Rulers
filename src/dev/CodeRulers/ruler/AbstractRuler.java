@@ -6,6 +6,7 @@
 package dev.CodeRulers.ruler;
 import dev.CodeRulers.entity.*;
 import dev.CodeRulers.world.World;
+import java.awt.Color;
 import java.util.ArrayList;
 /**
  *
@@ -20,6 +21,8 @@ public abstract class AbstractRuler {
     int points;
     
     protected String profileURL="http://www.havoca.org/wp-content/uploads/2016/03/icon-user-default-300x300.png";
+    
+    private Color c;
     
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
@@ -293,6 +296,14 @@ public abstract class AbstractRuler {
 
     public String getProfileURL() {
         return profileURL;
+    }
+
+    public Color getC() {
+        return c;
+    }
+
+    public void setC(Color c) {
+        this.c = c;
     }
     
 }

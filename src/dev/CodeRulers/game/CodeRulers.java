@@ -8,7 +8,6 @@ package dev.CodeRulers.game;
 import dev.CodeRulers.display.Display;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.world.World;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Arrays;
@@ -22,7 +21,7 @@ public class CodeRulers implements Runnable{
     private int width, height;
     
     //this is the name of the window and the file directory of where the logo image is
-    private String title="Code Rulers", logo;
+    private String title="CodeRulers: An AI Program for Noobs", logo="logo.png";
     
     //this is the graphics object that will be used to draw to the screen.
     private Graphics g;
@@ -38,9 +37,17 @@ public class CodeRulers implements Runnable{
     
     private AbstractRuler [] r;
     
+    /**
+     * The constructor for the CodeRulers Class.
+     * @param r - Pass in an array of abstractRulers that the user wants to input into the game.
+     */
     public CodeRulers(AbstractRuler[] r) {
-        this.r = Arrays.copyOf(r, r.length);
+        //initialization confirmation
+        System.out.println("CodeRulers Initialized.");
         
+        //makes a copy of the abstract rulers that was passed in as an argument.
+        //This is stored in the AbstractRuler array, r.
+        this.r = Arrays.copyOf(r, r.length);
     }
     
     
@@ -48,7 +55,7 @@ public class CodeRulers implements Runnable{
      * This method initializes all components of the game. This is called in the run method.
      */
     private void init() {
-        display = new Display();
+        display = new Display(title, logo);
         //gets the graphics in the JPanel and assings by reference the graphics
         //object there to the graphics object in this class.
         g=display.getPanel().getGraphics();
@@ -62,15 +69,15 @@ public class CodeRulers implements Runnable{
         
     }
     
+    
     /**
      * This method draws all of the graphics in the window.
      */
     private void render() {
-        
         for(int i=0;i<r.length;i++) {
-            //i*50+(i*20)
             g.fillRect(display.getPanel().getWidth()-120,20+i*50+(i*20), 120, 50);
         }
+        
         
         
         World.render(g);

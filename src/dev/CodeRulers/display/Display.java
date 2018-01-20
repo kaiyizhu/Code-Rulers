@@ -6,6 +6,7 @@
 package dev.CodeRulers.display;
 
 import java.awt.Image;
+import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,7 +16,6 @@ import javax.swing.JPanel;
  * @author seanz
  */
 public class Display extends JFrame {
-    
     //this is the logo for the game
     private ImageIcon logo;
     
@@ -32,14 +32,15 @@ public class Display extends JFrame {
      * The Constructor for the Display Class. In this block of code, all graphical
      * components of the game are initialized.
      */
-    public Display() {
-        System.out.println("hi");
-        logo = new ImageIcon(getClass().getResource("/resources/logo/logo.png"));
+    public Display(String title, String imageLogo) {
+
         
+        System.out.println("Display Initialized.");
+        logo = new ImageIcon(getClass().getResource("/resources/logo/" + imageLogo));
         initComponents();
         this.setVisible(true);
         this.setIconImage(logo.getImage());
-        this.setTitle("CodeRulers - An AI Program For Noobs");
+        this.setTitle(title);
     }
     
     
@@ -54,27 +55,14 @@ public class Display extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        startPanel = new javax.swing.JPanel();
         mapPanel = new javax.swing.JPanel();
+        startPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout startPanelLayout = new javax.swing.GroupLayout(startPanel);
-        startPanel.setLayout(startPanelLayout);
-        startPanelLayout.setHorizontalGroup(
-            startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-        startPanelLayout.setVerticalGroup(
-            startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(startPanel, "card3");
-
-        mapPanel.setBackground(new java.awt.Color(204, 255, 204));
+        mapPanel.setBackground(new java.awt.Color(102, 255, 102));
         mapPanel.setPreferredSize(new java.awt.Dimension(768, 768));
 
         javax.swing.GroupLayout mapPanelLayout = new javax.swing.GroupLayout(mapPanel);
@@ -89,6 +77,19 @@ public class Display extends JFrame {
         );
 
         getContentPane().add(mapPanel, "card2");
+
+        javax.swing.GroupLayout startPanelLayout = new javax.swing.GroupLayout(startPanel);
+        startPanel.setLayout(startPanelLayout);
+        startPanelLayout.setHorizontalGroup(
+            startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 900, Short.MAX_VALUE)
+        );
+        startPanelLayout.setVerticalGroup(
+            startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(startPanel, "card3");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
