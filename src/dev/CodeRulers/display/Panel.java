@@ -74,20 +74,24 @@ public class Panel extends javax.swing.JPanel {
                     panelHeight / 12 - 12, panelHeight / 12 - 12), 
                     xCoord+6,yCoord+6,null);
             
-            Font f = new Font("Myriad", Font.BOLD, 16);
-            g.setFont(f);
+            Font header = new Font("Myriad", Font.BOLD, 16);
+            g.setFont(header);
+            Font subHeader = new Font("Myriad",Font.BOLD,11);
             
             g.setColor(Color.BLACK);
             
 
-            g.getFontMetrics(f).getHeight();
+            g.getFontMetrics(header).getHeight();
             
-            g.drawString(ruler.getRulerName(),xCoord+panelHeight/12 ,yCoord+g.getFontMetrics(f).getHeight());
+            g.drawString(ruler.getRulerName(),xCoord+panelHeight/12 ,yCoord+g.getFontMetrics(header).getHeight());
+            
+            g.setFont(subHeader);
             
             
-            ruler.getPoints();
+            g.drawString(ruler.getSchoolName(), xCoord+panelHeight/12+1 ,yCoord+(g.getFontMetrics(header).getHeight())+g.getFontMetrics(subHeader).getHeight());
             
-            World.getLandCount(ruler.getRulerID());
+            g.drawString("Points: " + ruler.getPoints() + "     Land: " + World.getLandCount(ruler.getRulerID()), xCoord+panelHeight/12+1 ,
+                    yCoord+(g.getFontMetrics(header).getHeight())+2*g.getFontMetrics(subHeader).getHeight()+3);
             
             count++;
             
