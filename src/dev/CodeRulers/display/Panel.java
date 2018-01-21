@@ -6,27 +6,65 @@
 package dev.CodeRulers.display;
 
 import dev.CodeRulers.game.CodeRulers;
+import dev.CodeRulers.ruler.AbstractRuler;
+import dev.CodeRulers.util.IMAGE;
+import dev.CodeRulers.world.World;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 /**
  *
  * @author seanz
  */
 public class Panel extends javax.swing.JPanel {
-    
-    
+
+    CodeRulers r;
+
+    Timer t;
+
     /**
      * Creates new form Panel
      */
     public Panel(CodeRulers r) {
         initComponents();
+        this.r = r;
+
     }
-    
+
+    public void tick() {
+        for (AbstractRuler ruler : r.getRulerArray()) {
+            ruler.orderSubjects();
+        }
+    }
+
     @Override
     public void paintComponent(Graphics g) {
+        int sidePanelWidth = getWidth() - getHeight();
+        int panelWidth = getWidth();
+        int panelHeight = getHeight();
+
         super.paintComponent(g);
+
         
-        
+        int count=0;
+        //render all the player GUI
+        for (AbstractRuler ruler : r.getRulerArray()) {
+            g.setColor(ruler.getColor());
+
+            g.fillRect(panelWidth - sidePanelWidth, 40 + count * panelHeight / 10 + (count * 40),
+                    sidePanelWidth, panelHeight / 10);
+
+            g.drawImage(IMAGE.getResizedImage(ruler.getProfileImage(),
+                    panelHeight / 10 - 12, panelHeight / 10 - 12), 
+                    panelWidth - sidePanelWidth + 7, 47 + count * panelHeight / 10 + (count * 40),
+                    null);
+            
+            count++;
+        }
+
+        World.render(g);
     }
 
     /**
@@ -53,4 +91,14 @@ public class Panel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    private class TimerListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            repaint();
+
+        }
+
+    }
+
 }

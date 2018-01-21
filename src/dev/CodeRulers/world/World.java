@@ -112,10 +112,6 @@ public class World {
         g.drawString("Welcome to CodeRulers!", 10, 10);
     }
     
-    public static void tick() {
-        
-        
-    }
     
     /**
      * Gets the number of tiles owned by the ruler with the given ID.

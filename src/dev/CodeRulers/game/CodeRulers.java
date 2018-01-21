@@ -24,9 +24,6 @@ public class CodeRulers implements Runnable{
     //this is the name of the window and the file directory of where the logo image is
     private String title="CodeRulers: An AI Program for Noobs", logo="logo.png";
     
-    //this is the graphics object that will be used to draw to the screen.
-    private Graphics g;
-    
     //this boolean states whether this object is running or not.
     private boolean running = false;
     
@@ -37,15 +34,7 @@ public class CodeRulers implements Runnable{
     private Display display;
     
     private AbstractRuler [] r;
-    
-    private BufferedImage sidePanelImage;
-    
-    int sidePanelWidth;
-    int panelWidth;
-    int panelHeight;
-    
-    
-    
+
     /**
      * The constructor for the CodeRulers Class.
      * @param r - Pass in an array of abstractRulers that the user wants to input into the game.
@@ -57,18 +46,11 @@ public class CodeRulers implements Runnable{
         //makes a copy of the abstract rulers that was passed in as an argument.
         //This is stored in the AbstractRuler array, r.
         this.r = Arrays.copyOf(r, r.length);
-        
-        
-    }
-    
-    
-    /**
-     * This method initializes all components of the game. This is called in the run method.
-     */
-    
-    private void init() {
         display = new Display(title, logo, this);
     }
+    
+    
+
     /*
     private void initGUI() {
         sidePanelWidth = display.getPanel().getWidth()-display.getPanel().getHeight();
@@ -87,18 +69,12 @@ public class CodeRulers implements Runnable{
     }
     */
     
-    /**
-     * This method updates game variables every frame.
-     */
-    private void tick() {
-        World.tick();
-        
-    }
-    
+
     
     /**
      * This method draws all of the graphics in the window.
      */
+    /*
     private void render() {
         
         for(int i=0;i<r.length;i++) {
@@ -118,11 +94,10 @@ public class CodeRulers implements Runnable{
         //g.drawRect(10, 20, 20, 20);
         g.dispose();
     }
-    
+    */
     
     @Override
     public void run() {
-        init();
         
         while(running) {
            
@@ -171,6 +146,14 @@ public class CodeRulers implements Runnable{
             //prints the exception
             ex.printStackTrace();
         }
+    }
+
+    public AbstractRuler[] getRulerArray() {
+        return r;
+    }
+
+    public void setRulerArray(AbstractRuler[] r) {
+        this.r = r;
     }
 
 }
