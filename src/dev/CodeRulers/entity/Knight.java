@@ -57,6 +57,9 @@ public class Knight extends Entity{
      * @return  The number of points you earn from attacking that entity
      */
     public int capture(Entity attacked){
+        if(this.getDistanceTo(attacked.getX(), attacked.getY()) > 1){
+            return 0;
+        }
         //if the attacked entity is a knight
         if(attacked instanceof Knight){
             //create a reference for it as a knight
