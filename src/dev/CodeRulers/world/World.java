@@ -59,15 +59,15 @@ public class World {
         World.peasants = peasants;
     }
     
-    public static Knight[] getKnights() {
+    public static Knight[] getAllKnights() {
         return knights;
     }
 
-    public static Peasant[] getPeasants() {
+    public static Peasant[] getAllPeasants() {
         return peasants;
     }
 
-    public static Castle[] getCastles() {
+    public static Castle[] getAllCastles() {
         return castles;
     }
     
