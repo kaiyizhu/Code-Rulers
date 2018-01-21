@@ -55,38 +55,34 @@ public class Display extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        mapPanel = new javax.swing.JPanel();
         startPanel = new javax.swing.JPanel();
+        mapPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
+        setSize(new java.awt.Dimension(1024, 768));
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        mapPanel.setBackground(new java.awt.Color(102, 255, 102));
+        mapPanel.setBackground(new java.awt.Color(255, 255, 255));
+        mapPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        mapPanel.setFocusable(false);
         mapPanel.setPreferredSize(new java.awt.Dimension(768, 768));
-
-        javax.swing.GroupLayout mapPanelLayout = new javax.swing.GroupLayout(mapPanel);
-        mapPanel.setLayout(mapPanelLayout);
-        mapPanelLayout.setHorizontalGroup(
-            mapPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-        mapPanelLayout.setVerticalGroup(
-            mapPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(mapPanel, "card2");
+        mapPanel.setRequestFocusEnabled(false);
+        mapPanel.setVerifyInputWhenFocusTarget(false);
+        mapPanel.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout startPanelLayout = new javax.swing.GroupLayout(startPanel);
         startPanel.setLayout(startPanelLayout);
         startPanelLayout.setHorizontalGroup(
             startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addComponent(mapPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         startPanelLayout.setVerticalGroup(
             startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(startPanelLayout.createSequentialGroup()
+                .addComponent(mapPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         getContentPane().add(startPanel, "card3");

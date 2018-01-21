@@ -61,7 +61,7 @@ public class Castle extends Entity{
      */
     public void produce(){
         //get the count of land under this ruler
-        int land = World.landCount(ruler);
+        int land = World.getLandCount(ruler);
         //initialize a new variable, to represent change in maxToCreation
         int tempMax = maxToCreation;
         //if they own fewer than 124 pieces of land

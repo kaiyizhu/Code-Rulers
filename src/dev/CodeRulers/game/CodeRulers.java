@@ -7,9 +7,12 @@ package dev.CodeRulers.game;
 
 import dev.CodeRulers.display.Display;
 import dev.CodeRulers.ruler.AbstractRuler;
+import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.World;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 /**
@@ -37,6 +40,14 @@ public class CodeRulers implements Runnable{
     
     private AbstractRuler [] r;
     
+    private BufferedImage sidePanelImage;
+    
+    int sidePanelWidth;
+    int panelWidth;
+    int panelHeight;
+    
+    
+    
     /**
      * The constructor for the CodeRulers Class.
      * @param r - Pass in an array of abstractRulers that the user wants to input into the game.
@@ -48,6 +59,8 @@ public class CodeRulers implements Runnable{
         //makes a copy of the abstract rulers that was passed in as an argument.
         //This is stored in the AbstractRuler array, r.
         this.r = Arrays.copyOf(r, r.length);
+        
+        
     }
     
     
@@ -59,6 +72,25 @@ public class CodeRulers implements Runnable{
         //gets the graphics in the JPanel and assings by reference the graphics
         //object there to the graphics object in this class.
         g=display.getPanel().getGraphics();
+        
+        initGUI();
+        
+    }
+    
+    private void initGUI() {
+        sidePanelWidth = display.getPanel().getWidth()-display.getPanel().getHeight();
+        panelWidth = display.getPanel().getWidth();
+        panelHeight = display.getPanel().getHeight();
+        
+        if(sidePanelImage==null) {
+            sidePanelImage = IMAGE.getResizedImage(IMAGE.getBlurredImage(IMAGE.getBufferedImage("src/resources/images/sidePanelImage.jpg"), 20), sidePanelWidth, panelHeight);
+        } 
+        
+        g.drawImage(sidePanelImage,panelWidth-sidePanelWidth,0,null);
+        
+        
+        
+        
     }
     
     /**
@@ -74,11 +106,15 @@ public class CodeRulers implements Runnable{
      * This method draws all of the graphics in the window.
      */
     private void render() {
+        
         for(int i=0;i<r.length;i++) {
-            g.fillRect(display.getPanel().getWidth()-120,20+i*50+(i*20), 120, 50);
+            g.setColor(r[i].getColor());
+           
+            g.fillRect(panelWidth-sidePanelWidth,40+i*panelHeight/10+(i*40), sidePanelWidth, panelHeight/10);
+
+             g.drawImage(IMAGE.getResizedImage(r[i].getProfileImage(),panelHeight/10-12,panelHeight/10-12), panelWidth-sidePanelWidth+7,47+i*panelHeight/10+(i*40) , null);
+            
         }
-        
-        
         
         World.render(g);
         
@@ -95,7 +131,7 @@ public class CodeRulers implements Runnable{
         
         //amount of times you want to call the tick and render method
         //per second
-        int fps = 60;
+        int fps = 18;
         //maximum amount of time we have to exectute the tick and render
         //method in nanoseconds <-- 
         double timePerTick=1000000000/fps;
@@ -109,6 +145,9 @@ public class CodeRulers implements Runnable{
         //time until we get to 1 sec
         long timer=0;
         int ticks=0;
+        
+        //int count just sees how many seconds the program has run
+        int count=0;
         
         //This is our Basic Game Loop :)
         //loops while running. 
@@ -142,6 +181,10 @@ public class CodeRulers implements Runnable{
                 //resets tick and timer
                 ticks=0;
                 timer=0;
+                //resfreshes the images 
+                if(count%2==0) {
+                    initGUI();
+                }
             }
             
         }
