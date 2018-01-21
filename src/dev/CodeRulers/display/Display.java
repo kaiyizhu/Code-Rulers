@@ -5,6 +5,7 @@
  */
 package dev.CodeRulers.display;
 
+import dev.CodeRulers.game.CodeRulers;
 import java.awt.Image;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
@@ -29,11 +30,12 @@ public class Display extends JFrame {
      * The Constructor for the Display Class. In this block of code, all graphical
      * components of the game are initialized.
      */
-    public Display(String title, String imageLogo) {
+    public Display(String title, String imageLogo, CodeRulers r) {
 
         
         System.out.println("Display Initialized.");
         logo = new ImageIcon(getClass().getResource("/resources/logo/" + imageLogo));
+	panel1 = new Panel(r);
         initComponents();
         this.setVisible(true);
         this.setIconImage(logo.getImage());
@@ -52,14 +54,12 @@ public class Display extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        startPanel = new javax.swing.JPanel();
-        panel1 = new dev.CodeRulers.display.Panel();
+        
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
         setSize(new java.awt.Dimension(1024, 768));
-        getContentPane().setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -72,18 +72,16 @@ public class Display extends JFrame {
             .addGap(0, 768, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout startPanelLayout = new javax.swing.GroupLayout(startPanel);
-        startPanel.setLayout(startPanelLayout);
-        startPanelLayout.setHorizontalGroup(
-            startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        startPanelLayout.setVerticalGroup(
-            startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        getContentPane().add(startPanel, "card3");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -91,6 +89,5 @@ public class Display extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private dev.CodeRulers.display.Panel panel1;
-    private javax.swing.JPanel startPanel;
     // End of variables declaration//GEN-END:variables
 }
