@@ -192,7 +192,7 @@ public class BullyBot extends AbstractRuler {
         for(Castle c: allCastles){
             //if this castle is owned by the target
             if(c.getRuler() == target)
-                //sick the knights on it
+                //stick the knights on it
                 attacking = c;
         }
     }
