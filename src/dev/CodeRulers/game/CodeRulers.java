@@ -20,8 +20,6 @@ import java.util.Arrays;
  * @author Sean Zhang
  */
 public class CodeRulers implements Runnable{
-    //these two variables dictate the width and height of the window of the game.
-    private int width, height;
     
     //this is the name of the window and the file directory of where the logo image is
     private String title="CodeRulers: An AI Program for Noobs", logo="logo.png";
@@ -67,16 +65,11 @@ public class CodeRulers implements Runnable{
     /**
      * This method initializes all components of the game. This is called in the run method.
      */
-    private void init() {
-        display = new Display(title, logo);
-        //gets the graphics in the JPanel and assings by reference the graphics
-        //object there to the graphics object in this class.
-        g=display.getPanel().getGraphics();
-        
-        initGUI();
-        
-    }
     
+    private void init() {
+        display = new Display(title, logo, this);
+    }
+    /*
     private void initGUI() {
         sidePanelWidth = display.getPanel().getWidth()-display.getPanel().getHeight();
         panelWidth = display.getPanel().getWidth();
@@ -92,6 +85,7 @@ public class CodeRulers implements Runnable{
         
         
     }
+    */
     
     /**
      * This method updates game variables every frame.
@@ -106,8 +100,6 @@ public class CodeRulers implements Runnable{
      * This method draws all of the graphics in the window.
      */
     private void render() {
-        g=display.getGraphics();
-        display.repaint();
         
         for(int i=0;i<r.length;i++) {
             g.setColor(r[i].getColor());
@@ -127,70 +119,16 @@ public class CodeRulers implements Runnable{
         g.dispose();
     }
     
+    
     @Override
     public void run() {
-        //calls the init method which creates the display object
         init();
         
-        //amount of times you want to call the tick and render method
-        //per second
-        int fps = 18;
-        //maximum amount of time we have to exectute the tick and render
-        //method in nanoseconds <-- 
-        double timePerTick=1000000000/fps;
-        //amount of time we have until we have to call the tick and 
-        //render methods again
-        double delta =0;
-        //this is the current time of our computer
-        long now;
-        //returns system time in nanoseconds
-        long lastTime=System.nanoTime(); 
-        //time until we get to 1 sec
-        long timer=0;
-        int ticks=0;
-        
-        //int count just sees how many seconds the program has run
-        int count=0;
-        
-        //This is our Basic Game Loop :)
-        //loops while running. 
         while(running) {
-            //sets the now time variable to the current system time.
-            now=System.nanoTime();
-            //defines when and when not to call the gameLoop methods
-            delta+=(now-lastTime)/timePerTick;
-            //adds amount of time since we last executed this block of code
-            timer+= now-lastTime;
-            //sets the last time the block of code was run
-            lastTime=now;
-            
-            //if delta is greater than one, then execute 
-            //the tick and render methods.
-            if(delta >=1) {
-                tick();
-                render();
-                //increments tick by one to rep
-                //that we ticked
-                ticks++;
-                //removes one from delta since we ticked 
-                //once.
-                delta--;
-            }
-            
-            //if the timer is greater than one second
-            if(timer>= 1000000000) {
-                //prints how many times the computer ticked in that second
-                System.out.println("Ticks+Frames: " + ticks);
-                //resets tick and timer
-                ticks=0;
-                timer=0;
-                //resfreshes the images 
-                if(count%2==0) {
-                    initGUI();
-                }
-            }
-            
+           
         }
+        
+        
         //even though the thread is stopped when the stop method
         //is called (which exits the loop)
         //we will call another stop method just in case the while loop
@@ -234,22 +172,5 @@ public class CodeRulers implements Runnable{
             ex.printStackTrace();
         }
     }
-   
 
-    /**
-     * Gives the user the width of the game window
-     * @return the width of the JFrame
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Gives the height dimension of the game window
-     * @return the height of the JFrame
-     */
-    public int getHeight() {
-        return height;
-    }
-    
 }

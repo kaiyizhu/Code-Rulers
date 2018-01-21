@@ -5,6 +5,7 @@
  */
 package dev.CodeRulers.display;
 
+import dev.CodeRulers.game.CodeRulers;
 import java.awt.Graphics;
 
 /**
@@ -17,7 +18,7 @@ public class Panel extends javax.swing.JPanel {
     /**
      * Creates new form Panel
      */
-    public Panel() {
+    public Panel(CodeRulers r) {
         initComponents();
     }
     
