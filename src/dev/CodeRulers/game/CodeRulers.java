@@ -106,6 +106,8 @@ public class CodeRulers implements Runnable{
      * This method draws all of the graphics in the window.
      */
     private void render() {
+        g=display.getGraphics();
+        display.repaint();
         
         for(int i=0;i<r.length;i++) {
             g.setColor(r[i].getColor());
@@ -122,6 +124,7 @@ public class CodeRulers implements Runnable{
         g.setFont(f);
         g.drawString("sean xhang", 25, 25);
         //g.drawRect(10, 20, 20, 20);
+        g.dispose();
     }
     
     @Override
