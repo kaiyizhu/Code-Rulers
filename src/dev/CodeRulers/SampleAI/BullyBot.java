@@ -36,7 +36,7 @@ public class BullyBot extends AbstractRuler {
     @Override
     public void initialize() {
         //get the starting castle of this ruler
-        Castle first = World.getCastles()[0];
+        Castle first = World.getAllCastles()[0];
         //if the castle is in the top right
         if(first.getX() > 32 && first.getY() < 32){
             //set corner to one, direction of expansion south west
@@ -117,7 +117,7 @@ public class BullyBot extends AbstractRuler {
        //Get the list of my knights
        Knight[] myK = getKnights();
        //get the list of all peasants
-       Peasant[] myP = World.getPeasants();
+       Peasant[] myP = World.getAllPeasants();
        //create a minor target variable, set it to null
        Peasant minorTarget = null;
        //for all peasants
@@ -187,7 +187,7 @@ public class BullyBot extends AbstractRuler {
         //set the target to the ruler with the least land
         target = lowID;
         //get the array of all the castles
-        Castle[] allCastles = World.getCastles();
+        Castle[] allCastles = World.getAllCastles();
         //for every castle
         for(Castle c: allCastles){
             //if this castle is owned by the target

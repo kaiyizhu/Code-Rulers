@@ -101,7 +101,7 @@ public class Castle extends Entity{
             //if they want to create peasants
             if(creatingPeasants){
                 //get the peasants list from world
-                Peasant[] p = World.getPeasants();
+                Peasant[] p = World.getAllPeasants();
                 //make a larger copy of it
                 Arrays.copyOf(p, p.length +1);
                 //set the final element to the newly created peasant
@@ -112,7 +112,7 @@ public class Castle extends Entity{
             //if they are creating knights
             }else{
                 //get the knights list
-                Knight[] k = World.getKnights();
+                Knight[] k = World.getAllKnights();
                 //make a larger copy
                 Arrays.copyOf(k, k.length +1);
                 //set the final knight to a new knight

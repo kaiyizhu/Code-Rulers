@@ -133,7 +133,7 @@ public abstract class AbstractRuler {
      */
     public Peasant[] getPeasants(){
         //get the list of all peasants from world
-        Peasant[] all = World.getPeasants();
+        Peasant[] all = World.getAllPeasants();
         ArrayList<Peasant> ours = new ArrayList<>(0);
         //sort through the list, add every peasant that has this ruler to stack?
         for(Peasant p: all){
@@ -153,7 +153,7 @@ public abstract class AbstractRuler {
      */
     public Knight[] getKnights(){
         //get the list of all knights from world
-        Knight[] all = World.getKnights();
+        Knight[] all = World.getAllKnights();
         ArrayList<Knight> ours = new ArrayList<>();
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
@@ -172,7 +172,7 @@ public abstract class AbstractRuler {
      */
     public Castle[] getCastles(){
         //get the list of all castles from world
-        Castle[] all = World.getCastles();
+        Castle[] all = World.getAllCastles();
         ArrayList<Castle> ours = new ArrayList<>();
         
         //sort through the list, add every castles that has this ruler to stack?
@@ -195,7 +195,7 @@ public abstract class AbstractRuler {
      */
     public Peasant[] getOtherPeasants(){
         //get the list of all peasants from world
-        Peasant[] all = World.getPeasants();
+        Peasant[] all = World.getAllPeasants();
         ArrayList<Peasant> others = new ArrayList<>();
         //sort through the list, add every peasant that has this ruler to stack?
         for(Peasant p: all){
@@ -215,7 +215,7 @@ public abstract class AbstractRuler {
      */
     public Knight[] getOtherKnights(){
         //get the list of all knights from world
-        Knight[] all = World.getKnights();
+        Knight[] all = World.getAllKnights();
         ArrayList<Knight> others = new ArrayList<>();
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
@@ -234,7 +234,7 @@ public abstract class AbstractRuler {
      */
     public Castle[] getOtherCastles(){
         //get the list of all castles from world
-        Castle[] all = World.getCastles();
+        Castle[] all = World.getAllCastles();
         ArrayList<Castle> others = new ArrayList<>();
         
         //sort through the list, add every castles that has this ruler to stack?
