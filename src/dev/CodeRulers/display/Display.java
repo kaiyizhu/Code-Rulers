@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 public class Display extends JFrame {
     //this is the logo for the game
     private ImageIcon logo;
-    
+    private JPanel panel1;
     //Jframe variables:
     private String title; //title of the jframe
     private int width,height; //width and height of jframe
@@ -35,11 +35,14 @@ public class Display extends JFrame {
         
         System.out.println("Display Initialized.");
         logo = new ImageIcon(getClass().getResource("/resources/logo/" + imageLogo));
-	panel1 = new Panel(r);
+		
         initComponents();
-        this.setVisible(true);
+        panel1 = new Panel(r);
+	this.add(panel1);
         this.setIconImage(logo.getImage());
         this.setTitle(title);
+        this.pack();
+        this.setVisible(true);
     }
     
     
@@ -54,40 +57,15 @@ public class Display extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
         setSize(new java.awt.Dimension(1024, 768));
-
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1280, Short.MAX_VALUE)
-        );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private dev.CodeRulers.display.Panel panel1;
     // End of variables declaration//GEN-END:variables
 }

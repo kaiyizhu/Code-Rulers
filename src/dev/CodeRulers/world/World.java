@@ -9,8 +9,11 @@ import dev.CodeRulers.entity.Castle;
 import dev.CodeRulers.entity.Entity;
 import dev.CodeRulers.entity.Knight;
 import dev.CodeRulers.entity.Peasant;
+import dev.CodeRulers.util.IMAGE;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 /**
  *
@@ -18,7 +21,7 @@ import java.awt.Graphics;
  */
 public class World {
     //image icons for the entities on the board
-    
+    private static BufferedImage worldMap;
     
     //image for the background of the world
     
@@ -47,9 +50,6 @@ public class World {
     public static int[][] getLandOwned() {
         return landOwned;
     }
-    
-    
-    
     
     public static void setKnights(Knight[] knights) {
         World.knights = knights;
@@ -106,6 +106,12 @@ public class World {
     
     
     public static void render(Graphics g) {
+        if(worldMap==null) {
+            worldMap = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/codeRulersTerrain.png"), 768, 768);
+        } 
+        
+        g.drawImage(worldMap,0,0,null);
+        
         
         g.setFont(new Font("Myriad", Font.BOLD, 16));
         
@@ -119,12 +125,10 @@ public class World {
      * @param rulerID the ID of the ruler who's count you need
      */
     public static int getLandCount(int rulerID){
-        //get the 2d int[] from the world
-        int[][] allLand = getLandOwned();
         //initailize an integer to store the number of tiles
         int count = 0;
         //sort through it, increment integer with every tile that has this ID
-        for(int[] i: allLand){
+        for(int[] i: landOwned){
             for(int j: i){
                 if(j == rulerID){
                     count++;

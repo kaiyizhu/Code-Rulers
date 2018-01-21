@@ -35,6 +35,8 @@ public class CodeRulers implements Runnable{
     
     private AbstractRuler [] r;
 
+    private World w;
+    
     /**
      * The constructor for the CodeRulers Class.
      * @param r - Pass in an array of abstractRulers that the user wants to input into the game.
@@ -46,7 +48,15 @@ public class CodeRulers implements Runnable{
         //makes a copy of the abstract rulers that was passed in as an argument.
         //This is stored in the AbstractRuler array, r.
         this.r = Arrays.copyOf(r, r.length);
+        
+        int count=0;
+        for(AbstractRuler ruler : this.r) {
+            ruler.setRulerID(count);
+            count++;
+        }
         display = new Display(title, logo, this);
+        
+        w = new World();
     }
     
     
@@ -57,11 +67,7 @@ public class CodeRulers implements Runnable{
         panelWidth = display.getPanel().getWidth();
         panelHeight = display.getPanel().getHeight();
         
-        if(sidePanelImage==null) {
-            sidePanelImage = IMAGE.getResizedImage(IMAGE.getBlurredImage(IMAGE.getBufferedImage("src/resources/images/sidePanelImage.jpg"), 20), sidePanelWidth, panelHeight);
-        } 
         
-        g.drawImage(sidePanelImage,panelWidth-sidePanelWidth,0,null);
         
         
         

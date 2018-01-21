@@ -9,9 +9,12 @@ import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.World;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import javax.swing.Timer;
 
 /**
@@ -21,7 +24,7 @@ import javax.swing.Timer;
 public class Panel extends javax.swing.JPanel {
 
     CodeRulers r;
-
+    BufferedImage sidePanelImage;
     Timer t;
 
     /**
@@ -30,7 +33,9 @@ public class Panel extends javax.swing.JPanel {
     public Panel(CodeRulers r) {
         initComponents();
         this.r = r;
-
+        this.setSize(768, 1024);
+        Timer t = new Timer(5,new TimerListener());
+        t.start();
     }
 
     public void tick() {
@@ -41,30 +46,55 @@ public class Panel extends javax.swing.JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        int sidePanelWidth = getWidth() - getHeight();
-        int panelWidth = getWidth();
-        int panelHeight = getHeight();
+        int sidePanelWidth = 256;
+        int panelWidth = 1024;
+        int panelHeight = 768;
 
         super.paintComponent(g);
-
+        
+        
+        World.render(g);
+        if(sidePanelImage==null) {
+            sidePanelImage = IMAGE.getResizedImage(IMAGE.getBlurredImage(IMAGE.getBufferedImage("src/resources/images/sidePanelImage.jpg"), 20), sidePanelWidth, panelHeight);
+        } 
+        
+        g.drawImage(sidePanelImage,panelWidth-sidePanelWidth,0,null);
         
         int count=0;
         //render all the player GUI
         for (AbstractRuler ruler : r.getRulerArray()) {
+            int yCoord=count * panelHeight / 12 + ((count+1) * 40);
+            int xCoord=panelWidth-sidePanelWidth;
+            
             g.setColor(ruler.getColor());
 
-            g.fillRect(panelWidth - sidePanelWidth, 40 + count * panelHeight / 10 + (count * 40),
-                    sidePanelWidth, panelHeight / 10);
+            g.fillRect(xCoord,yCoord,sidePanelWidth, panelHeight / 12);
 
             g.drawImage(IMAGE.getResizedImage(ruler.getProfileImage(),
-                    panelHeight / 10 - 12, panelHeight / 10 - 12), 
-                    panelWidth - sidePanelWidth + 7, 47 + count * panelHeight / 10 + (count * 40),
-                    null);
+                    panelHeight / 12 - 12, panelHeight / 12 - 12), 
+                    xCoord+6,yCoord+6,null);
+            
+            Font f = new Font("Myriad", Font.BOLD, 16);
+            g.setFont(f);
+            
+            g.setColor(Color.BLACK);
+            
+
+            g.getFontMetrics(f).getHeight();
+            
+            g.drawString(ruler.getRulerName(),xCoord+panelHeight/12 ,yCoord+g.getFontMetrics(f).getHeight());
+            
+            
+            ruler.getPoints();
+            
+            World.getLandCount(ruler.getRulerID());
             
             count++;
+            
+            
         }
 
-        World.render(g);
+        
     }
 
     /**
@@ -75,6 +105,8 @@ public class Panel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setPreferredSize(new java.awt.Dimension(1024, 768));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

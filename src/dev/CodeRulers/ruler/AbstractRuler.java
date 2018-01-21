@@ -29,6 +29,8 @@ public abstract class AbstractRuler {
     
     private Color c=Color.WHITE;
     
+    
+    
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
      * initialize() method within implementing classes.
@@ -307,6 +309,10 @@ public abstract class AbstractRuler {
 
     public BufferedImage getProfileImage() {
         return profileImage;
+    }
+
+    public void setRulerID(int rulerID) {
+        this.rulerID = rulerID;
     }
     
 }
