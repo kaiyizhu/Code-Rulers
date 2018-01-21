@@ -22,7 +22,13 @@ public class World {
     
     //image for the background of the world
     
-    
+    public World() {
+        knights = new Knight[0];
+        peasants = new Peasant[0];
+        castles = new Castle[0];
+        
+        landOwned = new int[64][64];
+    }
     
     //these are all the knights that exist in the game.
     private static Knight[] knights;
@@ -34,6 +40,10 @@ public class World {
     //these are all the land owned by the ruler.
     private static int[][] landOwned;
 
+    /**
+     * Get method that gets the 2D map of which ruler owns which tile.
+     * @return a 2D array containing data of the 64x64 tiles on the map.
+     */
     public static int[][] getLandOwned() {
         return landOwned;
     }
@@ -112,7 +122,7 @@ public class World {
      * @return The amount of land owned by this ruler
      * @param rulerID the ID of the ruler who's count you need
      */
-    public static int landCount(int rulerID){
+    public static int getLandCount(int rulerID){
         //get the 2d int[] from the world
         int[][] allLand = getLandOwned();
         //initailize an integer to store the number of tiles

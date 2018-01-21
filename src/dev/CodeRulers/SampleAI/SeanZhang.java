@@ -5,7 +5,10 @@
  */
 package dev.CodeRulers.SampleAI;
 
+import dev.CodeRulers.entity.Knight;
+import dev.CodeRulers.entity.Peasant;
 import dev.CodeRulers.ruler.AbstractRuler;
+import java.awt.Color;
 
 /**
  *
@@ -15,8 +18,12 @@ public class SeanZhang extends AbstractRuler {
 
     @Override
     public void orderSubjects() {
-        for(int i=0;i<getKnights().length;i++) {
-            getKnights()[i].move(1);
+        for (Knight knight : getKnights()) {
+            knight.move(1);
+        }
+        
+        for (Peasant peasant : getPeasants()) {
+            peasant.move(1);
         }
         
         
@@ -24,17 +31,22 @@ public class SeanZhang extends AbstractRuler {
 
     @Override
     public void initialize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Ruler Sean Zhang been initialized");
+        
+        //some secret methods :) Just for testing
+        profileURL =("https://avatars1.githubusercontent.com/u/20467017?s=460&v=4");
+        setColor(new Color(139, 91, 183,178));
     }
 
     @Override
     public String getSchoolName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Newmarket High School";
     }
 
     @Override
     public String getRulerName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Sean Zhang";
     }
+    
     
 }

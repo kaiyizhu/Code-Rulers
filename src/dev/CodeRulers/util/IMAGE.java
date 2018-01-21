@@ -28,7 +28,7 @@ public class IMAGE {
     public static BufferedImage getBufferedImage(String name) {
         //accesses the image specified in the resources/images folder
         try {
-            return (ImageIO.read(new File("src/res/img/" + name)));
+            return (ImageIO.read(new File( name)));
         } catch (IOException ex) {
             return null;
         }

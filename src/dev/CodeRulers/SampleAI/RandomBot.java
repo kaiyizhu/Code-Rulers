@@ -22,7 +22,9 @@ public class RandomBot extends AbstractRuler {
     public void orderSubjects() {
         Random r = new Random();
         //Castles: 
-        //Change the creation of knights or peassants. Knight = 0; Peasant = 1;
+        /*
+        Change the creation of knights or peassants. Knight = 0; Peasant = 1;
+        */
         for (int i = 0; i < this.getCastles().length; i++) {
             int change = r.nextInt(1);
             if (change == 0) {
@@ -32,10 +34,10 @@ public class RandomBot extends AbstractRuler {
             }
         }
         //Knight:
-         /*
-         Generate 0-2. 0 = Stay. 1 = Move. 2 = Capture.
-         Generate a number 1-8. 0 = N 1 = NE and so forth...
-         */
+        /*
+        Generate 0-2. 0 = Stay. 1 = Move. 2 = Capture.
+        Generate a number 1-8. 0 = N 1 = NE and so forth...
+        */
         for (int i = 0; i < this.getKnights().length; i++) {
             int randomKnightMove = r.nextInt(2);
             int knightDir = r.nextInt(7) + 1;
@@ -44,7 +46,7 @@ public class RandomBot extends AbstractRuler {
             } else if (randomKnightMove == 2) {
                 this.capture(this.getKnights()[i], knightDir);
             } else {
-                //Does nothing so peasant stays
+                //Does nothing so the knight stays in his original land
             }
         }
 
@@ -59,7 +61,7 @@ public class RandomBot extends AbstractRuler {
                 int peasantDir = r.nextInt(7) + 1;
                 this.move(this.getPeasants()[i], peasantDir);
             } else {
-                //Does nothing so peasant stays
+                //Does nothing so the peasant stays in his original land
             }
         }
     }

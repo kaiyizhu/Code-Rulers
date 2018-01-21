@@ -177,7 +177,7 @@ public abstract class Entity {
         }
         
         /**
-         * This method just returns the number of tiles between this entity and a given point
+         * This method just returns the double for distance between this entity and a given point
          * @param x The X-Coordinate
          * @param y The Y-Coordinate
          * @return the tile distance between this entity and a given point

@@ -175,7 +175,7 @@ public class BullyBot extends AbstractRuler {
         //for all of the rulers in the game
         for(int i=0; i<4; i++){
             //set a temporary variable to the count of this ruler's land
-            int temp = World.landCount(i);
+            int temp = World.getLandCount(i);
             //if the ruler at this index is not Bully
             //and its count is smaller than the last count
             if(i != rulerID && temp < low){
@@ -192,7 +192,7 @@ public class BullyBot extends AbstractRuler {
         for(Castle c: allCastles){
             //if this castle is owned by the target
             if(c.getRuler() == target)
-                //sick the knights on it
+                //stick the knights on it
                 attacking = c;
         }
     }

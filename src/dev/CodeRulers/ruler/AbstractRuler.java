@@ -5,8 +5,11 @@
  */
 package dev.CodeRulers.ruler;
 import dev.CodeRulers.entity.*;
+import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.World;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 /**
  *
@@ -22,7 +25,9 @@ public abstract class AbstractRuler {
     
     protected String profileURL="http://www.havoca.org/wp-content/uploads/2016/03/icon-user-default-300x300.png";
     
-    private Color c;
+    private BufferedImage profileImage;
+    
+    private Color c=Color.WHITE;
     
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
@@ -31,6 +36,7 @@ public abstract class AbstractRuler {
     public AbstractRuler(){
         initialize();
         points = 0;
+        profileImage = IMAGE.getBufferedImageURL(profileURL);
     }
 
     
@@ -290,20 +296,17 @@ public abstract class AbstractRuler {
         return xy;
     }
 
-    public void setProfileURL(String profileURL) {
-        this.profileURL = profileURL;
-    }
 
-    public String getProfileURL() {
-        return profileURL;
-    }
-
-    public Color getC() {
+    public Color getColor() {
         return c;
     }
 
-    public void setC(Color c) {
+    public void setColor(Color c) {
         this.c = c;
+    }
+
+    public BufferedImage getProfileImage() {
+        return profileImage;
     }
     
 }

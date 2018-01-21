@@ -6,6 +6,7 @@
 package dev.CodeRulers.game;
 
 import dev.CodeRulers.SampleAI.RandomBot;
+import dev.CodeRulers.SampleAI.SeanZhang;
 import dev.CodeRulers.ruler.AbstractRuler;
 
 /**
@@ -17,7 +18,7 @@ public class Launch {
     //creates new game object
     
         //this statement is just for testing's sake.
-        AbstractRuler[] r = {new RandomBot(),new RandomBot()};
+        AbstractRuler[] r = {new SeanZhang(),new RandomBot()};
         
         CodeRulers game = new CodeRulers(r);
         //starts the thread
