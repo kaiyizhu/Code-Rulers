@@ -163,7 +163,9 @@ public class Panel extends javax.swing.JPanel {
             //This draws the points of the AI followed by the amount of land the 
             //AI owns, spaced apart by 5 spaces. Every AI starts out with 
             //21 tiles of land by default.
-            g.drawString("Points: " + ruler.getPoints() + "     Land: " + World.getLandCount(ruler.getRulerID()), xCoord + panelHeight / 12 - 2,
+            g.drawString("Points: " + (ruler.getPoints()+World.getLandCount(ruler.getRulerID())/10+
+                    ruler.getCastles().length*25+ruler.getPeasants().length+ruler.getKnights().length*2) +
+                    "     Land: " + World.getLandCount(ruler.getRulerID()), xCoord + panelHeight / 12 - 2,
                     yCoord + (g.getFontMetrics(header).getHeight()) + 2 * g.getFontMetrics(subHeader).getHeight() + 3);
 
             //increases the count by one.

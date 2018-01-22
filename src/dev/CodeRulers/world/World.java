@@ -24,11 +24,8 @@ import java.util.Random;
  */
 public class World {
 
-    //image icons for the entities on the board
-    private static BufferedImage peasantIcn;
-    private static BufferedImage knightIcn;
-    private static BufferedImage castleIcn;
-
+    //this is the xOffset and yOffset that allows for the capability of panning
+    //in the world.
     private static int xOffset=0,yOffset=0;
     
     //scale factor for world so that we can zoom in and out.
@@ -37,27 +34,82 @@ public class World {
     //image for the background of the world
     public static BufferedImage worldMap;
 
+    /**
+     * The Constructor for the World Class. This constructor initializes all the 
+     * entities and land tiles in the world.
+     * @param r the Game object that is passed in for access to the ruler objects.
+     */
     public World(CodeRulers r) {
+        //creates an empty array of null knights.
         knights = new Knight[0];
+        //creates an empty array of null peasants.
         peasants = new Peasant[0];
+        //creates an empty array of null castles.
         castles = new Castle[0];
 
+        //this is a 2D array of all the tile possesions of the rulers. A -1
+        //represents that no ruler owns that tile. A number above -1 represents
+        //ownership by a ruler.
         landOwned = new int[64][64];
 
+        //stores the reference of the game object in a variable local to this class.
         this.r = r;
+        
+        //the scale factor of the map initally starts out as 1 (default)
         scaleFactor=1;
+        
+        //this method intializes all the entities in the world.
         initGame();
     }
 
+    /**
+     * This method initializes all the entities in the world.
+     */
     private static void initGame() {
-        for (int i = 0; i < landOwned.length; i++) {
-            Arrays.fill(landOwned[i], -1);
+        
+        /*  this for loop goes through every array inside the 2D arrayList,
+            landOwned, and fills it with -1, signifying that no one has
+            ownership of the land.
+        */
+        for(int[] subLandOwned : landOwned) {
+            Arrays.fill(subLandOwned, -1);
         }
+        
+        //creates a random object to later use to randomly assign the (x , y)
+        //coordinates of the entites in the game.
         Random rand = new Random();
+        
+        /*  
+            Expands the arrays by how many AIs there will be. Since each AI starts
+            with 10 knights, the size of the knights array to start with will be
+            the size of the ruler array multiplied by 10.
+        */
         knights = Arrays.copyOf(knights, 10 * r.getRulerArray().length);
+        
+        /*
+            Expands the arrays by how many AIs there will be. Since each AI starts
+            with 10 peasants, the size of the peasants array to start with will 
+            be the size of the ruler array multiplied by 10.
+        */
         peasants = Arrays.copyOf(peasants, 10 * r.getRulerArray().length);
+        
+        /*
+            Expands the arrays by how many AIs there will be. Since each AI starts
+            with 1 castle, the size of the castles array to start with will be
+            the size of the ruler array.
+        */
         castles = Arrays.copyOf(castles, r.getRulerArray().length);
+        
+        //count for keeping track on the total number of entites added to the array.
         int count = 0;
+        
+        /*
+            This for-loop goes through all the rulers in the ruler array. It then 
+            initializes 10 knights and peasants in random x,y coordinates in the 
+            world and 1 castle in a random x,y coordinate in the world. Each tile
+            an entity is on to begin with will be assigned ownership to the ruler
+            in control of that entity.
+        */
         for (int i = 0; i < r.getRulerArray().length; i++) {
             for (int j = 0; j < 10; j++) {
                 int rndX = rand.nextInt(64), rndY = rand.nextInt(64);
@@ -177,7 +229,6 @@ public class World {
         
         
         if(lastScaleFactor!=scaleFactor) {
-            System.out.println("I CHANGED");
             mapResized = IMAGE.getResizedImage(worldMap, (int)(768*scaleFactor), (int)(768*scaleFactor));
         }
         
