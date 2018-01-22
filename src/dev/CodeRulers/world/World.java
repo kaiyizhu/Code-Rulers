@@ -12,7 +12,6 @@ import dev.CodeRulers.entity.Peasant;
 import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.util.IMAGE;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;

@@ -142,13 +142,13 @@ public class Panel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
-        if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && (0 * panelHeight / 12 + 20 + ((0) * 12) + iconOffset) <= 10 && evt.getWheelRotation() > 0) {
-            System.out.println("DOWN");
-            //sets the scale factor based on how much the wheel has moved.
-            iconOffset += ((double) evt.getWheelRotation() * 70);
-        } else if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && ((r.getRulerArray().length - 1) * panelHeight / 12 + 20 + ((r.getRulerArray().length - 1) * 12) + iconOffset) >= (panelHeight - 150) && evt.getWheelRotation() < 0) {
-            iconOffset += ((double) evt.getWheelRotation() * 70);
+        if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && (0 * panelHeight / 12 + 20 + ((0) * 12) + iconOffset) <= 10 && evt.getWheelRotation() < 0) {
             System.out.println("UP");
+            //sets the scale factor based on how much the wheel has moved.
+            iconOffset -= ((double) evt.getWheelRotation() * 70);
+        } else if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && ((r.getRulerArray().length - 1) * panelHeight / 12 + 20 + ((r.getRulerArray().length - 1) * 12) + iconOffset) >= (panelHeight - 150) && evt.getWheelRotation() > 0) {
+            iconOffset -= ((double) evt.getWheelRotation() * 70);
+            System.out.println("DOWN");
         }
         repaint();
     }//GEN-LAST:event_formMouseWheelMoved
