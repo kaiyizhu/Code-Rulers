@@ -7,6 +7,7 @@ package dev.CodeRulers.game;
 
 //Import statements
 import dev.CodeRulers.display.Display;
+import dev.CodeRulers.entity.*;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.world.World;
 import java.awt.event.ActionEvent;
@@ -169,8 +170,27 @@ public class CodeRulers implements Runnable{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //add castle production and hasAction
-            
+            //get the array of all castles
+            Castle[] allC = World.getAllCastles();
+            //for every castle
+            for(Castle c : allC){
+                //call its production
+                c.produce();
+            }
+            //get the array of all peasants
+            Peasant[] allP = World.getAllPeasants();
+            //for all peasants
+            for(Peasant p : allP){
+                //give them actions to use this turn
+                p.setAction(true);
+            }
+            //get the array of all knights
+            Knight[] allK = World.getAllKnights();
+            //for every knight
+            for(Knight k : allK){
+                //give them an action for this turn
+                k.setAction(true);
+            }
             //This updates all the things related to the rulers. Once updated,
             //the graphics can then be updated.
 

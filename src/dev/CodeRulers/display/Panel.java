@@ -6,6 +6,7 @@
 package dev.CodeRulers.display;
 
 //Import statements
+import dev.CodeRulers.entity.*;
 import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.util.IMAGE;
@@ -380,6 +381,29 @@ public class Panel extends javax.swing.JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            
+            //get the array of all castles
+            Castle[] allC = World.getAllCastles();
+            //for every castle
+            for(Castle c : allC){
+                //call its production
+                c.produce();
+            }
+            //get the array of all peasants
+            Peasant[] allP = World.getAllPeasants();
+            //for all peasants
+            for(Peasant p : allP){
+                //give them actions to use this turn
+                p.setAction(true);
+            }
+            //get the array of all knights
+            Knight[] allK = World.getAllKnights();
+            //for every knight
+            for(Knight k : allK){
+                //give them an action for this turn
+                k.setAction(true);
+            }
+            
             //This updates all the things related to the rulers. Once updated,
             //the graphics can then be updated.
 

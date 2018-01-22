@@ -22,7 +22,7 @@ public class Launch {
         //this statement is just for testing's sake.
         AbstractRuler[] r = {new SeanZhang(),new RandomBot()};
         
-        CodeRulers game = new CodeRulers(r,false);
+        CodeRulers game = new CodeRulers(r,true);
         //starts the thread
         game.start();
         
