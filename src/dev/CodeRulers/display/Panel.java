@@ -37,6 +37,11 @@ public class Panel extends javax.swing.JPanel {
     //this is the bufferedImage that will be drawn to the screen as the background for the side panel.
     BufferedImage sidePanelImage;
 
+    //these images are for the icons at the bottom.
+    BufferedImage startButton;
+    BufferedImage pauseButton;
+    BufferedImage restartButton;
+
     //this timer is not our game loop. Instead, it controls the speed of the game (turns/second)
     Timer t;
 
@@ -84,10 +89,13 @@ public class Panel extends javax.swing.JPanel {
 
         //This statement creates a new timer. The timer refreshes every 1 second.
         //This means that the speed of the game happens at 1 cycle of turns per second.
-        Timer t = new Timer(1000, new TimerListener());
+        t = new Timer(1000, new TimerListener());
 
-        //starts the timer ====>>>>>> THIS SHOULD NOT BE HERE: IT SHOULD ONLY START WHEN THE USER PRESSES START ON THE SCREEN
-        t.start();
+        //initializes the three images
+        startButton = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/startButton.png"), 25, 25);
+        pauseButton = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/pauseButton.png"), 25, 25);
+        restartButton = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/restartButton.png"), 25, 25);
+
     }
 
     @Override
@@ -163,9 +171,9 @@ public class Panel extends javax.swing.JPanel {
             //This draws the points of the AI followed by the amount of land the 
             //AI owns, spaced apart by 5 spaces. Every AI starts out with 
             //21 tiles of land by default.
-            g.drawString("Points: " + (ruler.getPoints()+World.getLandCount(ruler.getRulerID())/10+
-                    ruler.getCastles().length*25+ruler.getPeasants().length+ruler.getKnights().length*2) +
-                    "     Land: " + World.getLandCount(ruler.getRulerID()), xCoord + panelHeight / 12 - 2,
+            g.drawString("Points: " + (ruler.getPoints() + World.getLandCount(ruler.getRulerID()) / 10
+                    + ruler.getCastles().length * 25 + ruler.getPeasants().length + ruler.getKnights().length * 2)
+                    + "     Land: " + World.getLandCount(ruler.getRulerID()), xCoord + panelHeight / 12 - 2,
                     yCoord + (g.getFontMetrics(header).getHeight()) + 2 * g.getFontMetrics(subHeader).getHeight() + 3);
 
             //increases the count by one.
@@ -178,9 +186,10 @@ public class Panel extends javax.swing.JPanel {
         //or start the game. 
         //====================
         //THIS PART IS NOT DONE.
-        g.setColor(new Color(157, 144, 165, 100));
+        g.setColor(new Color(157, 144, 165, 200));
         g.fillRect(panelHeight, panelHeight - 60, sidePanelWidth, 60);
-
+        g.drawImage(startButton, panelHeight + 5, panelHeight - 60 + 5, null);
+        g.drawImage(pauseButton, panelHeight + 5 + 5 + 25, panelHeight - 60 + 5, null);
     }
 
     /**
@@ -292,13 +301,15 @@ public class Panel extends javax.swing.JPanel {
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
         //sets the offest relative to the position of the old cursor position
         //and new cursor position.
+        if (evt.getX() < panelHeight) {
         World.setxOffset(World.getxOffset() + evt.getX() - initX);
         World.setyOffset(World.getyOffset() + evt.getY() - initY);
 
         //sets the original coordinates to the current coordinates.
+        
         initX = evt.getX();
         initY = evt.getY();
-
+        }
         //refreshes the screen to show the changes made to the world.
         repaint();
     }//GEN-LAST:event_formMouseDragged
@@ -310,8 +321,18 @@ public class Panel extends javax.swing.JPanel {
      */
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         //gets the intial x and y coordinates of the mouse.
-        initX = evt.getX();
-        initY = evt.getY();
+        if (evt.getX() < panelHeight) {
+            initX = evt.getX();
+            initY = evt.getY();
+        } else {
+            if(evt.getX()>panelHeight+5&&evt.getX()<panelHeight+25+5&&evt.getY()>panelHeight - 60 + 5&&evt.getY()<panelHeight-60+25+5){
+                t.start();
+            } else if(evt.getX()>panelHeight+5+25+5&&evt.getX()<panelHeight+25+5+5+25&&evt.getY()>panelHeight - 60 + 5&&evt.getY()<panelHeight-60+25+5) {
+                t.stop();
+            }
+                
+        }
+
     }//GEN-LAST:event_formMousePressed
 
     /**
@@ -324,31 +345,27 @@ public class Panel extends javax.swing.JPanel {
             map, the offset will be reset to a closer offset. This essentially 
             restricts the user from panning too far out in all directions.
          */
-        
+
         //this is for preventing the user from panning too far right.
-        if (World.getxOffset() > 70) 
-        {
+        if (World.getxOffset() > 70) {
             World.setxOffset(71);
         }
-        
+
         //this is for preventing the user from panning too far down.
-        if (World.getyOffset() > 70) 
-        {
+        if (World.getyOffset() > 70) {
             World.setyOffset(71);
         }
-        
+
         //this is for preventing the user from panning too far left.
-        if (World.getxOffset() < (768 - World.mapResized.getWidth() - 70)) 
-        {
+        if (World.getxOffset() < (768 - World.mapResized.getWidth() - 70)) {
             World.setxOffset((768 - World.mapResized.getWidth() - 70) - 4);
         }
-        
+
         //this is for preventing the user from panning too far up.
-        if (World.getyOffset() < (768 - World.mapResized.getHeight() - 70)) 
-        {
+        if (World.getyOffset() < (768 - World.mapResized.getHeight() - 70)) {
             World.setyOffset((768 - World.mapResized.getHeight() - 70) - 4);
         }
-        
+
         //refreshes the screen so that changes become effective.
         repaint();
     }//GEN-LAST:event_formMouseReleased
@@ -356,20 +373,18 @@ public class Panel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    private class TimerListener implements ActionListener 
-    {
+    private class TimerListener implements ActionListener {
 
         @Override
-        public void actionPerformed(ActionEvent e) 
-        {
+        public void actionPerformed(ActionEvent e) {
             //This updates all the things related to the rulers. Once updated,
             //the graphics can then be updated.
-            
+
             //This method is typically called once per cycle.
             for (AbstractRuler ruler : r.getRulerArray()) {
                 ruler.orderSubjects();
             }
-            
+
             //repainted to show new changes to the game.
             repaint();
         }
