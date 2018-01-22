@@ -5,6 +5,7 @@
  */
 package dev.CodeRulers.entity;
 
+import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.*;
 import java.util.Arrays;
 
@@ -29,6 +30,7 @@ public class Castle extends Entity{
     public Castle(int x, int y, int ruler) {
         //call the entity constructer
         super(x, y, ruler);
+        entityIcn = IMAGE.getBufferedImage("src/resources/images/CodeRulersSprites2_2.png");
     }
 
     @Override

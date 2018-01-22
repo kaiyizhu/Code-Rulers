@@ -63,7 +63,7 @@ public class Panel extends javax.swing.JPanel {
         super.paintComponent(g);
 
         //render the world layer first.
-        World.render(g);
+        World.render(g,r);
 
         //draw the sidePanelImage.
         g.drawImage(sidePanelImage, panelWidth - sidePanelWidth, 0, null);

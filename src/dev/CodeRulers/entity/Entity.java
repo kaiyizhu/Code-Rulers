@@ -6,11 +6,15 @@
 package dev.CodeRulers.entity;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.world.World;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 /**
  *
  * @author Sean Zhang
  */
 public abstract class Entity {
+    protected BufferedImage entityIcn;
+    
     /**
      * The Constructor. Creates an entity with the following parameters:
      * @param x The x value of the coordinate where the entity is located
@@ -190,5 +194,9 @@ public abstract class Entity {
             distance += Math.abs(dx - dy);
             
             return distance;
+        }
+        
+        public void drawEntity(Graphics g) {
+            g.drawImage(entityIcn, x*12, y*12, null);
         }
 }

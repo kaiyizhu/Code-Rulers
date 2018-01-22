@@ -5,6 +5,8 @@
  */
 package dev.CodeRulers.entity;
 
+import dev.CodeRulers.util.IMAGE;
+
 /**
  *
  * @author seanz
@@ -23,7 +25,7 @@ public class Knight extends Entity{
         super(x, y, ruler);
         //set strength to 100
         strength = 100;
-        
+        entityIcn = IMAGE.getBufferedImage("src/resources/images/CodeRulersSprites2_1.png");
     }
 
     @Override
@@ -91,4 +93,5 @@ public class Knight extends Entity{
         }
         return 0;
     }
+    
 }
