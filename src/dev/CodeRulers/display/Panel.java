@@ -5,6 +5,7 @@
  */
 package dev.CodeRulers.display;
 
+//Import statements
 import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.util.IMAGE;
@@ -12,11 +13,9 @@ import dev.CodeRulers.world.World;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import javafx.scene.shape.Circle;
 import javax.swing.Timer;
 
 /**
@@ -106,10 +105,12 @@ public class Panel extends javax.swing.JPanel {
         //a counter so that we know which ruler in the array we are on. (Enhanced for-loop)
         int count = 0;
         
-        //This enhanced for-loop loops through all the rulers in the ruler array
-        //stored in the codeRulers class. Then, it draws every attribute related
-        //to the ruler. 
-        for (AbstractRuler ruler : r.getRulerArray()) {
+        /*  This enhanced for-loop loops through all the rulers in the ruler array
+            stored in the codeRulers class. Then, it draws every attribute related
+            to the ruler. 
+        */
+        for (AbstractRuler ruler : r.getRulerArray()) 
+        {
             //this gets the x coordinate of where the player box should go.
             yCoord = count * panelHeight / 12 + 20 + ((count) * 12) + iconOffset;
             xCoord = panelWidth - sidePanelWidth;
@@ -120,10 +121,11 @@ public class Panel extends javax.swing.JPanel {
             //the rounded rectangle box that contains all the details.
             g.fillRoundRect(xCoord + 6, yCoord, sidePanelWidth - 18, panelHeight / 12, 10, 10);
 
-            //this is responsible for resizing and drawing the AI profile picture.
-            //It calculates the relative coordinates based on where xCoord and yCoord
-            //are and draws it, resized relative to the height of the sidePanel and 
-            //height of the box containing the image and details.
+            /*  This is responsible for resizing and drawing the AI profile picture.
+                It calculates the relative coordinates based on where xCoord and yCoord
+                are and draws it, resized relative to the height of the sidePanel and 
+                height of the box containing the image and details.
+            */
             g.drawImage(IMAGE.getResizedImage(ruler.getProfileImage(),
                     panelHeight / 14 - 12, panelHeight / 14 - 12),
                     xCoord + 12, yCoord + 6, null);
@@ -136,25 +138,44 @@ public class Panel extends javax.swing.JPanel {
             //one consistent color.
             g.setColor(Color.BLACK);
             
-            //draws the name of the ruler.
-            if (ruler.getRulerName().length() > 15) {
+            /*  draws the name of the ruler. This is obtained by calling the getRulerName
+                in the classes that extend the AbstractRuler class. 
+                The position of the string is calculated relative to the position of xCoord
+                and yCoord. If the string is too long in characters, the program will cut off
+                the end of the string.
+            */
+            if (ruler.getRulerName().length() > 15) 
+            {
                 g.drawString(ruler.getRulerName().substring(0, 15), xCoord + panelHeight / 12 - 3, yCoord + g.getFontMetrics(header).getHeight());
             } else {
                 g.drawString(ruler.getRulerName(), xCoord + panelHeight / 12 - 3, yCoord + g.getFontMetrics(header).getHeight());
             }
 
+            //sets the font to the font object, subHeader. This is done in
+            //preparation of drawing the details about the ruler to the screen.
             g.setFont(subHeader);
 
+            //This draws the school name of the AI to the screen. The position
+            //of this string is determined relative to where xCoord and yCoord
+            //are. 
             g.drawString(ruler.getSchoolName(), xCoord + panelHeight / 12 - 2, yCoord + (g.getFontMetrics(header).getHeight()) + g.getFontMetrics(subHeader).getHeight());
 
+            //This draws the points of the AI followed by the amount of land the 
+            //AI owns, spaced apart by 5 spaces. Every AI starts out with 
+            //21 tiles of land by default.
             g.drawString("Points: " + ruler.getPoints() + "     Land: " + World.getLandCount(ruler.getRulerID()), xCoord + panelHeight / 12 - 2,
                     yCoord + (g.getFontMetrics(header).getHeight()) + 2 * g.getFontMetrics(subHeader).getHeight() + 3);
 
+            //increases the count by one.
             count++;
 
         }
 
-        //utility bar
+        //this section is responsible for drawing the utility bar where the
+        //user can add more AIs, stop the game, increase the speed of the game,
+        //or start the game. 
+        //====================
+        //THIS PART IS NOT DONE.
         g.setColor(new Color(157, 144, 165, 100));
         g.fillRect(panelHeight, panelHeight - 60, sidePanelWidth, 60);
 
@@ -201,6 +222,10 @@ public class Panel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This method is called whenever the mouseWheel is moved.
+     * @param evt 
+     */
     private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
         if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && (0 * panelHeight / 12 + 20 + ((0) * 12) + iconOffset) <= 10 && evt.getWheelRotation() < 0) {
             System.out.println("UP");
