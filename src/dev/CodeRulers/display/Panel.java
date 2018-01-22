@@ -123,9 +123,22 @@ public class Panel extends javax.swing.JPanel {
     private void initComponents() {
 
         setPreferredSize(new java.awt.Dimension(1024, 768));
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
         addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 formMouseWheelMoved(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
             }
         });
 
@@ -149,9 +162,53 @@ public class Panel extends javax.swing.JPanel {
         } else if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && ((r.getRulerArray().length - 1) * panelHeight / 12 + 20 + ((r.getRulerArray().length - 1) * 12) + iconOffset) >= (panelHeight - 150) && evt.getWheelRotation() > 0) {
             iconOffset -= ((double) evt.getWheelRotation() * 70);
             System.out.println("DOWN");
+        //zooming the world.
+        } else if(evt.getX() < panelHeight && World.getScaleFactor()>0.9&&evt.getWheelRotation()>0) {
+            //sets the scale factor based on how much the wheel has moved.
+            World.setScaleFactor(World.getScaleFactor()-((double) evt.getWheelRotation() / 20));
+            System.out.println(World.getScaleFactor()); 
+        } else if(evt.getX() < panelHeight && World.getScaleFactor()<1.85&&evt.getWheelRotation()<0){
+            World.setScaleFactor(World.getScaleFactor()-((double) evt.getWheelRotation() / 20));
+            System.out.println(World.getScaleFactor()); 
         }
         repaint();
     }//GEN-LAST:event_formMouseWheelMoved
+
+    private int initX,initY;
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+  
+        World.setxOffset(World.getxOffset()+evt.getX()-initX);
+        World.setyOffset(World.getyOffset()+evt.getY()-initY);
+        
+        
+        //sets the original coordinates to the current coordinates.
+        initX = evt.getX();
+        initY = evt.getY();
+        
+        //refreshes the screen to show the changes made to the fractal.
+        repaint();
+    }//GEN-LAST:event_formMouseDragged
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        initX = evt.getX();
+        initY = evt.getY();
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        if(World.getxOffset()>70) {
+            World.setxOffset(71);
+        }
+        if(World.getyOffset()>70) {
+            World.setyOffset(71);
+        }
+        if(World.getxOffset()< (768-World.mapResized.getWidth()-70)) {
+            World.setxOffset((768-World.mapResized.getWidth()-70)-4);
+        }
+        if(World.getyOffset()< (768-World.mapResized.getHeight()-70)) {
+            World.setyOffset((768-World.mapResized.getHeight()-70)-4);
+        }
+        repaint();
+    }//GEN-LAST:event_formMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

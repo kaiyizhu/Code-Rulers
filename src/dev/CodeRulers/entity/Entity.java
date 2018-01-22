@@ -5,6 +5,7 @@
  */
 package dev.CodeRulers.entity;
 import dev.CodeRulers.ruler.AbstractRuler;
+import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.World;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -196,7 +197,8 @@ public abstract class Entity {
             return distance;
         }
         
-        public void drawEntity(Graphics g) {
-            g.drawImage(entityIcn, x*12, y*12, null);
+        public void drawEntity(Graphics g,double scaleFactor,int xOffset,int yOffset) {
+            BufferedImage icn =IMAGE.getResizedImage(entityIcn, (int)(12*scaleFactor), (int)(12*scaleFactor));
+            g.drawImage(icn,(int)(x*12*scaleFactor)+xOffset,(int)(y*12*scaleFactor)+yOffset, null);
         }
 }

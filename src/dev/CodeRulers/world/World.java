@@ -28,8 +28,13 @@ public class World {
     private static BufferedImage knightIcn;
     private static BufferedImage castleIcn;
 
+    private static int xOffset=0,yOffset=0;
+    
+    //scale factor for world so that we can zoom in and out.
+    private static double scaleFactor;
+    
     //image for the background of the world
-    private static BufferedImage worldMap;
+    public static BufferedImage worldMap;
 
     public World(CodeRulers r) {
         knights = new Knight[0];
@@ -39,7 +44,7 @@ public class World {
         landOwned = new int[64][64];
 
         this.r = r;
-
+        scaleFactor=1;
         initGame();
     }
 
@@ -154,12 +159,29 @@ public class World {
         return landOwned[x][y];
     }
 
+    public static BufferedImage mapResized;
+    private static double lastScaleFactor=scaleFactor;
+    
     public static void render(Graphics g, CodeRulers r) {
+        
+        
+        
         if (worldMap == null) {
-            worldMap = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/codeRulersTerrain.png"), 768, 768);
+            worldMap = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/codeRulersTerrain.png"), (int)(768*scaleFactor), (int)(768*scaleFactor));
         }
-
-        g.drawImage(worldMap, 0, 0, null);
+        if (mapResized==null) {
+            BufferedImage mapResized=worldMap;
+        }
+        
+        
+        
+        if(lastScaleFactor!=scaleFactor) {
+            System.out.println("I CHANGED");
+            mapResized = IMAGE.getResizedImage(worldMap, (int)(768*scaleFactor), (int)(768*scaleFactor));
+        }
+        
+        
+        g.drawImage(mapResized, xOffset, yOffset, null);
 
         for (int i = 0; i < landOwned[0].length; i++) {
             for (int j = 0; j < landOwned.length; j++) {
@@ -168,24 +190,25 @@ public class World {
                 } else {
                     Color c = r.getRulerArray()[landOwned[i][j]].getColor();
                     g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 150));
-                    g.fillRect(i * 12, j * 12, 12, 12);
+                    g.fillRect((int)(i * 12*scaleFactor)+xOffset,(int)( j * 12*scaleFactor)+yOffset,(int)( 12*scaleFactor),(int)( 12*scaleFactor));
                 }
 
             }
         }
 
         for (Peasant p : peasants) {
-            p.drawEntity(g);
+            p.drawEntity(g,scaleFactor,xOffset,yOffset);
         }
 
         for (Knight k : knights) {
-            k.drawEntity(g);
+            k.drawEntity(g,scaleFactor,xOffset,yOffset);
         }
 
         for (Castle c : castles) {
-            c.drawEntity(g);
+            c.drawEntity(g,scaleFactor,xOffset,yOffset);
         }
-
+        
+        lastScaleFactor=scaleFactor;
     }
 
     /**
@@ -207,4 +230,30 @@ public class World {
         }
         return count;
     }
+
+    public static double getScaleFactor() {
+        return scaleFactor;
+    }
+
+    public static void setScaleFactor(double scaleFactor) {
+        World.scaleFactor = scaleFactor;
+    }
+
+    public static int getxOffset() {
+        return xOffset;
+    }
+
+    public static void setxOffset(int xOffset) {
+        World.xOffset = xOffset;
+    }
+
+    public static int getyOffset() {
+        return yOffset;
+    }
+
+    public static void setyOffset(int yOffset) {
+        World.yOffset = yOffset;
+    }
+    
+    
 }
