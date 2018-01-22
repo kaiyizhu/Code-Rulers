@@ -20,56 +20,95 @@ import javafx.scene.shape.Circle;
 import javax.swing.Timer;
 
 /**
+ * This class will be responsible for handling all drawing to the screen and
+ * input from the user.
  *
- * @author seanz
+ * @author Sean Zhang
  */
 public class Panel extends javax.swing.JPanel {
 
+    //this is the CodeRulers game object. This is needed to access the AI objects passed into the game class.
     CodeRulers r;
+
+    //this is the bufferedImage that will be drawn to the screen as the background for the side panel.
     BufferedImage sidePanelImage;
+
+    //this timer is not our game loop. Instead, it controls the speed of the game (turns/second)
     Timer t;
+
+    /*  These two fonts are the main two fonts that will be used in our program.
+        One will be used as a header (for bigger headings)
+        And the other will be used for less important things
+     */
     Font subHeader = new Font("Myriad", Font.PLAIN, 11);
     Font header = new Font("Myriad", Font.BOLD, 16);
 
-    int sidePanelWidth = 256;
-    int panelWidth = 1024;
-    int panelHeight = 768;
-    int iconOffset = 0;
+    //Here are quick dimensions for our panel. Since the panel cannot be resized,
+    //these dimensions do not change.
+    private int sidePanelWidth = 256;
+    private int panelWidth = 1024;
+    private int panelHeight = 768;
 
-    int xCoord;
-    int yCoord;
+    //when drawing to the sidePanel, the two integer variables, xCoord and yCoord
+    //will determine where a component goes (in the sidePanel)
+    private int xCoord;
+    private int yCoord;
+
+    //the iconOffset is used later to offset where things are drawn to enable 
+    //the scrolling feature in this program.
+    private int iconOffset = 0;
 
     /**
-     * Creates new form Panel
+     * The constructor for the Panel Class. Creates new form Panel.
+     *
+     * @param r This is the codeRulers object that is passed in. In this
+     * program, it is passed through to the display and then to this class.
      */
-    public Panel(CodeRulers r) {
+    public Panel(CodeRulers r) 
+    {
+        //initializes graphical components related to the Netbeasn GUI builder.
         initComponents();
+
+        //stores the reference to the codeRulers object to a CodeRulers variable in this class.
         this.r = r;
+
+        //sets the size of the JPanel to 768x1024
         this.setSize(768, 1024);
+
+        //initializes the side panel image and blurs it using the custom gaussian blur algorithm with a blur radius of 20 pixels.
+        //It is then resized to the correct size to fit in the dimensions of the side panel.
         sidePanelImage = IMAGE.getResizedImage(IMAGE.getBlurredImage(IMAGE.getBufferedImage("src/resources/images/sidePanelImage.jpg"), 20), sidePanelWidth, panelHeight);
+
+        //This statement creates a new timer. The timer refreshes every 1 second.
+        //This means that the speed of the game happens at 1 cycle of turns per second.
         Timer t = new Timer(1000, new TimerListener());
-        t.start();
 
+        //starts the timer ====>>>>>> THIS SHOULD NOT BE HERE: IT SHOULD ONLY START WHEN THE USER PRESSES START ON THE SCREEN
+        //t.start();
     }
 
-    public void tick() {
-        for (AbstractRuler ruler : r.getRulerArray()) {
-            ruler.orderSubjects();
-        }
-    }
-
+    
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) 
+    {
+        //calls the paintComponent method in the superClass. This essentially
+        //clears the screen (I think)
         super.paintComponent(g);
 
-        //render the world layer first.
-        World.render(g,r);
+        //render the world layer graphics first. This statement calls the static
+        //render method in the World class.
+        World.render(g, r);
 
-        //draw the sidePanelImage.
+        //draw the sidePanelImage. The coordinates are determined by the dimensions
+        //of this JPanel. The origin of the image is in the top left of the image.
         g.drawImage(sidePanelImage, panelWidth - sidePanelWidth, 0, null);
 
         //a counter so that we know which ruler in the array we are on. (Enhanced for-loop)
         int count = 0;
+        
+        //This enhanced for-loop loops through all the rulers in the ruler array
+        //stored in the codeRulers class. Then, it draws every attribute related
+        //to the ruler. 
         for (AbstractRuler ruler : r.getRulerArray()) {
             //this gets the x coordinate of where the player box should go.
             yCoord = count * panelHeight / 12 + 20 + ((count) * 12) + iconOffset;
@@ -81,15 +120,23 @@ public class Panel extends javax.swing.JPanel {
             //the rounded rectangle box that contains all the details.
             g.fillRoundRect(xCoord + 6, yCoord, sidePanelWidth - 18, panelHeight / 12, 10, 10);
 
-            //this is responsible for resizing and drawing the AI profile picture
+            //this is responsible for resizing and drawing the AI profile picture.
+            //It calculates the relative coordinates based on where xCoord and yCoord
+            //are and draws it, resized relative to the height of the sidePanel and 
+            //height of the box containing the image and details.
             g.drawImage(IMAGE.getResizedImage(ruler.getProfileImage(),
                     panelHeight / 14 - 12, panelHeight / 14 - 12),
                     xCoord + 12, yCoord + 6, null);
 
+            //sets the font to the font object, header. This is done in preparation of drawing 
+            //the ruler's name to the screen.
             g.setFont(header);
+            
+            //sets the color of the text to black, making sure that all names are
+            //one consistent color.
             g.setColor(Color.BLACK);
+            
             //draws the name of the ruler.
-
             if (ruler.getRulerName().length() > 15) {
                 g.drawString(ruler.getRulerName().substring(0, 15), xCoord + panelHeight / 12 - 3, yCoord + g.getFontMetrics(header).getHeight());
             } else {
@@ -162,29 +209,28 @@ public class Panel extends javax.swing.JPanel {
         } else if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && ((r.getRulerArray().length - 1) * panelHeight / 12 + 20 + ((r.getRulerArray().length - 1) * 12) + iconOffset) >= (panelHeight - 150) && evt.getWheelRotation() > 0) {
             iconOffset -= ((double) evt.getWheelRotation() * 70);
             System.out.println("DOWN");
-        //zooming the world.
-        } else if(evt.getX() < panelHeight && World.getScaleFactor()>0.9&&evt.getWheelRotation()>0) {
+            //zooming the world.
+        } else if (evt.getX() < panelHeight && World.getScaleFactor() > 0.9 && evt.getWheelRotation() > 0) {
             //sets the scale factor based on how much the wheel has moved.
-            World.setScaleFactor(World.getScaleFactor()-((double) evt.getWheelRotation() / 20));
-            System.out.println(World.getScaleFactor()); 
-        } else if(evt.getX() < panelHeight && World.getScaleFactor()<1.85&&evt.getWheelRotation()<0){
-            World.setScaleFactor(World.getScaleFactor()-((double) evt.getWheelRotation() / 20));
-            System.out.println(World.getScaleFactor()); 
+            World.setScaleFactor(World.getScaleFactor() - ((double) evt.getWheelRotation() / 20));
+            System.out.println(World.getScaleFactor());
+        } else if (evt.getX() < panelHeight && World.getScaleFactor() < 1.85 && evt.getWheelRotation() < 0) {
+            World.setScaleFactor(World.getScaleFactor() - ((double) evt.getWheelRotation() / 20));
+            System.out.println(World.getScaleFactor());
         }
         repaint();
     }//GEN-LAST:event_formMouseWheelMoved
 
-    private int initX,initY;
+    private int initX, initY;
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-  
-        World.setxOffset(World.getxOffset()+evt.getX()-initX);
-        World.setyOffset(World.getyOffset()+evt.getY()-initY);
-        
-        
+
+        World.setxOffset(World.getxOffset() + evt.getX() - initX);
+        World.setyOffset(World.getyOffset() + evt.getY() - initY);
+
         //sets the original coordinates to the current coordinates.
         initX = evt.getX();
         initY = evt.getY();
-        
+
         //refreshes the screen to show the changes made to the fractal.
         repaint();
     }//GEN-LAST:event_formMouseDragged
@@ -195,17 +241,17 @@ public class Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        if(World.getxOffset()>70) {
+        if (World.getxOffset() > 70) {
             World.setxOffset(71);
         }
-        if(World.getyOffset()>70) {
+        if (World.getyOffset() > 70) {
             World.setyOffset(71);
         }
-        if(World.getxOffset()< (768-World.mapResized.getWidth()-70)) {
-            World.setxOffset((768-World.mapResized.getWidth()-70)-4);
+        if (World.getxOffset() < (768 - World.mapResized.getWidth() - 70)) {
+            World.setxOffset((768 - World.mapResized.getWidth() - 70) - 4);
         }
-        if(World.getyOffset()< (768-World.mapResized.getHeight()-70)) {
-            World.setyOffset((768-World.mapResized.getHeight()-70)-4);
+        if (World.getyOffset() < (768 - World.mapResized.getHeight() - 70)) {
+            World.setyOffset((768 - World.mapResized.getHeight() - 70) - 4);
         }
         repaint();
     }//GEN-LAST:event_formMouseReleased
@@ -217,6 +263,9 @@ public class Panel extends javax.swing.JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            for (AbstractRuler ruler : r.getRulerArray()) {
+                ruler.orderSubjects();
+            }
             repaint();
 
         }

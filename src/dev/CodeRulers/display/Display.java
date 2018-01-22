@@ -61,6 +61,7 @@ public class Display extends JFrame {
         setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
         setSize(new java.awt.Dimension(1024, 768));
+        getContentPane().setLayout(new java.awt.GridLayout());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
