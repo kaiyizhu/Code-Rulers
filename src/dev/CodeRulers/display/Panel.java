@@ -89,7 +89,7 @@ public class Panel extends javax.swing.JPanel {
 
         //This statement creates a new timer. The timer refreshes every 1 second.
         //This means that the speed of the game happens at 1 cycle of turns per second.
-        t = new Timer(1000, new TimerListener());
+        t = new Timer(500, new TimerListener());
 
         //initializes the three images
         startButton = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/startButton.png"), 25, 25);

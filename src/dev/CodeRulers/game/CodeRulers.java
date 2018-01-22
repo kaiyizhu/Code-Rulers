@@ -26,6 +26,8 @@ public class CodeRulers implements Runnable{
     //creates a thread variable
     private Thread thread;
     
+    
+    
     //this is the display varaible for the game.
     private Display display;
     

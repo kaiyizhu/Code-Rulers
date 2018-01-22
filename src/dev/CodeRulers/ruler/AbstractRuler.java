@@ -82,7 +82,7 @@ public abstract class AbstractRuler {
         if(attacking.isAlive() && attacking.hasAction()){
             //see if anything is in that space
             int[] xy = translateDir(dir);
-            Entity attacked = World.getEntityAt(attacking.getX()+xy[1], attacking.getY()+xy[2]);
+            Entity attacked = World.getEntityAt(attacking.getX()+xy[0], attacking.getY()+xy[1]);
             if(attacked != null){
                 //check that it is not one of this ruler's subjects
                 if(attacked.getRuler() != rulerID ){

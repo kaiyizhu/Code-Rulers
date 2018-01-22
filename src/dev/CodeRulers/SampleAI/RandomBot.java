@@ -39,8 +39,8 @@ public class RandomBot extends AbstractRuler {
         Generate a number 1-8. 0 = N 1 = NE and so forth...
         */
         for (int i = 0; i < this.getKnights().length; i++) {
-            int randomKnightMove = r.nextInt(2);
-            int knightDir = r.nextInt(7) + 1;
+            int randomKnightMove = r.nextInt(3);
+            int knightDir = r.nextInt(8) + 1;
             if (randomKnightMove == 1) {
                 this.move(this.getKnights()[i], knightDir);
             } else if (randomKnightMove == 2) {
@@ -56,9 +56,9 @@ public class RandomBot extends AbstractRuler {
          Generate a number 1-8. 0 = N 1 = NE and so forth... 
          */
         for (int i = 0; i < this.getPeasants().length; i++) {
-            int randomPeasantMove = r.nextInt(1);
+            int randomPeasantMove = r.nextInt(2);
             if (randomPeasantMove == 1) {
-                int peasantDir = r.nextInt(7) + 1;
+                int peasantDir = r.nextInt(8) + 1;
                 this.move(this.getPeasants()[i], peasantDir);
             } else {
                 //Does nothing so the peasant stays in his original land
