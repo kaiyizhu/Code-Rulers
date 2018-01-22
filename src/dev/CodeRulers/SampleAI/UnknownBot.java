@@ -30,13 +30,21 @@ public class UnknownBot extends AbstractRuler {
 
     @Override
     public void orderSubjects() {
+        knights = this.getKnights();
+        peasants = this.getPeasants();
+        castles = this.getCastles();
+
+        eKnights = this.getOtherKnights();
+        ePeasants = this.getOtherPeasants();
+        eCastles = this.getOtherCastles();
+
         createEntities();
         moveKnights();
         movePeasants();
     }
 
     private void moveKnights() {
-        Castle closestCastle = new Castle(123, 123, 123);
+        Castle closestCastle = new Castle(150, 150, 150);
         //Find closest castle to attack
         for (Castle castle : eCastles) {
             if (castles[0].getDistanceTo(castle.getX(), castle.getY()) <= castles[0].getDistanceTo(closestCastle.getX(), closestCastle.getY())) {
@@ -56,7 +64,7 @@ public class UnknownBot extends AbstractRuler {
                         if (((Knight) entity).getStrength() < knight.getStrength()) {
                             knight.capture(entity);
                         }
-                    } else {
+                    } else if (entity instanceof Peasant || entity instanceof Castle) {
                         knight.capture(entity);
                     }
                 }
@@ -134,23 +142,16 @@ public class UnknownBot extends AbstractRuler {
 
     @Override
     public void initialize() {
-        knights = this.getKnights();
-        peasants = this.getPeasants();
-        castles = this.getCastles();
-
-        eKnights = this.getOtherKnights();
-        ePeasants = this.getOtherPeasants();
-        eCastles = this.getOtherCastles();
     }
 
     @Override
     public String getSchoolName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "GraphicsFunStuff";
     }
 
     @Override
     public String getRulerName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Add CoolSTuff to it and colors custome colors symbols?";
     }
 
 }
