@@ -8,6 +8,7 @@ package dev.CodeRulers.game;
 import dev.CodeRulers.SampleAI.BullyBot;
 import dev.CodeRulers.SampleAI.RandomBot;
 import dev.CodeRulers.SampleAI.SeanZhang;
+import dev.CodeRulers.SampleAI.UnknownBot;
 import dev.CodeRulers.ruler.AbstractRuler;
 
 /**
