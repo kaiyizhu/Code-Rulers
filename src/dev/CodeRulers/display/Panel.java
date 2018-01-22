@@ -67,6 +67,9 @@ public class Panel extends javax.swing.JPanel {
     //the scrolling feature in this program.
     private int iconOffset = 0;
 
+    //int turnLimit this is the number of turns that the game has cycled through.
+    public int turnsTaken=0;
+    
     /**
      * The constructor for the Panel Class. Creates new form Panel.
      *
@@ -89,7 +92,7 @@ public class Panel extends javax.swing.JPanel {
 
         //This statement creates a new timer. The timer refreshes every 1 second.
         //This means that the speed of the game happens at 1 cycle of turns per second.
-        t = new Timer(500, new TimerListener());
+        t = new Timer(50, new TimerListener());
 
         //initializes the three images
         startButton = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/startButton.png"), 25, 25);
@@ -387,7 +390,12 @@ public class Panel extends javax.swing.JPanel {
 
             //repainted to show new changes to the game.
             repaint();
+            
+            //add one to the number of turns taken
+            turnsTaken++;
         }
+        
+        
 
     }
 
