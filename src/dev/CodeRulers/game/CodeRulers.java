@@ -9,7 +9,10 @@ package dev.CodeRulers.game;
 import dev.CodeRulers.display.Display;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.world.World;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
+import javax.swing.Timer;
 
 /**
  * This class is responsible for running the game. 
@@ -39,7 +42,7 @@ public class CodeRulers implements Runnable{
      * The constructor for the CodeRulers Class.
      * @param r - Pass in an array of abstractRulers that the user wants to input into the game.
      */
-    public CodeRulers(AbstractRuler[] r) {
+    public CodeRulers(AbstractRuler[] r, boolean graphics) {
         //initialization confirmation
         System.out.println("CodeRulers Initialized.");
         
@@ -54,11 +57,19 @@ public class CodeRulers implements Runnable{
             count++;
         }
         
-        //creates a new JFrame display to display all the graphics in the game.
-        display = new Display(title, logo, this);
-        
         //creates a new world object. 
         w = new World(this);
+        
+        if(graphics){
+            //creates a new JFrame display to display all the graphics in the game.
+            display = new Display(title, logo, this);
+        }else{
+            Timer t= new Timer(10, new TimerListener());
+            t.start();
+        }
+        
+        
+        
     }
     
     @Override
@@ -111,12 +122,63 @@ public class CodeRulers implements Runnable{
             ex.printStackTrace();
         }
     }
-
+    
+    /**
+     * Calculates the number of points the ruler has.
+     */
+    public void endGameNoDisplay(){
+        //create an array to represent final points
+        int[] finalPoints = new int[r.length];
+        //for every ruler
+        for(int i=0; i<r.length;i++){
+            //calculate the final points at that index
+            finalPoints[i] = r[i].getPoints() + 
+                    World.getLandCount(r[i].getRulerID()) / 10 + r[i].getCastles().length * 25 
+                    + r[i].getPeasants().length + r[i].getKnights().length * 2;
+        }
+        //for every ruler (every place in standings)
+        for(int i=0; i<r.length; i++){
+            //initailize a highest points and index of highest points
+            int highest= 0;
+            int highIndex = 0;
+            //for all the rulers
+            for(int j=0; j<r.length;j++){
+                //if this ruler has more points than the last
+                if(finalPoints[j] > highest){
+                    //set highest and highest index accordingly
+                    highest = finalPoints[j];
+                    highIndex = j;
+                }
+            }
+            //print out the place that the ruler cam in, along with their points
+            System.out.println(i + ". " + r[highIndex].getRulerName() + " with"
+                    + highest + " points.");
+            //set their final points to 0 (so that it doesn't get printed out)
+            finalPoints[highIndex] = 0;
+        }
+    }
     /**
      * This method provides access to the array of rulers in the game.
      * @return the array of ruler objects in the game.
      */
     public AbstractRuler[] getRulerArray() {
         return r;
+    }
+    
+    private class TimerListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //add castle production and hasAction
+            
+            //This updates all the things related to the rulers. Once updated,
+            //the graphics can then be updated.
+
+            //This method is typically called once per cycle.
+            for (AbstractRuler ruler : r) {
+                ruler.orderSubjects();
+            }
+        }
+
     }
 }
