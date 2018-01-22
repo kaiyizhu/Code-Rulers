@@ -146,12 +146,12 @@ public class UnknownBot extends AbstractRuler {
 
     @Override
     public String getSchoolName() {
-        return "GraphicsFunStuff";
+        return "Besteam";
     }
 
     @Override
     public String getRulerName() {
-        return "Add CoolSTuff to it and colors custome colors symbols?";
+        return "BesTeam";
     }
 
 }

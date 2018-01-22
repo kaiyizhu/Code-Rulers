@@ -249,6 +249,10 @@ public class World {
     }
 
     public static int getLandOwner(int x, int y) {
+        if(x < 0 || x > 63 || y < 0 || y > 63) {
+            return -1;
+        }
+        
         return landOwned[x][y];
     }
 
