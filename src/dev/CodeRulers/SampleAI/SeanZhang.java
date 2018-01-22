@@ -42,7 +42,7 @@ public class SeanZhang extends AbstractRuler {
         profileURL =("https://avatars1.githubusercontent.com/u/20467017?s=460&v=4");
         
         //this is the preferred color for my AI. This color will be the main 
-        //color scheme displayed in the GUI for this AI.
+        //color scheme displayed in the GUI ` for this AI.
         setColor(new Color(139, 91, 183,178));
     }
 
