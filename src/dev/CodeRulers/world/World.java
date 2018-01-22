@@ -9,7 +9,9 @@ import dev.CodeRulers.entity.Castle;
 import dev.CodeRulers.entity.Entity;
 import dev.CodeRulers.entity.Knight;
 import dev.CodeRulers.entity.Peasant;
+import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.util.IMAGE;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -105,7 +107,7 @@ public class World {
     
     
     
-    public static void render(Graphics g) {
+    public static void render(Graphics g, CodeRulers r) {
         if(worldMap==null) {
             worldMap = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/codeRulersTerrain.png"), 768, 768);
         } 
@@ -113,9 +115,21 @@ public class World {
         g.drawImage(worldMap,0,0,null);
         
         
-        g.setFont(new Font("Myriad", Font.BOLD, 16));
         
-        g.drawString("Welcome to CodeRulers!", 10, 10);
+        for(int i=0;i<landOwned[0].length;i++) {
+            for(int j=0;j<landOwned.length;j++) {
+                if(landOwned[i][j]==-1) {
+                    
+                } else {
+                    Color c = r.getRulerArray()[landOwned[i][j]].getColor();
+                    g.setColor(new Color(c.getRed(),c.getGreen(),c.getBlue(),150));
+                    g.fillRect(i*12, j*12, 12, 12);
+                }
+                
+            }
+        }
+        
+        
     }
     
     

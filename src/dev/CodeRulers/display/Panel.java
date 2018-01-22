@@ -12,9 +12,11 @@ import dev.CodeRulers.world.World;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import javafx.scene.shape.Circle;
 import javax.swing.Timer;
 
 /**
@@ -26,6 +28,16 @@ public class Panel extends javax.swing.JPanel {
     CodeRulers r;
     BufferedImage sidePanelImage;
     Timer t;
+    Font subHeader = new Font("Myriad", Font.PLAIN, 11);
+    Font header = new Font("Myriad", Font.BOLD, 16);
+
+    int sidePanelWidth = 256;
+    int panelWidth = 1024;
+    int panelHeight = 768;
+    int iconOffset = 0;
+
+    int xCoord;
+    int yCoord;
 
     /**
      * Creates new form Panel
@@ -34,8 +46,10 @@ public class Panel extends javax.swing.JPanel {
         initComponents();
         this.r = r;
         this.setSize(768, 1024);
-        Timer t = new Timer(5,new TimerListener());
+        sidePanelImage = IMAGE.getResizedImage(IMAGE.getBlurredImage(IMAGE.getBufferedImage("src/resources/images/sidePanelImage.jpg"), 20), sidePanelWidth, panelHeight);
+        Timer t = new Timer(1000, new TimerListener());
         t.start();
+
     }
 
     public void tick() {
@@ -46,59 +60,57 @@ public class Panel extends javax.swing.JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        int sidePanelWidth = 256;
-        int panelWidth = 1024;
-        int panelHeight = 768;
-
         super.paintComponent(g);
-        
-        
-        World.render(g);
-        if(sidePanelImage==null) {
-            sidePanelImage = IMAGE.getResizedImage(IMAGE.getBlurredImage(IMAGE.getBufferedImage("src/resources/images/sidePanelImage.jpg"), 20), sidePanelWidth, panelHeight);
-        } 
-        
-        g.drawImage(sidePanelImage,panelWidth-sidePanelWidth,0,null);
-        
-        int count=0;
-        //render all the player GUI
+
+        //render the world layer first.
+        World.render(g,r);
+
+        //draw the sidePanelImage.
+        g.drawImage(sidePanelImage, panelWidth - sidePanelWidth, 0, null);
+
+        //a counter so that we know which ruler in the array we are on. (Enhanced for-loop)
+        int count = 0;
         for (AbstractRuler ruler : r.getRulerArray()) {
-            int yCoord=count * panelHeight / 12 + ((count+1) * 40);
-            int xCoord=panelWidth-sidePanelWidth;
-            
+            //this gets the x coordinate of where the player box should go.
+            yCoord = count * panelHeight / 12 + 20 + ((count) * 12) + iconOffset;
+            xCoord = panelWidth - sidePanelWidth;
+
+            //sets it to the color of the Ruler's Choice. The default is white.
             g.setColor(ruler.getColor());
 
-            g.fillRect(xCoord,yCoord,sidePanelWidth, panelHeight / 12);
+            //the rounded rectangle box that contains all the details.
+            g.fillRoundRect(xCoord + 6, yCoord, sidePanelWidth - 18, panelHeight / 12, 10, 10);
 
+            //this is responsible for resizing and drawing the AI profile picture
             g.drawImage(IMAGE.getResizedImage(ruler.getProfileImage(),
-                    panelHeight / 12 - 12, panelHeight / 12 - 12), 
-                    xCoord+6,yCoord+6,null);
-            
-            Font header = new Font("Myriad", Font.BOLD, 16);
-            g.setFont(header);
-            Font subHeader = new Font("Myriad",Font.BOLD,11);
-            
-            g.setColor(Color.BLACK);
-            
+                    panelHeight / 14 - 12, panelHeight / 14 - 12),
+                    xCoord + 12, yCoord + 6, null);
 
-            g.getFontMetrics(header).getHeight();
-            
-            g.drawString(ruler.getRulerName(),xCoord+panelHeight/12 ,yCoord+g.getFontMetrics(header).getHeight());
-            
+            g.setFont(header);
+            g.setColor(Color.BLACK);
+            //draws the name of the ruler.
+
+            if (ruler.getRulerName().length() > 15) {
+                g.drawString(ruler.getRulerName().substring(0, 15), xCoord + panelHeight / 12 - 3, yCoord + g.getFontMetrics(header).getHeight());
+            } else {
+                g.drawString(ruler.getRulerName(), xCoord + panelHeight / 12 - 3, yCoord + g.getFontMetrics(header).getHeight());
+            }
+
             g.setFont(subHeader);
-            
-            
-            g.drawString(ruler.getSchoolName(), xCoord+panelHeight/12+1 ,yCoord+(g.getFontMetrics(header).getHeight())+g.getFontMetrics(subHeader).getHeight());
-            
-            g.drawString("Points: " + ruler.getPoints() + "     Land: " + World.getLandCount(ruler.getRulerID()), xCoord+panelHeight/12+1 ,
-                    yCoord+(g.getFontMetrics(header).getHeight())+2*g.getFontMetrics(subHeader).getHeight()+3);
-            
+
+            g.drawString(ruler.getSchoolName(), xCoord + panelHeight / 12 - 2, yCoord + (g.getFontMetrics(header).getHeight()) + g.getFontMetrics(subHeader).getHeight());
+
+            g.drawString("Points: " + ruler.getPoints() + "     Land: " + World.getLandCount(ruler.getRulerID()), xCoord + panelHeight / 12 - 2,
+                    yCoord + (g.getFontMetrics(header).getHeight()) + 2 * g.getFontMetrics(subHeader).getHeight() + 3);
+
             count++;
-            
-            
+
         }
 
-        
+        //utility bar
+        g.setColor(new Color(157, 144, 165, 100));
+        g.fillRect(panelHeight, panelHeight - 60, sidePanelWidth, 60);
+
     }
 
     /**
@@ -111,6 +123,11 @@ public class Panel extends javax.swing.JPanel {
     private void initComponents() {
 
         setPreferredSize(new java.awt.Dimension(1024, 768));
+        addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                formMouseWheelMoved(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -123,6 +140,18 @@ public class Panel extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
+        if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && (0 * panelHeight / 12 + 20 + ((0) * 12) + iconOffset) <= 10 && evt.getWheelRotation() > 0) {
+            System.out.println("DOWN");
+            //sets the scale factor based on how much the wheel has moved.
+            iconOffset += ((double) evt.getWheelRotation() * 70);
+        } else if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && ((r.getRulerArray().length - 1) * panelHeight / 12 + 20 + ((r.getRulerArray().length - 1) * 12) + iconOffset) >= (panelHeight - 150) && evt.getWheelRotation() < 0) {
+            iconOffset += ((double) evt.getWheelRotation() * 70);
+            System.out.println("UP");
+        }
+        repaint();
+    }//GEN-LAST:event_formMouseWheelMoved
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
