@@ -56,7 +56,7 @@ public class CodeRulers implements Runnable{
         }
         display = new Display(title, logo, this);
         
-        w = new World();
+        w = new World(this);
     }
     
     

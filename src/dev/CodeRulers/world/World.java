@@ -23,17 +23,35 @@ import java.util.Arrays;
  */
 public class World {
     //image icons for the entities on the board
-    private static BufferedImage worldMap;
+    private static BufferedImage peasantIcn;
+    private static BufferedImage knightIcn;
+    private static BufferedImage castleIcn;
     
     //image for the background of the world
+    private static BufferedImage worldMap;
     
-    public World() {
+    public World(CodeRulers r) {
         knights = new Knight[0];
         peasants = new Peasant[0];
         castles = new Castle[0];
         
         landOwned = new int[64][64];
+        
+        worldMap = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/codeRulersTerrain.png"), 768, 768);
+        peasantIcn = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/CoeRulersSprites2_0.png"), 12, 12);
+        knightIcn = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/CoeRulersSprites2_1.png"), 12, 12);
+        castleIcn = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/CoeRulersSprites2_2.png"), 12, 12);
+        
+        this.r =r;
+        
+        for(int i=0;i<r.getRulerArray().length;i++) {
+            knights = Arrays.copyOf(knights, knights.length+1);
+            r.getRulerArray()[i].getRulerID();
+        }
     }
+    
+    //the game object
+    private static CodeRulers r;
     
     //these are all the knights that exist in the game.
     private static Knight[] knights;
@@ -107,9 +125,9 @@ public class World {
     
     
     
-    public static void render(Graphics g, CodeRulers r) {
+    public static void render(Graphics g) {
         if(worldMap==null) {
-            worldMap = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/codeRulersTerrain.png"), 768, 768);
+            
         } 
         
         g.drawImage(worldMap,0,0,null);
@@ -129,7 +147,17 @@ public class World {
             }
         }
         
+        for(Peasant p:peasants) {
+            g.drawImage(peasantIcn, p.getX()*12, p.getY()*12, null);
+        }
         
+        for(Knight k:knights) {
+            g.drawImage(knightIcn, k.getX()*12, k.getY()*12, null);
+        }
+        
+        for(Castle c:castles) {
+            g.drawImage(castleIcn, c.getX()*12, c.getY()*12, null);
+        }
     }
     
     
