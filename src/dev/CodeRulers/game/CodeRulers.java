@@ -5,14 +5,10 @@
  */
 package dev.CodeRulers.game;
 
+//Import statements
 import dev.CodeRulers.display.Display;
 import dev.CodeRulers.ruler.AbstractRuler;
-import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.World;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 /**
@@ -49,66 +45,26 @@ public class CodeRulers implements Runnable{
         //This is stored in the AbstractRuler array, r.
         this.r = Arrays.copyOf(r, r.length);
         
+        //sets a ruler ID unique to every ruler.
         int count=0;
         for(AbstractRuler ruler : this.r) {
             ruler.setRulerID(count);
             count++;
         }
+        
+        //creates a new JFrame display to display all the graphics in the game.
         display = new Display(title, logo, this);
         
+        //creates a new world object. 
         w = new World(this);
     }
     
-    
-
-    /*
-    private void initGUI() {
-        sidePanelWidth = display.getPanel().getWidth()-display.getPanel().getHeight();
-        panelWidth = display.getPanel().getWidth();
-        panelHeight = display.getPanel().getHeight();
-        
-        
-        
-        
-        
-        
-    }
-    */
-    
-
-    
-    /**
-     * This method draws all of the graphics in the window.
-     */
-    /*
-    private void render() {
-        
-        for(int i=0;i<r.length;i++) {
-            g.setColor(r[i].getColor());
-           
-            g.fillRect(panelWidth-sidePanelWidth,40+i*panelHeight/10+(i*40), sidePanelWidth, panelHeight/10);
-
-             g.drawImage(IMAGE.getResizedImage(r[i].getProfileImage(),panelHeight/10-12,panelHeight/10-12), panelWidth-sidePanelWidth+7,47+i*panelHeight/10+(i*40) , null);
-            
-        }
-        
-        World.render(g);
-        
-        Font f = new Font("Myriad", Font.BOLD, 16);
-        g.setFont(f);
-        g.drawString("sean xhang", 25, 25);
-        //g.drawRect(10, 20, 20, 20);
-        g.dispose();
-    }
-    */
-    
     @Override
     public void run() {
-        
+        //the "game" loop (even though it is empty)
         while(running) {
            
         }
-        
         
         //even though the thread is stopped when the stop method
         //is called (which exits the loop)
@@ -154,12 +110,11 @@ public class CodeRulers implements Runnable{
         }
     }
 
+    /**
+     * This method provides access to the array of rulers in the game.
+     * @return the array of ruler objects in the game.
+     */
     public AbstractRuler[] getRulerArray() {
         return r;
     }
-
-    public void setRulerArray(AbstractRuler[] r) {
-        this.r = r;
-    }
-
 }

@@ -23,10 +23,11 @@ public abstract class AbstractRuler {
     //the number of points this ruler has
     int points;
     
+    //this is the default profile URL for any AI.
     protected String profileURL="http://www.havoca.org/wp-content/uploads/2016/03/icon-user-default-300x300.png";
     
     private BufferedImage profileImage;
-    
+    //this is the default profile color for the AI.
     private Color c=Color.WHITE;
     
     

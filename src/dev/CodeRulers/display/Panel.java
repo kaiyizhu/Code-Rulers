@@ -30,7 +30,7 @@ public class Panel extends javax.swing.JPanel {
     //cursor to calculate the difference between x and y values between the original
     //position of the cursor and the new position of the cursor.
     private int initX, initY;
-    
+
     //this is the CodeRulers game object. This is needed to access the AI objects passed into the game class.
     CodeRulers r;
 
@@ -68,8 +68,7 @@ public class Panel extends javax.swing.JPanel {
      * @param r This is the codeRulers object that is passed in. In this
      * program, it is passed through to the display and then to this class.
      */
-    public Panel(CodeRulers r) 
-    {
+    public Panel(CodeRulers r) {
         //initializes graphical components related to the Netbeasn GUI builder.
         initComponents();
 
@@ -91,10 +90,8 @@ public class Panel extends javax.swing.JPanel {
         //t.start();
     }
 
-    
     @Override
-    public void paintComponent(Graphics g) 
-    {
+    public void paintComponent(Graphics g) {
         //calls the paintComponent method in the superClass. This essentially
         //clears the screen (I think)
         super.paintComponent(g);
@@ -109,13 +106,12 @@ public class Panel extends javax.swing.JPanel {
 
         //a counter so that we know which ruler in the array we are on. (Enhanced for-loop)
         int count = 0;
-        
+
         /*  This enhanced for-loop loops through all the rulers in the ruler array
             stored in the codeRulers class. Then, it draws every attribute related
             to the ruler. 
-        */
-        for (AbstractRuler ruler : r.getRulerArray()) 
-        {
+         */
+        for (AbstractRuler ruler : r.getRulerArray()) {
             //this gets the x coordinate of where the player box should go.
             yCoord = count * panelHeight / 12 + 20 + ((count) * 12) + iconOffset;
             xCoord = panelWidth - sidePanelWidth;
@@ -130,7 +126,7 @@ public class Panel extends javax.swing.JPanel {
                 It calculates the relative coordinates based on where xCoord and yCoord
                 are and draws it, resized relative to the height of the sidePanel and 
                 height of the box containing the image and details.
-            */
+             */
             g.drawImage(IMAGE.getResizedImage(ruler.getProfileImage(),
                     panelHeight / 14 - 12, panelHeight / 14 - 12),
                     xCoord + 12, yCoord + 6, null);
@@ -138,19 +134,18 @@ public class Panel extends javax.swing.JPanel {
             //sets the font to the font object, header. This is done in preparation of drawing 
             //the ruler's name to the screen.
             g.setFont(header);
-            
+
             //sets the color of the text to black, making sure that all names are
             //one consistent color.
             g.setColor(Color.BLACK);
-            
+
             /*  draws the name of the ruler. This is obtained by calling the getRulerName
                 in the classes that extend the AbstractRuler class. 
                 The position of the string is calculated relative to the position of xCoord
                 and yCoord. If the string is too long in characters, the program will cut off
                 the end of the string.
-            */
-            if (ruler.getRulerName().length() > 15) 
-            {
+             */
+            if (ruler.getRulerName().length() > 15) {
                 g.drawString(ruler.getRulerName().substring(0, 15), xCoord + panelHeight / 12 - 3, yCoord + g.getFontMetrics(header).getHeight());
             } else {
                 g.drawString(ruler.getRulerName(), xCoord + panelHeight / 12 - 3, yCoord + g.getFontMetrics(header).getHeight());
@@ -229,6 +224,7 @@ public class Panel extends javax.swing.JPanel {
 
     /**
      * This method is called whenever the mouseWheel is moved.
+     *
      * @param evt The mouse wheel event.
      */
     private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
@@ -238,69 +234,57 @@ public class Panel extends javax.swing.JPanel {
             the user cannot scroll the boxes off the screen. 
             In addition, this method is only called when the mouse cursor is
             directly on the area eligible to scroll.
-        */
-        if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && 
-           (0 * panelHeight / 12 + 20 + ((0) * 12) + iconOffset) <= 10 &&
-           (evt.getWheelRotation()) < 0) 
-        {
+         */
+        if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60
+                && (0 * panelHeight / 12 + 20 + ((0) * 12) + iconOffset) <= 10
+                && (evt.getWheelRotation()) < 0) {
             //sets the offset to the amount the user has scrolled up. This means
             //that the offset will decrease.
             iconOffset -= ((double) evt.getWheelRotation() * 70);
-        } 
-        
-        /*
+        } /*
             This case is for when the user wants to scroll down (essentially move
             the list down). It will restrict the user to a limited amount of
             scrolling so that the user cannot scroll the boxes off the screen.
             In addition, this method is only called when the mouse cursor is directly
             on the area eligible to scroll.
-        */
-        else if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 &&
-                ((r.getRulerArray().length - 1) * panelHeight / 12 + 20 + 
-                ((r.getRulerArray().length - 1) * 12) + iconOffset) >= 
-                (panelHeight - 150) && evt.getWheelRotation() > 0) 
-        {
+         */ else if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60
+                && ((r.getRulerArray().length - 1) * panelHeight / 12 + 20
+                + ((r.getRulerArray().length - 1) * 12) + iconOffset)
+                >= (panelHeight - 150) && evt.getWheelRotation() > 0) {
             //sets the offest to the amount the user has scrolled down.
             //This means that the offest will increase.
             iconOffset -= ((double) evt.getWheelRotation() * 70);
-        } 
-        
-        /*
+        } /*
             This case is for when the user wants to zoom out of the world.
             It will restrict the user to a limited amount of zooming
             so that the user cannot zoom too far in and too far out.
             In addition, this method is only called when the mouse cursor is 
             directly on the area eligible to scroll.
-        */
-        else if (evt.getX() < panelHeight && World.getScaleFactor() > 0.9 &&
-                 evt.getWheelRotation() > 0) 
-        {
+         */ else if (evt.getX() < panelHeight && World.getScaleFactor() > 0.9
+                && evt.getWheelRotation() > 0) {
             //sets the scale factor based on how much the wheel has moved.
             World.setScaleFactor(World.getScaleFactor() - ((double) evt.getWheelRotation() / 20));
             System.out.println(World.getScaleFactor());
-        }
-        
-        /*
+        } /*
             This case is for when the user wants to zoom into the world.
             It will restrict the user to a limited amount of zooming 
             so that the user cannot zoom too far in and too far out.
             In addition, this method is only called when the mouse cursor is
             directly on the area eligible to scroll.
-        */
-        else if (evt.getX() < panelHeight && World.getScaleFactor() < 1.85 &&
-                 evt.getWheelRotation() < 0) 
-        {
+         */ else if (evt.getX() < panelHeight && World.getScaleFactor() < 1.85
+                && evt.getWheelRotation() < 0) {
             //sets the scale factor based on how much the wheel has moved.
             World.setScaleFactor(World.getScaleFactor() - ((double) evt.getWheelRotation() / 20));
             System.out.println(World.getScaleFactor());
         }
-        
+
         //refreshes the screen to display the changes made to the GUI.
         repaint();
     }//GEN-LAST:event_formMouseWheelMoved
 
     /**
      * This method is called when the mouse is dragged across the screen.
+     *
      * @param evt the mouse event.
      */
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
@@ -319,41 +303,73 @@ public class Panel extends javax.swing.JPanel {
 
     /**
      * Called when a mouse button is pressed.
+     *
      * @param evt the mouse event.
      */
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        //gets the intial x and y coordinates of the mouse.
         initX = evt.getX();
         initY = evt.getY();
     }//GEN-LAST:event_formMousePressed
 
+    /**
+     * Called when the mouse button is released.
+     *
+     * @param evt the mouse event.
+     */
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        if (World.getxOffset() > 70) {
+        /*  If the position of the map deviates from the original position of the 
+            map, the offset will be reset to a closer offset. This essentially 
+            restricts the user from panning too far out in all directions.
+         */
+        
+        //this is for preventing the user from panning too far right.
+        if (World.getxOffset() > 70) 
+        {
             World.setxOffset(71);
         }
-        if (World.getyOffset() > 70) {
+        
+        //this is for preventing the user from panning too far down.
+        if (World.getyOffset() > 70) 
+        {
             World.setyOffset(71);
         }
-        if (World.getxOffset() < (768 - World.mapResized.getWidth() - 70)) {
+        
+        //this is for preventing the user from panning too far left.
+        if (World.getxOffset() < (768 - World.mapResized.getWidth() - 70)) 
+        {
             World.setxOffset((768 - World.mapResized.getWidth() - 70) - 4);
         }
-        if (World.getyOffset() < (768 - World.mapResized.getHeight() - 70)) {
+        
+        //this is for preventing the user from panning too far up.
+        if (World.getyOffset() < (768 - World.mapResized.getHeight() - 70)) 
+        {
             World.setyOffset((768 - World.mapResized.getHeight() - 70) - 4);
         }
+        
+        //refreshes the screen so that changes become effective.
         repaint();
     }//GEN-LAST:event_formMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    private class TimerListener implements ActionListener {
+    private class TimerListener implements ActionListener 
+    {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent e) 
+        {
+            //This updates all the things related to the rulers. Once updated,
+            //the graphics can then be updated.
+            
+            //This method is typically called once per cycle.
             for (AbstractRuler ruler : r.getRulerArray()) {
                 ruler.orderSubjects();
             }
+            
+            //repainted to show new changes to the game.
             repaint();
-
         }
 
     }

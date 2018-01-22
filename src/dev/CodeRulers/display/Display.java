@@ -6,42 +6,52 @@
 package dev.CodeRulers.display;
 
 import dev.CodeRulers.game.CodeRulers;
-import java.awt.Image;
-import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
- * @author seanz
+ * This class is the window which will display our program.
+ * 
+ * @author Sean Zhang
  */
 public class Display extends JFrame {
-    //this is the logo for the game
+    //This is the image icon that the program will display when it is run.
     private ImageIcon logo;
+    
+    //this the JPanel that will be responsible for all graphical drawing to the
+    //screen in the program.
     private JPanel panel1;
+    
     //Jframe variables:
     private String title; //title of the jframe
     private int width,height; //width and height of jframe
-    
-
     
     /**
      * The Constructor for the Display Class. In this block of code, all graphical
      * components of the game are initialized.
      */
     public Display(String title, String imageLogo, CodeRulers r) {
-
-        
+        //Message that tells user that the display has been intialized.
         System.out.println("Display Initialized.");
+        
+        //creates the new ImageIcon object.
         logo = new ImageIcon(getClass().getResource("/resources/logo/" + imageLogo));
-		
+        
+        //intializes graphical components of the game.
         initComponents();
+        
+        //creates a new Panel object and passes in the game object, CodeRulers r.
         panel1 = new Panel(r);
+        
+        //additional things to add to the JPanel, since I do not have access to
+        //the code in initComponents();
 	this.add(panel1);
         this.setIconImage(logo.getImage());
         this.setTitle(title);
         this.pack();
+        
+        //display the JFrame.
         this.setVisible(true);
     }
     

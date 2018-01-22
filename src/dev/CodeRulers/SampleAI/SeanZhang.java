@@ -11,13 +11,16 @@ import dev.CodeRulers.ruler.AbstractRuler;
 import java.awt.Color;
 
 /**
- *
- * @author seanz
+ * I am using this class for graphical testing.
+ * 
+ * @author Sean Zhang
  */
 public class SeanZhang extends AbstractRuler {
 
     @Override
     public void orderSubjects() {
+        
+        //just for testing... These just move the objects north.
         for (Knight knight : getKnights()) {
             knight.move(1);
         }
@@ -31,10 +34,15 @@ public class SeanZhang extends AbstractRuler {
 
     @Override
     public void initialize() {
+        //Message telling the user that this object has been intialized.
         System.out.println("Ruler Sean Zhang been initialized");
         
-        //some secret methods :) Just for testing
+        //this sets the profileURL of this AI. All you have to do is to provide
+        //an internet link to the image.
         profileURL =("https://avatars1.githubusercontent.com/u/20467017?s=460&v=4");
+        
+        //this is the preferred color for my AI. This color will be the main 
+        //color scheme displayed in the GUI for this AI.
         setColor(new Color(139, 91, 183,178));
     }
 
