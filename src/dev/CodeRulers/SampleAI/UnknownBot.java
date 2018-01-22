@@ -95,6 +95,7 @@ public class UnknownBot extends AbstractRuler {
                     for (int y = -1; y <= 1; y++) {
                         if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
                             peasant.move(findDir(x, y));
+                            System.out.print("1");
                         }
                     }
                 }
@@ -104,6 +105,7 @@ public class UnknownBot extends AbstractRuler {
                     for (int y = -1; y <= 1; y++) {
                         if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
                             peasant.move(findDir(x, y));
+                            System.out.print("2");
                         }
                     }
                 }
@@ -113,6 +115,7 @@ public class UnknownBot extends AbstractRuler {
                     for (int y = 1; y >= -1; y--) {
                         if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
                             peasant.move(findDir(x, y));
+                            System.out.print("3");
                         }
                     }
                 }
@@ -121,6 +124,7 @@ public class UnknownBot extends AbstractRuler {
                     for (int y = 1; y >= -1; y--) {
                         if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
                             peasant.move(findDir(x, y));
+                            System.out.print("4");
                         }
                     }
                 }

@@ -30,7 +30,7 @@ public class Knight extends Entity{
 
     @Override
     public boolean hasAction(){
-        return true;
+        return hasAction;
     }
     
     @Override

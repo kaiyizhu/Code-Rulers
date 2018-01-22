@@ -31,6 +31,7 @@ public class Castle extends Entity{
         //call the entity constructer
         super(x, y, ruler);
         entityIcn = IMAGE.getBufferedImage("src/resources/images/CodeRulersSprites2_2.png");
+        hasAction = false;
     }
 
     @Override
