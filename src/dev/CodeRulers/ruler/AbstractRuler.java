@@ -144,8 +144,8 @@ public abstract class AbstractRuler {
                 ours.add(p);
             }
         }
-        //convert stack to array
-        Peasant[] returned = (Peasant[])ours.toArray();
+        //convert ArrayList to array
+        Peasant[] returned = ours.toArray(new Peasant[ours.size()]);
         //return array
         return returned;
     }
@@ -163,8 +163,8 @@ public abstract class AbstractRuler {
             if(k.getRuler() == rulerID)
             ours.add(k);
         }
-        //convert stack to array?
-        Knight[] returned = (Knight[]) ours.toArray();
+        //ArrayList converted to an array.
+        Knight[] returned = ours.toArray(new Knight[ours.size()]);
         //return array
         return returned;
     }
@@ -184,8 +184,8 @@ public abstract class AbstractRuler {
                 ours.add(i);
             }
         }
-        //convert stack to array?
-        Castle[] returned = (Castle[]) ours.toArray();
+        //convert ArrayList to array
+        Castle[] returned = ours.toArray(new Castle[ours.size()]);
         //return array
         return returned;
     }
@@ -206,8 +206,8 @@ public abstract class AbstractRuler {
                 others.add(p);
             }
         }
-        //convert stack to array
-        Peasant[] returned = (Peasant[])others.toArray();
+        //convert ArrayList to array
+        Peasant[] returned = others.toArray(new Peasant[others.size()]);
         //return array
         return returned;
     }
@@ -225,8 +225,8 @@ public abstract class AbstractRuler {
             if(k.getRuler() != rulerID)
             others.add(k);
         }
-        //convert stack to array?
-        Knight[] returned = (Knight[]) others.toArray();
+        //convert ArrayList to array
+        Knight[] returned = others.toArray(new Knight[others.size()]);
         //return array
         return returned;
     }
@@ -246,8 +246,8 @@ public abstract class AbstractRuler {
                 others.add(i);
             }
         }
-        //convert stack to array?
-        Castle[] returned = (Castle[]) others.toArray();
+        //convert ArrayList to array
+        Castle[] returned = others.toArray(new Castle[others.size()]);
         //return array
         return returned;
     }

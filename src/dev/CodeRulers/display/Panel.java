@@ -87,7 +87,7 @@ public class Panel extends javax.swing.JPanel {
         Timer t = new Timer(1000, new TimerListener());
 
         //starts the timer ====>>>>>> THIS SHOULD NOT BE HERE: IT SHOULD ONLY START WHEN THE USER PRESSES START ON THE SCREEN
-        //t.start();
+        t.start();
     }
 
     @Override
