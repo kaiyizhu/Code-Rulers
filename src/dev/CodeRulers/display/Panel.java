@@ -26,6 +26,11 @@ import javax.swing.Timer;
  */
 public class Panel extends javax.swing.JPanel {
 
+    //these two variables are used to determine the previous position of the
+    //cursor to calculate the difference between x and y values between the original
+    //position of the cursor and the new position of the cursor.
+    private int initX, initY;
+    
     //this is the CodeRulers game object. This is needed to access the AI objects passed into the game class.
     CodeRulers r;
 
@@ -224,31 +229,83 @@ public class Panel extends javax.swing.JPanel {
 
     /**
      * This method is called whenever the mouseWheel is moved.
-     * @param evt 
+     * @param evt The mouse wheel event.
      */
     private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
-        if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && (0 * panelHeight / 12 + 20 + ((0) * 12) + iconOffset) <= 10 && evt.getWheelRotation() < 0) {
-            System.out.println("UP");
-            //sets the scale factor based on how much the wheel has moved.
+        /*
+            This case is for when the user wants the scroll up (essentially move up the list).
+            It will restrict the user to a limited amount of scrolling so that
+            the user cannot scroll the boxes off the screen. 
+            In addition, this method is only called when the mouse cursor is
+            directly on the area eligible to scroll.
+        */
+        if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && 
+           (0 * panelHeight / 12 + 20 + ((0) * 12) + iconOffset) <= 10 &&
+           (evt.getWheelRotation()) < 0) 
+        {
+            //sets the offset to the amount the user has scrolled up. This means
+            //that the offset will decrease.
             iconOffset -= ((double) evt.getWheelRotation() * 70);
-        } else if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 && ((r.getRulerArray().length - 1) * panelHeight / 12 + 20 + ((r.getRulerArray().length - 1) * 12) + iconOffset) >= (panelHeight - 150) && evt.getWheelRotation() > 0) {
+        } 
+        
+        /*
+            This case is for when the user wants to scroll down (essentially move
+            the list down). It will restrict the user to a limited amount of
+            scrolling so that the user cannot scroll the boxes off the screen.
+            In addition, this method is only called when the mouse cursor is directly
+            on the area eligible to scroll.
+        */
+        else if (evt.getX() > panelHeight && evt.getY() < panelHeight - 60 &&
+                ((r.getRulerArray().length - 1) * panelHeight / 12 + 20 + 
+                ((r.getRulerArray().length - 1) * 12) + iconOffset) >= 
+                (panelHeight - 150) && evt.getWheelRotation() > 0) 
+        {
+            //sets the offest to the amount the user has scrolled down.
+            //This means that the offest will increase.
             iconOffset -= ((double) evt.getWheelRotation() * 70);
-            System.out.println("DOWN");
-            //zooming the world.
-        } else if (evt.getX() < panelHeight && World.getScaleFactor() > 0.9 && evt.getWheelRotation() > 0) {
+        } 
+        
+        /*
+            This case is for when the user wants to zoom out of the world.
+            It will restrict the user to a limited amount of zooming
+            so that the user cannot zoom too far in and too far out.
+            In addition, this method is only called when the mouse cursor is 
+            directly on the area eligible to scroll.
+        */
+        else if (evt.getX() < panelHeight && World.getScaleFactor() > 0.9 &&
+                 evt.getWheelRotation() > 0) 
+        {
             //sets the scale factor based on how much the wheel has moved.
-            World.setScaleFactor(World.getScaleFactor() - ((double) evt.getWheelRotation() / 20));
-            System.out.println(World.getScaleFactor());
-        } else if (evt.getX() < panelHeight && World.getScaleFactor() < 1.85 && evt.getWheelRotation() < 0) {
             World.setScaleFactor(World.getScaleFactor() - ((double) evt.getWheelRotation() / 20));
             System.out.println(World.getScaleFactor());
         }
+        
+        /*
+            This case is for when the user wants to zoom into the world.
+            It will restrict the user to a limited amount of zooming 
+            so that the user cannot zoom too far in and too far out.
+            In addition, this method is only called when the mouse cursor is
+            directly on the area eligible to scroll.
+        */
+        else if (evt.getX() < panelHeight && World.getScaleFactor() < 1.85 &&
+                 evt.getWheelRotation() < 0) 
+        {
+            //sets the scale factor based on how much the wheel has moved.
+            World.setScaleFactor(World.getScaleFactor() - ((double) evt.getWheelRotation() / 20));
+            System.out.println(World.getScaleFactor());
+        }
+        
+        //refreshes the screen to display the changes made to the GUI.
         repaint();
     }//GEN-LAST:event_formMouseWheelMoved
 
-    private int initX, initY;
+    /**
+     * This method is called when the mouse is dragged across the screen.
+     * @param evt the mouse event.
+     */
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-
+        //sets the offest relative to the position of the old cursor position
+        //and new cursor position.
         World.setxOffset(World.getxOffset() + evt.getX() - initX);
         World.setyOffset(World.getyOffset() + evt.getY() - initY);
 
@@ -256,10 +313,14 @@ public class Panel extends javax.swing.JPanel {
         initX = evt.getX();
         initY = evt.getY();
 
-        //refreshes the screen to show the changes made to the fractal.
+        //refreshes the screen to show the changes made to the world.
         repaint();
     }//GEN-LAST:event_formMouseDragged
 
+    /**
+     * Called when a mouse button is pressed.
+     * @param evt the mouse event.
+     */
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         initX = evt.getX();
         initY = evt.getY();
