@@ -30,7 +30,7 @@ public class Knight extends Entity{
 
     @Override
     public boolean hasAction(){
-        return hasAction;
+        return true;
     }
     
     @Override
@@ -39,7 +39,7 @@ public class Knight extends Entity{
         if(changePos(dir)){
             //do nothing. Its a knight
         }else{
-            System.out.println("Illegal Movement attempted by " + ruler +
+            System.out.println("Illegal Movement attempted by ruler " + ruler +
                     " and Knight at " + x + " , " + y );
         }    
     }

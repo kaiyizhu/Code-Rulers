@@ -18,8 +18,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- *
- * @author seanzhang
+ * This Class contains all the entities on the world.
+ * 
+ * @author Sean Zhang
  */
 public class World {
 

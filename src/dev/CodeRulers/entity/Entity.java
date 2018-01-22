@@ -129,7 +129,7 @@ public abstract class Entity {
             //translate the direction into x,y differences
             int[] xy = AbstractRuler.translateDir(dir);
             //check if someone is at the location where they are trying to move
-            Entity inLocation = World.getEntityAt(x+xy[1], y+xy[2]);
+            Entity inLocation = World.getEntityAt(x+xy[0], y+xy[1]);
             if(inLocation != null){
                 if(this instanceof Knight && inLocation instanceof Peasant){
                     //capture the peasant, and continue to move
@@ -141,13 +141,13 @@ public abstract class Entity {
             }
             
             //Check if the entity would move out of bounds
-            if(x + xy[1] < 0 || x + xy[1] >= 64 || y + xy[2] < 0 || y + xy[2] >= 64) {
+            if(x + xy[0] < 0 || x + xy[0] >= 64 || y + xy[1] < 0 || y + xy[1] >= 64) {
                 return false;
             }
             
             //move the piece in that direction
-            x+=xy[1];
-            y+=xy[2];
+            x+=xy[0];
+            y+=xy[1];
             return true;
         }
         

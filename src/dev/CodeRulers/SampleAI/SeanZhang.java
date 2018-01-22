@@ -22,11 +22,11 @@ public class SeanZhang extends AbstractRuler {
         
         //just for testing... These just move the objects north.
         for (Knight knight : getKnights()) {
-            knight.move(1);
+            move(knight, 1);
         }
         
         for (Peasant peasant : getPeasants()) {
-            peasant.move(1);
+            move(peasant, 1);
         }
         
         

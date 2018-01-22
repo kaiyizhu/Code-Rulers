@@ -276,24 +276,24 @@ public abstract class AbstractRuler {
         //if the direction involves moving east
         if(dir < 5 && dir >1){
             //set change in x to positive 1
-            xy[1] = 1;
+            xy[0] = 1;
         //otherwise, if the direction involves moving west
         }else if(dir > 5 && dir <9){
             //set change in x to -1
-            xy[1] = -1;
+            xy[0] = -1;
         }
         //if the direction involves moving north (and not west)
         if(dir >0 && dir<3){
             //set the change in y to -1
-            xy[2] = -1;
+            xy[1] = -1;
         //otherwsie, if the direction involves moving northwest    
         }else if(dir == 8){
             //set the change in y to -1
-            xy[2] = -1;
+            xy[1] = -1;
         //otherwise if the direction involves moving south
         }else if(dir > 3 && dir <7){
             //set the change in y to positive 1
-            xy[2] = 1;
+            xy[1] = 1;
         }
         //return the directional coordinates
         return xy;

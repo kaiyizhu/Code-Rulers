@@ -30,7 +30,7 @@ public class Peasant extends Entity{
 
     @Override
     public boolean hasAction(){
-        return hasAction;
+        return true;
     }
 
     @Override
