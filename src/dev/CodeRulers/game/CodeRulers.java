@@ -42,6 +42,7 @@ public class CodeRulers implements Runnable{
     /**
      * The constructor for the CodeRulers Class.
      * @param r - Pass in an array of abstractRulers that the user wants to input into the game.
+     * @param graphics Whether the game opens the GUI or runs in the console.
      */
     public CodeRulers(AbstractRuler[] r, boolean graphics) {
         //initialization confirmation

@@ -56,10 +56,10 @@ public class Knight extends Entity{
      * Attempts to capture the given entity. Should only be called by the
      * AbstractRuler class.
      * @param attacked The entity which is to be attacked 
-     * @return  The number of points you earn from attacking that entity
+     * @return  The number of points earned in attack (0 indicates no Entity captured)
      */
     public int capture(Entity attacked){
-        if(this.getDistanceTo(attacked.getX(), attacked.getY()) > 1){
+        if(this.getDistanceTo(attacked.getX(), attacked.getY()) > 1 || !this.hasAction){
             return 0;
         }
         //if the attacked entity is a knight

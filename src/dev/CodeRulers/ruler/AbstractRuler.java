@@ -21,7 +21,7 @@ public abstract class AbstractRuler {
     //integer used to identify this ruler in game(roughly equivalent to player number)
     protected int rulerID; //not sure about final or not
     //the number of points this ruler has
-    int points;
+    private int points;
     
     //this is the default profile URL for any AI.
     protected String profileURL="http://www.havoca.org/wp-content/uploads/2016/03/icon-user-default-300x300.png";

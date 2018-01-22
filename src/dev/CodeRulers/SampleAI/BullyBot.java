@@ -6,7 +6,10 @@
 package dev.CodeRulers.SampleAI;
 
 import dev.CodeRulers.ruler.*;
-import dev.CodeRulers.entity.*;
+import dev.CodeRulers.entity.Castle;
+import dev.CodeRulers.entity.Knight;
+import dev.CodeRulers.entity.Peasant;
+
 import dev.CodeRulers.world.World;
 import java.util.Random;
 
