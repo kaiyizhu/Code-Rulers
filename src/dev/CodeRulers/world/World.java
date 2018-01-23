@@ -392,5 +392,7 @@ public class World {
     public static void setyOffset(int yOffset) {
         World.yOffset = yOffset;
     }
-
+    public static int getNumRulers(){
+        return r.getRulerArray().length;
+    }
 }

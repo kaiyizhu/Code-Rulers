@@ -53,8 +53,6 @@ public class BullyBot extends AbstractRuler {
         }
         //if it is within the first 20 turns
         if(CodeRulers.getTurnCount() <=1 ){
-            //choose the starting direction
-            chooseStartingDir();
             //order starting peasants
             setUp();
         }else if( CodeRulers.getTurnCount() < 20){
@@ -141,6 +139,7 @@ public class BullyBot extends AbstractRuler {
     private void orderPeasants(){
         //get the list of my peasants
         Peasant[] myP = getPeasants();
+        chooseDir();
         //for every one of my peasants
         for(Peasant p : myP){
             //if the tile they would move to is not captured
@@ -167,7 +166,7 @@ public class BullyBot extends AbstractRuler {
         //the id of the ruler with the least land owned so far
         int lowID = -1;
         //for all of the rulers in the game
-        for(int i=0; i<4; i++){
+        for(int i=0; i<World.getNumRulers(); i++){
             //set a temporary variable to the count of this ruler's land
             int temp = World.getLandCount(i);
             //if the ruler at this index is not Bully
@@ -181,9 +180,9 @@ public class BullyBot extends AbstractRuler {
         //set the target to the ruler with the least land
         target = lowID;
         //get the array of all the castles
-        Castle[] allCastles = World.getAllCastles();
+        Castle[] otherCastles = getOtherCastles();
         //for every castle
-        for(Castle c: allCastles){
+        for(Castle c: otherCastles){
             //if this castle is owned by the target
             if(c.getRuler() == target)
                 //stick the knights on it
@@ -214,6 +213,33 @@ public class BullyBot extends AbstractRuler {
             //set the corner to 4, direction of expansion to south east
             corner = 4;
             dir = 4;
+        }
+    }
+    private void chooseDir(){
+        Peasant[] myPeasants = getPeasants();
+        int netX = 0;
+        int netY = 0;
+        for(Peasant p : myPeasants){
+            if(p.getX() >= 32){
+                netX--;
+            }else{
+                netX++;
+            }
+            if(p.getY() >= 32){
+                netY++;
+            }else{
+                netY--;
+            }
+        }
+        if(netX < 0){
+            dir = 7;
+        }else{
+            dir = 3;
+        }
+        if(netY < 1){
+            dir++;
+        }else if(netY > 1){
+            dir--;
         }
     }
 
