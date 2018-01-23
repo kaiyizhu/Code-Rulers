@@ -51,6 +51,8 @@ public class UnknownBot extends AbstractRuler {
                 closestCastle = castle;
             }
         }
+        
+        
 
         //Move towards the castle
         for (Knight knight : knights) {

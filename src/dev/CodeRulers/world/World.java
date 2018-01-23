@@ -309,15 +309,7 @@ public class World {
                 if (landOwned[i][j] == -1) {
 
                 } else {
-                    int rulerIndex=0;
-                    
-                    for(int k=0;k<r.getRulerArray().length;k++) {
-                        if(r.getRulerArray()[k].getRulerID()==landOwned[i][j]) {
-                            rulerIndex=k;
-                        }
-                    }
-                    
-                    Color c = r.getRulerArray()[rulerIndex].getColor();
+                    Color c = r.getRulerArray()[landOwned[i][j]].getColor();
                     g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 150));
                     g.fillRect((int) (i * 12 * scaleFactor) + xOffset, (int) (j * 12 * scaleFactor) + yOffset, (int) (12 * scaleFactor), (int) (12 * scaleFactor));
                 }
@@ -327,14 +319,20 @@ public class World {
 
         for (Peasant p : peasants) {
             p.drawEntity(g, scaleFactor, xOffset, yOffset);
+            g.setColor(r.getRulerArray()[p.getRuler()].getColor());
+            g.fillRect((int)(p.getX()*12*scaleFactor)+xOffset,(int)(p.getY()*12*scaleFactor)+yOffset, 3,3);
         }
 
         for (Knight k : knights) {
             k.drawEntity(g, scaleFactor, xOffset, yOffset);
+            g.setColor(r.getRulerArray()[k.getRuler()].getColor());
+            g.fillRect((int)(k.getX()*12*scaleFactor)+xOffset,(int)(k.getY()*12*scaleFactor)+yOffset, 3,3);
         }
 
         for (Castle c : castles) {
             c.drawEntity(g, scaleFactor, xOffset, yOffset);
+            g.setColor(r.getRulerArray()[c.getRuler()].getColor());
+            g.fillRect((int)(c.getX()*12*scaleFactor)+xOffset,(int)(c.getY()*12*scaleFactor)+yOffset, 3,3);
         }
 
         lastScaleFactor = scaleFactor;

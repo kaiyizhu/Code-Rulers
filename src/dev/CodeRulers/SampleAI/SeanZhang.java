@@ -12,7 +12,7 @@ import dev.CodeRulers.world.World;
 import java.awt.Color;
 
 /**
- * I am using this class for graphical testing.
+ * I am using this class for graphical testing. I also added a game-breaking bug
  * 
  * @author Sean Zhang
  */

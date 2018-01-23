@@ -119,9 +119,11 @@ public class Panel extends javax.swing.JPanel {
             stored in the codeRulers class. Then, it draws every attribute related
             to the ruler. 
          */
-        Arrays.sort(r.getRulerArray());
+        AbstractRuler[] rulerArr = Arrays.copyOf(r.getRulerArray(),r.getRulerArray().length);
         
-        for (AbstractRuler ruler : r.getRulerArray()) {
+        Arrays.sort(rulerArr);
+        
+        for (AbstractRuler ruler : rulerArr) {
             //this gets the x coordinate of where the player box should go.
             yCoord = count * panelHeight / 12 + 20 + ((count) * 12) + iconOffset;
             xCoord = panelWidth - sidePanelWidth;
