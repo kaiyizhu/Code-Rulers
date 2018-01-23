@@ -13,6 +13,8 @@ import dev.CodeRulers.world.World;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -22,7 +24,9 @@ import javax.swing.Timer;
  * @author Sean Zhang
  */
 public class CodeRulers implements Runnable {
-
+    //this is the amount of turns a player makes before the game ends.
+    private final int turnLimit=5000;
+    
     //this is the name of the window and the file directory of where the logo image is
     private String title = "CodeRulers: An AI Program for Noobs", logo = "logo.png";
 
@@ -242,9 +246,23 @@ public class CodeRulers implements Runnable {
 
                 turnCount++;
 
-                if (turnCount > 5000) {
+                if (turnCount > turnLimit) {
                     t.stop();
                     gameEnd = true;
+                    System.out.println("Game End");
+                    AbstractRuler[] rulerArr = Arrays.copyOf(r,r.length);
+                    Arrays.sort(rulerArr);
+                    System.out.println("LEADERBOARD:");
+                    for(int i =0;i<rulerArr.length;i++) {
+                        try {Thread.sleep(1000);} catch (InterruptedException ex) {}
+                        
+                        System.out.println(i+1+". "+rulerArr[i].getRulerName() +": "+rulerArr[i].getPoints() + " points.");
+                    }
+                    
+                    if(display==null) {
+                        System.exit(0);
+                    }
+                    
                 }
 
             }

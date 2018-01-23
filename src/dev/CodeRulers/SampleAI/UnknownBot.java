@@ -45,6 +45,7 @@ public class UnknownBot extends AbstractRuler {
 
     private void moveKnights() {
         Castle closestCastle = new Castle(150, 150, 150);
+
         //Find closest castle to attack
         for (Castle castle : eCastles) {
             if (castles[0].getDistanceTo(castle.getX(), castle.getY()) <= castles[0].getDistanceTo(closestCastle.getX(), closestCastle.getY())) {
@@ -70,7 +71,6 @@ public class UnknownBot extends AbstractRuler {
                     }
                 }
             }
-
             knight.move(knight.getDirectionTo(closestCastle.getX(), closestCastle.getY()));
         }
     }
@@ -88,51 +88,32 @@ public class UnknownBot extends AbstractRuler {
     }
 
     private void movePeasants() {
-        System.out.println("peasantmoved");
         for (Peasant peasant : peasants) {
-            //Search for uncaptured tile
-            if (peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) >= 1
-                    && peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) <= 3) {
-                for (int x = 1; x >= -1; x--) {//Move in general direction of Quandrant 1
-                    for (int y = -1; y <= 1; y++) {
-                        if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(x, y));
-                        }
+            //Search for uncaptured tile around the peasant
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    //Stop searching if the Land Tile is outside of the bounds
+                    if(peasant.getX() + x <= 63 && peasant.getX() + x >= 0 && peasant.getY() + y >= 0 && peasant.getY() + y <= 63) {
+                        break;
+                    }
+                    
+                    //If the land owner is not ours, then move onto it
+                    if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
+                        peasant.move(findDir(x, y));
                     }
                 }
-            } else if (peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) >= 7
-                    && peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) <= 8) {
-                for (int x = -1; x <= 1; x++) {//Move in general direction of Quandrant 2
-                    for (int y = -1; y <= 1; y++) {
-                        if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(x, y));
-                        }
-                    }
-                }
-            } else if (peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) >= 5
-                    && peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) <= 7) {
-                for (int x = -1; x <= 1; x++) {//Move in general direction of Quandrant 3
-                    for (int y = 1; y >= -1; y--) {
-                        if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(x, y));
-                        }
-                    }
-                }
-            } else {
-                for (int x = 1; x >= -1; x--) {//Move in general direction of Quandrant 4
-                    for (int y = 1; y >= -1; y--) {
-                        if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(x, y));
-                        }
-                    }
-                }
+            }
+            
+            //If the peasant can still move, then move in a random direction
+            if(peasant.hasAction()) {
+                peasant.move((int)(Math.random() * 8) + 1);
             }
         }
     }
 
     private int findDir(int x, int y) {
         //Calculates the direction of the tile
-        double angle = Math.toDegrees(Math.asin(y / Math.sqrt(x + y))) + 360;
+        double angle = Math.toDegrees(Math.asin(-y / Math.sqrt(x*x + y*y))) + 360;
 
         if (x < 0) {
             angle = 180 + 360 - angle;
@@ -148,12 +129,12 @@ public class UnknownBot extends AbstractRuler {
 
     @Override
     public String getSchoolName() {
-        return "Richard is Bes";
+        return "NHS";
     }
 
     @Override
     public String getRulerName() {
-        return "BesTeam";
+        return "BestTeam";
     }
 
 }
