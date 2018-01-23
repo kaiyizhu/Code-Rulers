@@ -225,7 +225,7 @@ public class CodeRulers implements Runnable {
 
                 turnCount++;
                 
-                if(turnCount>1000) {
+                if(turnCount>5000) {
                     t.stop();
                     gameEnd=true;
                 }

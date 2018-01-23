@@ -15,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author Luke
  */
-public abstract class AbstractRuler {
+public abstract class AbstractRuler implements Comparable{
     
 /*Fields and features of the Ruler class*/
     //integer used to identify this ruler in game(roughly equivalent to player number)
@@ -262,7 +262,8 @@ public abstract class AbstractRuler {
      */
     public int getPoints(){
         //grab from game or add field in ruler
-        return points;
+        return points + World.getLandCount(this.getRulerID()) / 10
+                    + this.getCastles().length * 25 + this.getPeasants().length + this.getKnights().length * 2;
     }
     /**
      * Translates an integer direction into a x,y difference. Based on the
@@ -328,4 +329,9 @@ public abstract class AbstractRuler {
         this.rulerID = rulerID;
     }
     
+    
+    @Override
+    public int compareTo(Object o) {
+        return -((Integer)(this.getPoints())).compareTo((Integer)((AbstractRuler)o).getPoints());
+    }
 }
