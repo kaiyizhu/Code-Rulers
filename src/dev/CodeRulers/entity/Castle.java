@@ -5,6 +5,7 @@
  */
 package dev.CodeRulers.entity;
 
+import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.*;
 import java.util.Arrays;
@@ -65,13 +66,13 @@ public class Castle extends Entity{
      * Produces Peasants or Knights
      */
     public void produce(){
-        /*
-        if(lastCall == CodeRulers.getTurnNum()){
-            System.out.println("Ruler " + ruler + " attempted to cheat castle production");
+        
+        if(lastCall == CodeRulers.getTurnCount()){
+            //System.out.println("Ruler " + ruler + " attempted to cheat castle production");
             return;
         }
-        lastCall == CodeRulers.getTurnNum();
-        */
+        lastCall = CodeRulers.getTurnCount();
+        
         //get the count of land under this ruler
         int land = World.getLandCount(ruler);
         //initialize a new variable, to represent change in maxToCreation
