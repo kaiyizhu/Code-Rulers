@@ -30,7 +30,6 @@ public class UnknownBot extends AbstractRuler {
 
     @Override
     public void orderSubjects() {
-        System.out.println("mine");
         knights = this.getKnights();
         peasants = this.getPeasants();
         castles = this.getCastles();
@@ -88,6 +87,7 @@ public class UnknownBot extends AbstractRuler {
     }
 
     private void movePeasants() {
+        System.out.println("peasantmoved");
         for (Peasant peasant : peasants) {
             //Search for uncaptured tile
             if (peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) >= 1
@@ -95,7 +95,7 @@ public class UnknownBot extends AbstractRuler {
                 for (int x = 1; x >= -1; x--) {//Move in general direction of Quandrant 1
                     for (int y = -1; y <= 1; y++) {
                         if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(-x, -y));
+                            peasant.move(findDir(x, y));
                         }
                     }
                 }
@@ -104,7 +104,7 @@ public class UnknownBot extends AbstractRuler {
                 for (int x = -1; x <= 1; x++) {//Move in general direction of Quandrant 2
                     for (int y = -1; y <= 1; y++) {
                         if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(-x, -y));
+                            peasant.move(findDir(x, y));
                         }
                     }
                 }
@@ -113,7 +113,7 @@ public class UnknownBot extends AbstractRuler {
                 for (int x = -1; x <= 1; x++) {//Move in general direction of Quandrant 3
                     for (int y = 1; y >= -1; y--) {
                         if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(-x, -y));
+                            peasant.move(findDir(x, y));
                         }
                     }
                 }
@@ -121,7 +121,7 @@ public class UnknownBot extends AbstractRuler {
                 for (int x = 1; x >= -1; x--) {//Move in general direction of Quandrant 4
                     for (int y = 1; y >= -1; y--) {
                         if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(-x, -y));
+                            peasant.move(findDir(x, y));
                         }
                     }
                 }
