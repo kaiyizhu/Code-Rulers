@@ -93,6 +93,7 @@ public class Knight extends Entity{
             Castle c = (Castle)attacked;
             //set this ruler to own the castle
             c.ruler = this.ruler;
+            World.getLandOwned()[attacked.x][attacked.y] = ruler;
             return 15;
         //otherwise, if it is a peasant
         }else if(attacked instanceof Peasant){

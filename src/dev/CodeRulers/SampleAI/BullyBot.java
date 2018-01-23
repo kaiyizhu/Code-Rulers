@@ -9,6 +9,7 @@ import dev.CodeRulers.ruler.*;
 import dev.CodeRulers.entity.Castle;
 import dev.CodeRulers.entity.Knight;
 import dev.CodeRulers.entity.Peasant;
+import dev.CodeRulers.game.CodeRulers;
 
 import dev.CodeRulers.world.World;
 import java.awt.Color;
@@ -51,15 +52,16 @@ public class BullyBot extends AbstractRuler {
             capture();
         }
         //if it is within the first 20 turns
-        if(true){
-            
-            
-            
-        }else if( true){
+        if(CodeRulers.getTurnCount() <=1 ){
+            //choose the starting direction
+            chooseStartingDir();
+            //order starting peasants
+            setUp();
+        }else if( CodeRulers.getTurnCount() < 20){
             //generate knights, start moving towards the center
             setUp();
         //if it is the 20th turn
-        }else if( true){
+        }else if( CodeRulers.getTurnCount() ==20){
             //get the target to bully
             assignNewTarget();
             //move to attack it
@@ -90,7 +92,12 @@ public class BullyBot extends AbstractRuler {
         //for every one of our knights
         for(Knight k : myK){
             //move them to the castle
-           k.move (k.getDirectionTo(attacking.getX(), attacking.getY()));
+            if(attacking != null){
+                k.move (k.getDirectionTo(attacking.getX(), attacking.getY()));
+            }else{
+                captured = true;
+                cleanUp();
+            }
         }
         //if they captured a castle
         if(getCastles().length != numCastles){
