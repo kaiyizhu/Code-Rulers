@@ -26,7 +26,6 @@ public abstract class Entity {
         this.x = x;
         this.y =y;
         this.ruler = ruler;
-        alive = true;
     }
     
     //this is the super abstract class to all pieces on the playing field. Each piece
@@ -62,17 +61,6 @@ public abstract class Entity {
          */
         public int getY() {
             return y;
-        }
-        
-    //  Alive -> Each entity should return a boolean stating if it has been captured or not.
-        protected boolean alive;
-        
-        /**
-         * Tells whether the piece has been captured or not.
-         * @return Returns true if the piece is alive. False if not.
-         */
-        public boolean isAlive() {
-            return alive;
         }
 
     
@@ -134,8 +122,6 @@ public abstract class Entity {
                 //if this is a knight and it moves into an enemy peasant
                 if(this instanceof Knight && inLocation instanceof Peasant &&
                         this.ruler != inLocation.ruler){
-                    //capture the peasant, and continue to move
-                    inLocation.alive = false;
                     //create a knight reference to this entity
                     Knight k = (Knight)this;
                     //give the knight the action to capture this entity

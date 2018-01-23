@@ -75,10 +75,8 @@ public class Knight extends Entity{
             Knight k = (Knight)attacked;
             //reduce its strength by a random number from 1-25
             k.strength -= (int)Math.ceil(Math.random()*25);
-            //check if it has strenght left
+            //if it is out of strength, remove it
             if(k.strength <1){
-                //if not, set it to not be alive
-                k.alive = false;
                 //set up an arrayList of the knights
                 ArrayList<Knight> knights = new ArrayList<>(Arrays.asList(World.getAllKnights()));
                 //remove the dead knight from the arrayList
@@ -100,8 +98,6 @@ public class Knight extends Entity{
         }else if(attacked instanceof Peasant){
             //create a peasant reference to it
             Peasant p = (Peasant)attacked;
-            //assign the peasant under this ruler
-            p.alive = false;
             //set up an ArrayList of the peasants
             ArrayList<Peasant> peasants = new ArrayList<>(Arrays.asList(World.getAllPeasants()));
             //remove the dead peasant from the ArrayList

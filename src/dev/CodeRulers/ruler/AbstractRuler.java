@@ -79,7 +79,7 @@ public abstract class AbstractRuler {
      */
     public void capture(Knight attacking, int dir){
         //check that this knight can attack
-        if(attacking.isAlive() && attacking.hasAction()){
+        if(attacking.hasAction()){
             //see if anything is in that space
             int[] xy = translateDir(dir);
             Entity attacked = World.getEntityAt(attacking.getX()+xy[0], attacking.getY()+xy[1]);
