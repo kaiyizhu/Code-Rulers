@@ -39,11 +39,7 @@ public class Peasant extends Entity {
                 //claim this peice of land
                 hasAction = false;
                 World.getLandOwned()[x][y] = ruler;
-            } else {
-                //if the move was obstructed somehow, print it out to the console
-                System.out.println("Illegal Movement attempted by ruler " + ruler
-                        + " and Peasant at " + x + " , " + y);
-            }
+            } 
         }
     }
 }
