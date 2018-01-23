@@ -13,6 +13,7 @@ import dev.CodeRulers.world.World;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -47,6 +48,8 @@ public class CodeRulers implements Runnable {
     private AbstractRuler[] r;
 
     private World w;
+
+    private Boolean stopMessages = false;
 
     /**
      * The constructor for the CodeRulers Class.
@@ -217,7 +220,21 @@ public class CodeRulers implements Runnable {
 
                 //This method is typically called once per cycle.
                 for (AbstractRuler ruler : r) {
-                    ruler.orderSubjects();
+                    try {
+                        ruler.orderSubjects();
+                    } catch (Exception ex) {
+                        if (!stopMessages) {
+                            int confirmed = JOptionPane.showConfirmDialog(null,
+                                    ruler.getRulerName() + " committed a game-breaking error! Exit game?", "Error Message",
+                                    JOptionPane.YES_NO_CANCEL_OPTION);
+
+                            if (confirmed == JOptionPane.YES_OPTION) {
+                                System.exit(0);
+                            } else if (confirmed == JOptionPane.NO_OPTION) {
+                                stopMessages = true;
+                            }
+                        }
+                    }
                 }
 
                 if (display != null) {
@@ -225,10 +242,10 @@ public class CodeRulers implements Runnable {
                 }
 
                 turnCount++;
-                
-                if(turnCount>5000) {
+
+                if (turnCount > 5000) {
                     t.stop();
-                    gameEnd=true;
+                    gameEnd = true;
                 }
 
             }
@@ -249,5 +266,4 @@ public class CodeRulers implements Runnable {
         return turnCount;
     }
 
-    
 }

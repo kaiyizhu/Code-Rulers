@@ -8,10 +8,11 @@ package dev.CodeRulers.SampleAI;
 import dev.CodeRulers.entity.Knight;
 import dev.CodeRulers.entity.Peasant;
 import dev.CodeRulers.ruler.AbstractRuler;
+import dev.CodeRulers.world.World;
 import java.awt.Color;
 
 /**
- * I am using this class for graphical testing.
+ * I am using this class for graphical testing. I also added a game-breaking bug
  * 
  * @author Sean Zhang
  */
@@ -30,7 +31,9 @@ public class SeanZhang extends AbstractRuler {
             move(peasant, 1);
         }
         
+        Knight k = null;
         
+        k.move(rulerID);
     }
 
     @Override
