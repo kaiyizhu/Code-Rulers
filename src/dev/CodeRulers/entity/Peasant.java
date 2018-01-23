@@ -7,8 +7,6 @@ package dev.CodeRulers.entity;
 
 import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.World;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 /**
  *

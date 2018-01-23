@@ -283,6 +283,7 @@ public class World {
 
     public static BufferedImage mapResized;
     private static double lastScaleFactor = scaleFactor;
+    
     /**
      * Draws the world map and entities using the graphical component
      * @param g The graphical component drawn to
@@ -308,7 +309,15 @@ public class World {
                 if (landOwned[i][j] == -1) {
 
                 } else {
-                    Color c = r.getRulerArray()[landOwned[i][j]].getColor();
+                    int rulerIndex=0;
+                    
+                    for(int k=0;k<r.getRulerArray().length;k++) {
+                        if(r.getRulerArray()[k].getRulerID()==landOwned[i][j]) {
+                            rulerIndex=k;
+                        }
+                    }
+                    
+                    Color c = r.getRulerArray()[rulerIndex].getColor();
                     g.setColor(new Color(c.getRed(), c.getGreen(), c.getBlue(), 150));
                     g.fillRect((int) (i * 12 * scaleFactor) + xOffset, (int) (j * 12 * scaleFactor) + yOffset, (int) (12 * scaleFactor), (int) (12 * scaleFactor));
                 }
