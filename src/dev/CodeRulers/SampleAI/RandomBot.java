@@ -5,12 +5,15 @@
  */
 package dev.CodeRulers.SampleAI;
 
+import dev.CodeRulers.entity.Castle;
+import dev.CodeRulers.entity.Knight;
+import dev.CodeRulers.entity.Peasant;
 import dev.CodeRulers.ruler.AbstractRuler;
 import java.util.Random;
 
 /**
  *
- * @author 335550372
+ * @author Kaiyi Zhu
  */
 public class RandomBot extends AbstractRuler {
 
@@ -24,42 +27,42 @@ public class RandomBot extends AbstractRuler {
         //Castles: 
         /*
         Change the creation of knights or peassants. Knight = 0; Peasant = 1;
-        */
-        for (int i = 0; i < this.getCastles().length; i++) {
+         */
+        for (Castle castle : this.getCastles()) {
             int change = r.nextInt(1);
             if (change == 0) {
-                this.getCastles()[i].createKnights();
+                castle.createKnights();
             } else if (change == 1) {
-                this.getCastles()[i].createPeasants();
+                castle.createPeasants();
             }
         }
         //Knight:
         /*
         Generate 0-2. 0 = Stay. 1 = Move. 2 = Capture.
         Generate a number 1-8. 0 = N 1 = NE and so forth...
-        */
-        for (int i = 0; i < this.getKnights().length; i++) {
+         */
+        for (Knight knight : this.getKnights()) {
             int randomKnightMove = r.nextInt(3);
             int knightDir = r.nextInt(8) + 1;
             if (randomKnightMove == 1) {
-                this.move(this.getKnights()[i], knightDir);
+                this.move(knight, knightDir);
             } else if (randomKnightMove == 2) {
-                this.capture(this.getKnights()[i], knightDir);
+                this.capture(knight, knightDir);
             } else {
                 //Does nothing so the knight stays in his original land
             }
         }
 
         //Peasant:
-          /*
-         Generate 0-1. 0 = Stay. 1 = Move
-         Generate a number 1-8. 0 = N 1 = NE and so forth... 
+        /*
+        Generate 0-1. 0 = Stay. 1 = Move
+        Generate a number 1-8. 0 = N 1 = NE and so forth...
          */
-        for (int i = 0; i < this.getPeasants().length; i++) {
+        for (Peasant peasant : this.getPeasants()) {
             int randomPeasantMove = r.nextInt(2);
             if (randomPeasantMove == 1) {
                 int peasantDir = r.nextInt(8) + 1;
-                this.move(this.getPeasants()[i], peasantDir);
+                this.move(peasant, peasantDir);
             } else {
                 //Does nothing so the peasant stays in his original land
             }
