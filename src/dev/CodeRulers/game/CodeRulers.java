@@ -27,6 +27,13 @@ public class CodeRulers implements Runnable {
 
     //this boolean states whether this object is running or not.
     private boolean running = false;
+    
+    //this indicates whether the game has ended or not.
+    private boolean gameEnd=false;
+    
+    //this is the time/turn counter that will be used to determine when the game
+    //ends.
+    private int turnCount=0;
 
     //creates a thread variable
     private Thread thread;
@@ -73,6 +80,7 @@ public class CodeRulers implements Runnable {
             //creates a new JFrame display to display all the graphics in the game.
             display = new Display(title, logo, this);
         } else {
+            //start simulation
             t.start();
         }
 
@@ -180,7 +188,9 @@ public class CodeRulers implements Runnable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //get the array of all castles
+            
+            if(!gameEnd) {
+                //get the array of all castles
             Castle[] allC = World.getAllCastles();
             //for every castle
             for (Castle c : allC) {
@@ -212,6 +222,13 @@ public class CodeRulers implements Runnable {
             if (display != null) {
                 display.getPanel().repaint();
             }
+            
+            turnCount++;
+            
+            } else if(turnCount>1000 && gameEnd ==true) {
+                gameEnd=false;
+            }
+            
         }
 
     }
