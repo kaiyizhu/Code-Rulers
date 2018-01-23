@@ -198,7 +198,8 @@ public class Panel extends javax.swing.JPanel {
             g.setColor(new Color(0,0,0,120));
             g.fillRect(0, 0, 1024, 768);
             
-            g.fillRoundRect(1024/2, 768/2, WIDTH, HEIGHT, WIDTH, HEIGHT);
+            
+            //g.fillRoundRect(1024/2, 768/2, WIDTH, HEIGHT, WIDTH, HEIGHT);
             
             
         }
