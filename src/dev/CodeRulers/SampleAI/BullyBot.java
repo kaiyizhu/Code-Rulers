@@ -6,8 +6,12 @@
 package dev.CodeRulers.SampleAI;
 
 import dev.CodeRulers.ruler.*;
-import dev.CodeRulers.entity.*;
+import dev.CodeRulers.entity.Castle;
+import dev.CodeRulers.entity.Knight;
+import dev.CodeRulers.entity.Peasant;
+
 import dev.CodeRulers.world.World;
+import java.awt.Color;
 import java.util.Random;
 
 /**
@@ -35,29 +39,8 @@ public class BullyBot extends AbstractRuler {
     boolean captured = false;
     @Override
     public void initialize() {
-        //get the starting castle of this ruler
-        Castle first = World.getAllCastles()[0];
-        //if the castle is in the top right
-        if(first.getX() > 32 && first.getY() < 32){
-            //set corner to one, direction of expansion south west
-            corner = 1;
-            dir = 6;
-        //if the castle is in the bottom right
-        }else if(first.getX() > 32 && first.getY() >= 32){
-            //set corner to 2, direction of expansion to north west
-            corner = 2;
-            dir = 8;
-        //if the castle is in the bottom left
-        }else if(first.getX() <= 32 && first.getY() >= 32){
-            //set the corner to 3, direction of expansion north east
-            corner = 3;
-            dir = 2;
-        //otherwise
-        }else{
-            //set the corner to 4, direction of expansion to south east
-            corner = 4;
-            dir = 4;
-        }
+        profileURL =("http://www.cse.lehigh.edu/~munoz/CSE497/assignments/files/coderuler_files/fig2.gif");
+        setColor(new Color(200,50,50)); 
     }
     @Override
     public void orderSubjects() {
@@ -68,7 +51,11 @@ public class BullyBot extends AbstractRuler {
             capture();
         }
         //if it is within the first 20 turns
-        if( true){
+        if(true){
+            
+            
+            
+        }else if( true){
             //generate knights, start moving towards the center
             setUp();
         //if it is the 20th turn
@@ -197,16 +184,40 @@ public class BullyBot extends AbstractRuler {
         }
     }
     
-    
+    private void chooseStartingDir(){
+        //get the starting castle of this ruler
+        Castle first = World.getAllCastles()[0];
+        //if the castle is in the top right
+        if(first.getX() > 32 && first.getY() < 32){
+            //set corner to one, direction of expansion south west
+            corner = 1;
+            dir = 6;
+        //if the castle is in the bottom right
+        }else if(first.getX() > 32 && first.getY() >= 32){
+            //set corner to 2, direction of expansion to north west
+            corner = 2;
+            dir = 8;
+        //if the castle is in the bottom left
+        }else if(first.getX() <= 32 && first.getY() >= 32){
+            //set the corner to 3, direction of expansion north east
+            corner = 3;
+            dir = 2;
+        //otherwise
+        }else{
+            //set the corner to 4, direction of expansion to south east
+            corner = 4;
+            dir = 4;
+        }
+    }
 
     @Override
     public String getSchoolName() {
-        return "The FlexQueue Dev. Team";
+        return "NHS CodeRulers -Luke";
     }
 
     @Override
     public String getRulerName() {
-        return "Bender";
+        return "Bully Bot";
     }
     
 }

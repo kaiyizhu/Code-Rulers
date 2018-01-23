@@ -87,6 +87,7 @@ public class UnknownBot extends AbstractRuler {
     }
 
     private void movePeasants() {
+        System.out.println("peasantmoved");
         for (Peasant peasant : peasants) {
             //Search for uncaptured tile
             if (peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) >= 1
@@ -146,12 +147,12 @@ public class UnknownBot extends AbstractRuler {
 
     @Override
     public String getSchoolName() {
-        return "GraphicsFunStuff";
+        return "Richard is Bes";
     }
 
     @Override
     public String getRulerName() {
-        return "Add CoolSTuff to it and colors custome colors symbols?";
+        return "BesTeam";
     }
 
 }

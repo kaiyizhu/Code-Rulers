@@ -19,7 +19,9 @@ public class Castle extends Entity{
     //The number of turns until the castle produces
     private int numTurns;
     //The production bracket that the castle is currently in
-    private int maxToCreation;
+    private int maxToCreation = 0;
+    //the last time that produce was called (used to prevent cheating)
+    private int lastCall;
     /**
      * Constructs a new Castle object. Should only be preformed at the
      * start of a game
@@ -31,6 +33,7 @@ public class Castle extends Entity{
         //call the entity constructer
         super(x, y, ruler);
         entityIcn = IMAGE.getBufferedImage("src/resources/images/CodeRulersSprites2_2.png");
+        hasAction = false;
     }
 
     @Override
@@ -62,6 +65,13 @@ public class Castle extends Entity{
      * Produces Peasants or Knights
      */
     public void produce(){
+        /*
+        if(lastCall == CodeRulers.getTurnNum()){
+            System.out.println("Ruler " + ruler + " attempted to cheat castle production");
+            return;
+        }
+        lastCall == CodeRulers.getTurnNum();
+        */
         //get the count of land under this ruler
         int land = World.getLandCount(ruler);
         //initialize a new variable, to represent change in maxToCreation
@@ -69,6 +79,7 @@ public class Castle extends Entity{
         //if they own fewer than 124 pieces of land
         if(land < 124){
             //do nothing
+            return;
         //between 125 and 249
         }else if(land < 250){
             tempMax = 14;
@@ -92,7 +103,7 @@ public class Castle extends Entity{
         //if they changed brackets
         if(maxToCreation != tempMax){
             //reduce the number of turns to that change
-            numTurns -= tempMax-maxToCreation;
+            numTurns -= maxToCreation-tempMax;
         }
         //set the max to the temp
         maxToCreation = tempMax;
@@ -105,23 +116,26 @@ public class Castle extends Entity{
                 //get the peasants list from world
                 Peasant[] p = World.getAllPeasants();
                 //make a larger copy of it
-                Arrays.copyOf(p, p.length +1);
+                Peasant[] p2 = Arrays.copyOf(p, p.length +1);
                 //set the final element to the newly created peasant
                 //created on top of the castle
-                p[p.length-1] = new Peasant(x,y,ruler);
+                p2[p2.length-1] = new Peasant(x,y,ruler);
                 //set the World's peasants to this new array
-                World.setPeasants(p);
+                World.setPeasants(p2);
+                System.out.println(World.getAllPeasants().length);
             //if they are creating knights
             }else{
                 //get the knights list
                 Knight[] k = World.getAllKnights();
+                
                 //make a larger copy
-                Arrays.copyOf(k, k.length +1);
+                Knight[] k2 = Arrays.copyOf(k, k.length +1);
                 //set the final knight to a new knight
-                k[k.length-1] = new Knight(x,y,ruler);
+                k2[k2.length-1] = new Knight(x,y,ruler);
                 //set the World's knights to the array
-                World.setKnights(k);
+                World.setKnights(k2);
             }
+            numTurns = tempMax;
         }
     }
 }

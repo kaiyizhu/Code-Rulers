@@ -21,7 +21,7 @@ public abstract class AbstractRuler {
     //integer used to identify this ruler in game(roughly equivalent to player number)
     protected int rulerID; //not sure about final or not
     //the number of points this ruler has
-    int points;
+    private int points;
     
     //this is the default profile URL for any AI.
     protected String profileURL="http://www.havoca.org/wp-content/uploads/2016/03/icon-user-default-300x300.png";
@@ -67,7 +67,7 @@ public abstract class AbstractRuler {
      * @param dir The cardinal direction in which it moves
      */
     public void move(Entity moved, int dir){
-        //test to see if it has movement & is not a castle
+        //tell the entity to move itself. What a lazy ruler
         moved.move(dir);
     }
 
@@ -79,7 +79,7 @@ public abstract class AbstractRuler {
      */
     public void capture(Knight attacking, int dir){
         //check that this knight can attack
-        if(attacking.isAlive() && attacking.hasAction()){
+        if(attacking.hasAction()){
             //see if anything is in that space
             int[] xy = translateDir(dir);
             Entity attacked = World.getEntityAt(attacking.getX()+xy[0], attacking.getY()+xy[1]);
@@ -299,19 +299,31 @@ public abstract class AbstractRuler {
         return xy;
     }
 
-
+    /**
+     * Gets the Color variable of this ruler
+     * @return The ruler's color.
+     */
     public Color getColor() {
         return c;
     }
-
+    /**
+     * Sets the Color of this ruler.
+     * @param c The ruler's new color.
+     */
     public void setColor(Color c) {
         this.c = c;
     }
-
+    /**
+     * Returns the profile image of this ruler.
+     * @return The profile image of the ruler.
+     */
     public BufferedImage getProfileImage() {
         return profileImage;
     }
-
+    /**
+     * Sets the ID of this ruler to the given int.
+     * @param rulerID The new rulerID.
+     */
     public void setRulerID(int rulerID) {
         this.rulerID = rulerID;
     }

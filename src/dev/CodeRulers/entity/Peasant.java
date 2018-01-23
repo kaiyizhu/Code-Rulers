@@ -14,10 +14,11 @@ import java.awt.image.BufferedImage;
  *
  * @author seanz
  */
-public class Peasant extends Entity{
-    
+public class Peasant extends Entity {
+
     /**
      * Construct a new Peasant at the given location, under the given ruler.
+     *
      * @param x The x coordinate of this peasant
      * @param y The y coordinate of this peasant
      * @param ruler The ID of the ruler that this peasant serves
@@ -29,19 +30,22 @@ public class Peasant extends Entity{
     }
 
     @Override
-    public boolean hasAction(){
-        return true;
+    public boolean hasAction() {
+        return hasAction;
     }
 
     @Override
     public void move(int dir) {
-        if(changePos(dir)){
-            //claim this peice of land
-            World.getLandOwned()[x][y]=ruler;
-        }else{
-            //if the move was obstructed somehow, print it out to the console
-            System.out.println("Illegal Movement attempted by ruler " + ruler +
-                    " and Peasant at " + x + " , " + y );
+        if (hasAction) {
+            if (changePos(dir)) {
+                //claim this peice of land
+                hasAction = false;
+                World.getLandOwned()[x][y] = ruler;
+            } else {
+                //if the move was obstructed somehow, print it out to the console
+                System.out.println("Illegal Movement attempted by ruler " + ruler
+                        + " and Peasant at " + x + " , " + y);
+            }
         }
     }
 }

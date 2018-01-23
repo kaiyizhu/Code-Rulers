@@ -197,29 +197,49 @@ public class World {
     }
     
     /**
-     * 
-     * @param knights 
+     * This Method is Banned from In Game use. Sets the knights on the board
+     * to be the given array of knights.
+     * @param knights The array of Knights being assigned to the board
      */
     public static void setKnights(Knight[] knights) {
         World.knights = knights;
     }
-
+    /**
+     * This Method is Banned from In Game Use. Sets the Peasants on the board
+     * to be the given array of Peasants
+     * @param peasants The array of Peasants being assigned to the board
+     */
     public static void setPeasants(Peasant[] peasants) {
         World.peasants = peasants;
     }
-
+    /**
+     * Returns all knights that are currently on the game board.
+     * @return The array of all Knights on the board
+     */
     public static Knight[] getAllKnights() {
         return knights;
     }
-
+    /**
+     * Returns all peasants that are currently on the game board.
+     * @return The array of all Peasants on the board
+     */
     public static Peasant[] getAllPeasants() {
         return peasants;
     }
-
+    /**
+     * Returns all Castles that are currently on the game board.
+     * @return The array of all Castles on the board
+     */
     public static Castle[] getAllCastles() {
         return castles;
     }
-
+    /**
+     * Returns the entity found at the given x and y location. Returns null
+     * if no entity can be found there.
+     * @param x The x coordinate of the entity
+     * @param y The y coordinate of the entity
+     * @return The entity at the (x,y) location
+     */
     public static Entity getEntityAt(int x, int y) {
         if (x > 63 || y > 63 || x < 0 || y < 0) {
             System.out.println("Coordinates out of bounds.");
@@ -244,17 +264,30 @@ public class World {
             }
         }
 
-        System.out.println("No Entity Found.");
         return null;
     }
-
+    /**
+     * Returns the ID of the ruler owning the land at the given x and y location.
+     * Will return -1 if no ruler owns the chosen tile
+     * @param x The x coordinate of the tile
+     * @param y The y coordinate of the tile
+     * @return The rulerID of the owner of the tile
+     */
     public static int getLandOwner(int x, int y) {
+        if(x < 0 || x > 63 || y < 0 || y > 63) {
+            return -1;
+        }
+        
         return landOwned[x][y];
     }
 
     public static BufferedImage mapResized;
     private static double lastScaleFactor = scaleFactor;
-
+    /**
+     * Draws the world map and entities using the graphical component
+     * @param g The graphical component drawn to
+     * @param r The CodeRulers game being drawn
+     */
     public static void render(Graphics g, CodeRulers r) {
 
         if (worldMap == null) {
@@ -317,27 +350,45 @@ public class World {
         }
         return count;
     }
-
+    /**
+     * Returns the factor by which the user has zoomed in
+     * @return The zoom/scale factor of the game board
+     */
     public static double getScaleFactor() {
         return scaleFactor;
     }
-
+    /**
+     * Sets the factor by which the game board is drawn.
+     * @param scaleFactor The new zoom/scale factor for which the board is drawn.
+     */
     public static void setScaleFactor(double scaleFactor) {
         World.scaleFactor = scaleFactor;
     }
-
+    /**
+     * Gets the current position of the game board from center in x axis.
+     * @return The offset of the board in the x axis.
+     */
     public static int getxOffset() {
         return xOffset;
     }
-
+    /**
+     * Sets the position of the game board from its center in the x axis.
+     * @param xOffset The new offset of the game board.
+     */
     public static void setxOffset(int xOffset) {
         World.xOffset = xOffset;
     }
-
+    /**
+     * Gets the current position of the game board from center in y axis.
+     * @return The offset of the board in the y axis.
+     */
     public static int getyOffset() {
         return yOffset;
     }
-
+    /**
+     * Sets the position of the game board from its center in the y axis.
+     * @param yOffset The new offset of the game board.
+     */
     public static void setyOffset(int yOffset) {
         World.yOffset = yOffset;
     }

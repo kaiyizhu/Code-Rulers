@@ -64,7 +64,7 @@ public class FILEIO {
      * @param s the name of the string that you are trying to find
      * @param detail the specific detail: 0) First Name 1) Last Name 2) Username.. etc
      * @param delim the delimiter to split the line
-     * @return
+     * @return The string array in the file
      */
     public static String[] findAndReturn(String fName, String s, int detail, String delim) {
         //creates a new instance of file with the given path of the file.
@@ -112,7 +112,7 @@ public class FILEIO {
      *
      * @param s the string that is to be encrypted
      * @return the encrypted string
-     * @throws Exception
+     * @throws Exception For some reason
      */
     public static String encrypt(String s) throws Exception {
         MessageDigest md = MessageDigest.getInstance("SHA-256");

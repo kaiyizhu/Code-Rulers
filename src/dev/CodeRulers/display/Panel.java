@@ -6,6 +6,7 @@
 package dev.CodeRulers.display;
 
 //Import statements
+import dev.CodeRulers.entity.*;
 import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.util.IMAGE;
@@ -16,6 +17,8 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageProducer;
+import java.io.File;
 import javax.swing.Timer;
 
 /**
@@ -42,9 +45,6 @@ public class Panel extends javax.swing.JPanel {
     BufferedImage pauseButton;
     BufferedImage restartButton;
 
-    //this timer is not our game loop. Instead, it controls the speed of the game (turns/second)
-    Timer t;
-
     /*  These two fonts are the main two fonts that will be used in our program.
         One will be used as a header (for bigger headings)
         And the other will be used for less important things
@@ -68,8 +68,8 @@ public class Panel extends javax.swing.JPanel {
     private int iconOffset = 0;
 
     //int turnLimit this is the number of turns that the game has cycled through.
-    public int turnsTaken=0;
-    
+    public int turnsTaken = 0;
+
     /**
      * The constructor for the Panel Class. Creates new form Panel.
      *
@@ -89,10 +89,6 @@ public class Panel extends javax.swing.JPanel {
         //initializes the side panel image and blurs it using the custom gaussian blur algorithm with a blur radius of 20 pixels.
         //It is then resized to the correct size to fit in the dimensions of the side panel.
         sidePanelImage = IMAGE.getResizedImage(IMAGE.getBlurredImage(IMAGE.getBufferedImage("src/resources/images/sidePanelImage.jpg"), 20), sidePanelWidth, panelHeight);
-
-        //This statement creates a new timer. The timer refreshes every 1 second.
-        //This means that the speed of the game happens at 1 cycle of turns per second.
-        t = new Timer(50, new TimerListener());
 
         //initializes the three images
         startButton = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/startButton.png"), 25, 25);
@@ -182,6 +178,7 @@ public class Panel extends javax.swing.JPanel {
             //increases the count by one.
             count++;
 
+            
         }
 
         //this section is responsible for drawing the utility bar where the
@@ -193,6 +190,12 @@ public class Panel extends javax.swing.JPanel {
         g.fillRect(panelHeight, panelHeight - 60, sidePanelWidth, 60);
         g.drawImage(startButton, panelHeight + 5, panelHeight - 60 + 5, null);
         g.drawImage(pauseButton, panelHeight + 5 + 5 + 25, panelHeight - 60 + 5, null);
+
+        
+        if (r.isGameEnd()) {
+            g.setColor(new Color(0,0,0,120));
+            g.fillRect(0, 0, 1024, 768);
+        }
     }
 
     /**
@@ -305,13 +308,12 @@ public class Panel extends javax.swing.JPanel {
         //sets the offest relative to the position of the old cursor position
         //and new cursor position.
         if (evt.getX() < panelHeight) {
-        World.setxOffset(World.getxOffset() + evt.getX() - initX);
-        World.setyOffset(World.getyOffset() + evt.getY() - initY);
+            World.setxOffset(World.getxOffset() + evt.getX() - initX);
+            World.setyOffset(World.getyOffset() + evt.getY() - initY);
 
-        //sets the original coordinates to the current coordinates.
-        
-        initX = evt.getX();
-        initY = evt.getY();
+            //sets the original coordinates to the current coordinates.
+            initX = evt.getX();
+            initY = evt.getY();
         }
         //refreshes the screen to show the changes made to the world.
         repaint();
@@ -328,12 +330,12 @@ public class Panel extends javax.swing.JPanel {
             initX = evt.getX();
             initY = evt.getY();
         } else {
-            if(evt.getX()>panelHeight+5&&evt.getX()<panelHeight+25+5&&evt.getY()>panelHeight - 60 + 5&&evt.getY()<panelHeight-60+25+5){
-                t.start();
-            } else if(evt.getX()>panelHeight+5+25+5&&evt.getX()<panelHeight+25+5+5+25&&evt.getY()>panelHeight - 60 + 5&&evt.getY()<panelHeight-60+25+5) {
-                t.stop();
+            if (evt.getX() > panelHeight + 5 && evt.getX() < panelHeight + 25 + 5 && evt.getY() > panelHeight - 60 + 5 && evt.getY() < panelHeight - 60 + 25 + 5) {
+                r.getTimer().start();
+            } else if (evt.getX() > panelHeight + 5 + 25 + 5 && evt.getX() < panelHeight + 25 + 5 + 5 + 25 && evt.getY() > panelHeight - 60 + 5 && evt.getY() < panelHeight - 60 + 25 + 5) {
+                r.getTimer().stop();
             }
-                
+
         }
 
     }//GEN-LAST:event_formMousePressed
@@ -373,30 +375,6 @@ public class Panel extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_formMouseReleased
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    private class TimerListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //This updates all the things related to the rulers. Once updated,
-            //the graphics can then be updated.
-
-            //This method is typically called once per cycle.
-            for (AbstractRuler ruler : r.getRulerArray()) {
-                ruler.orderSubjects();
-            }
-
-            //repainted to show new changes to the game.
-            repaint();
-            
-            //add one to the number of turns taken
-            turnsTaken++;
-        }
-        
-        
-
-    }
-
 }
