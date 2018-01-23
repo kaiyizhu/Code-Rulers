@@ -29,7 +29,7 @@ public class RandomBot extends AbstractRuler {
         Change the creation of knights or peassants. Knight = 0; Peasant = 1;
          */
         for (Castle castle : this.getCastles()) {
-            int change = r.nextInt(1);
+            int change = r.nextInt(2);
             if (change == 0) {
                 castle.createKnights();
             } else if (change == 1) {
