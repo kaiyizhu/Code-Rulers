@@ -23,7 +23,7 @@ public class IMAGE {
     /**
      * Accesses the image specified in the resources/images folder.
      * @param name the name of the image
-     * @return 
+     * @return The specified image from the folder
      */
     public static BufferedImage getBufferedImage(String name) {
         //accesses the image specified in the resources/images folder
@@ -37,7 +37,7 @@ public class IMAGE {
     /**
      * Accesses the image specified from the web.
      * @param name the name of the image
-     * @return 
+     * @return The Image from the web
      */
     public static BufferedImage getBufferedImageURL(String name) {
         //accesses the image specified in the resources/images folder
@@ -52,8 +52,6 @@ public class IMAGE {
      * This returns a bufferedImage that is blurred and scaled to size
      * @param bi the image that needs to be blurred
      * @param radius the radius of the blur (how much you want it blurred).
-     * @param width the width of the new image
-     * @param height the height of the new image
      * @return the retouched buffered image.
      */
     public static BufferedImage getBlurredImage(BufferedImage bi, int radius) {

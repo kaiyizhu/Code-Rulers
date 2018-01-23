@@ -30,6 +30,9 @@ public class Display extends JFrame {
     /**
      * The Constructor for the Display Class. In this block of code, all graphical
      * components of the game are initialized.
+     * @param title The top window border text
+     * @param imageLogo The CodeRulers logo to be displayed on the task bar
+     * @param r The game being displayed in the frame
      */
     public Display(String title, String imageLogo, CodeRulers r) {
         //Message that tells user that the display has been intialized.
