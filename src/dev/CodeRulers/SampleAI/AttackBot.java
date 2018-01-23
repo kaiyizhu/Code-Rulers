@@ -22,6 +22,7 @@ public class AttackBot extends AbstractRuler {
         
         //just for testing... These just move the objects north.
         for (Knight knight : this.getKnights()) {
+            this.getOtherPeasants();
             move(knight, 5);
             capture(knight, 5);
         }

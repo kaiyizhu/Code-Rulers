@@ -66,6 +66,7 @@ public class UnknownBot extends AbstractRuler {
                         }
                     } else if (entity instanceof Peasant || entity instanceof Castle) {
                         knight.capture(entity);
+                        
                     }
                 }
             }
