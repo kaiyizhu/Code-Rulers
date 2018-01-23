@@ -194,7 +194,7 @@ public class Panel extends javax.swing.JPanel {
         
         if (r.isGameEnd()) {
 
-                BufferedImage b = (BufferedImage) createImage(1024, 768);+;
+                BufferedImage b = (BufferedImage) createImage(1024, 768);
                 if(b==null)
                     System.out.println("Hello");
                 
