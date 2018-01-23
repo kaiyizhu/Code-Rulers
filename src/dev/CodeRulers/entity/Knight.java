@@ -6,6 +6,9 @@
 package dev.CodeRulers.entity;
 
 import dev.CodeRulers.util.IMAGE;
+import dev.CodeRulers.world.World;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -72,6 +75,12 @@ public class Knight extends Entity{
             if(k.strength <1){
                 //if not, set it to not be alive
                 k.alive = false;
+                //set up an arrayList of the knights
+                ArrayList<Knight> knights = new ArrayList<>(Arrays.asList(World.getAllKnights()));
+                //remove the dead knight from the arrayList
+                knights.remove(k);
+                //set the Knights in the World to the ArrayList
+                World.setKnights((Knight[])knights.toArray());
                 //increase this unit's strength by 20
                 this.strength +=20;
                 return 6;
@@ -88,7 +97,13 @@ public class Knight extends Entity{
             //create a peasant reference to it
             Peasant p = (Peasant)attacked;
             //assign the peasant under this ruler
-            p.ruler = this.ruler;
+            p.alive = false;
+            //set up an ArrayList of the peasants
+            ArrayList<Peasant> peasants = new ArrayList<>(Arrays.asList(World.getAllPeasants()));
+            //remove the dead peasant from the ArrayList
+            peasants.remove(p);
+            //set the World's peasants to the arrayList
+            World.setPeasants((Peasant[])peasants.toArray());
             return 4;
         }
         return 0;
