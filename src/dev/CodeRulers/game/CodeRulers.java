@@ -33,7 +33,7 @@ public class CodeRulers implements Runnable {
 
     //this is the time/turn counter that will be used to determine when the game
     //ends.
-    private int turnCount = 0;
+    private static int turnCount = 0;
 
     //creates a thread variable
     private Thread thread;
@@ -242,6 +242,10 @@ public class CodeRulers implements Runnable {
 
     public boolean isGameEnd() {
         return gameEnd;
+    }
+
+    public static int getTurnCount() {
+        return turnCount;
     }
 
     
