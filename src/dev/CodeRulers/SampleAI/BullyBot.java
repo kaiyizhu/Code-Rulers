@@ -87,14 +87,20 @@ public class BullyBot extends AbstractRuler {
         Knight[] myK = getKnights();
         //for every one of our knights
         for(Knight k : myK){
-            //move them to the castle
+            //if the castle is not yet captured
             if(attacking.getRuler() != rulerID){
+                //if they are 1 tile away from the castle
                 if(k.getDistanceTo(attacking.getX(), attacking.getY()) == 1){
+                    //capture the castle
                     capture(k, k.getDirectionTo(attacking.getX(), attacking.getY()));
-                } 
+                }
+                //move towards the castle (to prevent backups of knights)
                 k.move(k.getDirectionTo(attacking.getX(), attacking.getY()));
+            //otherwise
             }else{
+                //set captured to true
                 captured = true;
+                break;
             }
         }
     }
@@ -102,9 +108,13 @@ public class BullyBot extends AbstractRuler {
     private void orderPeasants(){
         //get the list of my peasants
         Peasant[] myP = getPeasants();
+        //if the turn number is a multiple of 25
         if(CodeRulers.getTurnCount()%25 == 0){
+            //pick a new direction to move in
             chooseDir();
+       //if it is the turn before the 25th
         }else if(CodeRulers.getTurnCount()%25 == 24){
+            //move one space north
             dir = 1;
         }
         //for every one of my peasants
@@ -121,16 +131,15 @@ public class BullyBot extends AbstractRuler {
             //get them to produce knights
             c.createKnights();
         }
+        //get the list of all other castles
         Castle[] otherCastles = getOtherCastles();
-        if(otherCastles.length == 0){
-            
-        }
         //for every castle
         for(Castle c: otherCastles){
             //if this castle is owned by the target
             if(c.getRuler() != rulerID){
                 //stick the knights on it
                 attacking = c;
+                //break the for loop
                 break;
             }
         }
