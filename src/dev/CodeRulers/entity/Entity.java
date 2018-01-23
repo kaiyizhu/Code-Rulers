@@ -153,8 +153,8 @@ public abstract class Entity {
          */
         public int getDirectionTo(int x, int y) {
             //Calculate the Coordinate
-            double dy = -1;
-            double dx = 1;
+            double dy = x - this.x;
+            double dx = y - this.y;
             
             //Find the angle of from this entity to the tile
             double hypot = Math.sqrt(dy*dy + dx*dx);
@@ -188,12 +188,13 @@ public abstract class Entity {
             int distance = Math.min(dx, dy);
             distance += Math.abs(dx - dy);
             
-            return distance;
+            return Math.abs(distance);
         }
         
         public void setAction(boolean hasAction){
             this.hasAction = hasAction;
         }
+        
         public void drawEntity(Graphics g,double scaleFactor,int xOffset,int yOffset) {
             BufferedImage icn =IMAGE.getResizedImage(entityIcn, (int)(12*scaleFactor), (int)(12*scaleFactor));
             g.drawImage(icn,(int)(x*12*scaleFactor)+xOffset,(int)(y*12*scaleFactor)+yOffset, null);
