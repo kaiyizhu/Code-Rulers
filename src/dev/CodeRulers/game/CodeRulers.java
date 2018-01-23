@@ -49,6 +49,8 @@ public class CodeRulers implements Runnable {
 
     private World w;
 
+    private Boolean stopMessages = false;
+
     /**
      * The constructor for the CodeRulers Class.
      *
@@ -220,16 +222,17 @@ public class CodeRulers implements Runnable {
                     try {
                         ruler.orderSubjects();
                     } catch (Exception ex) {
+                        if (!stopMessages) {
+                            int confirmed = JOptionPane.showConfirmDialog(null,
+                                    ruler.getRulerName() + " committed a game-breaking error! Exit game?", "Error Message",
+                                    JOptionPane.YES_NO_CANCEL_OPTION);
 
-                        int confirmed = JOptionPane.showConfirmDialog(null,
-                                ruler.getRulerName() + " committed a game-breaking error! Exit game?", "Error Message",
-                                JOptionPane.YES_NO_OPTION);
-
-                        if (confirmed == JOptionPane.YES_OPTION) {
-                            System.exit(0);
+                            if (confirmed == JOptionPane.YES_OPTION) {
+                                System.exit(0);
+                            } else if (confirmed == JOptionPane.NO_OPTION) {
+                                stopMessages = true;
+                            }
                         }
-                        //JOptionPane.showConfirmDialog(null, );
-
                     }
                 }
 
