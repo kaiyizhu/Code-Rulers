@@ -88,6 +88,7 @@ public class CodeRulers implements Runnable {
             display = new Display(title, logo, this);
         } else {
             //start simulation
+            t = new Timer(1, new TimerListener());
             t.start();
         }
 

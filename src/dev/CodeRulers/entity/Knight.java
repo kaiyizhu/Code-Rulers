@@ -43,9 +43,6 @@ public class Knight extends Entity{
             if(changePos(dir)){
                 //do nothing. Its a knight
                 hasAction = false;
-            }else{
-                System.out.println("Illegal Movement attempted by ruler " + ruler +
-                        " and Knight at " + x + " , " + y );
             }
         }
     }
