@@ -6,8 +6,13 @@
 package dev.CodeRulers.SampleAI;
 
 import dev.CodeRulers.ruler.*;
-import dev.CodeRulers.entity.*;
+import dev.CodeRulers.entity.Castle;
+import dev.CodeRulers.entity.Knight;
+import dev.CodeRulers.entity.Peasant;
+import dev.CodeRulers.game.CodeRulers;
+
 import dev.CodeRulers.world.World;
+import java.awt.Color;
 import java.util.Random;
 
 /**
@@ -35,44 +40,20 @@ public class BullyBot extends AbstractRuler {
     boolean captured = false;
     @Override
     public void initialize() {
-        //get the starting castle of this ruler
-        Castle first = World.getCastles()[0];
-        //if the castle is in the top right
-        if(first.getX() > 32 && first.getY() < 32){
-            //set corner to one, direction of expansion south west
-            corner = 1;
-            dir = 6;
-        //if the castle is in the bottom right
-        }else if(first.getX() > 32 && first.getY() >= 32){
-            //set corner to 2, direction of expansion to north west
-            corner = 2;
-            dir = 8;
-        //if the castle is in the bottom left
-        }else if(first.getX() <= 32 && first.getY() >= 32){
-            //set the corner to 3, direction of expansion north east
-            corner = 3;
-            dir = 2;
-        //otherwise
-        }else{
-            //set the corner to 4, direction of expansion to south east
-            corner = 4;
-            dir = 4;
-        }
+        profileURL =("http://www.cse.lehigh.edu/~munoz/CSE497/assignments/files/coderuler_files/fig2.gif");
+        setColor(new Color(200,50,50)); 
     }
     @Override
     public void orderSubjects() {
         //tell the peasants to expand
-        orderPeasants();
+            orderPeasants();
+        
         //if our castle was captured, move to capture others
-        if(getCastles().length < 1){
-            capture();
-        }
-        //if it is within the first 20 turns
-        if( true){
+        if( CodeRulers.getTurnCount() < 20){
             //generate knights, start moving towards the center
             setUp();
         //if it is the 20th turn
-        }else if( true){
+        }else if( CodeRulers.getTurnCount() ==20){
             //get the target to bully
             assignNewTarget();
             //move to attack it
@@ -103,7 +84,12 @@ public class BullyBot extends AbstractRuler {
         //for every one of our knights
         for(Knight k : myK){
             //move them to the castle
-           k.move (k.getDirectionTo(attacking.getX(), attacking.getY()));
+            if(attacking != null){
+                k.move (k.getDirectionTo(attacking.getX(), attacking.getY()));
+            }else{
+                captured = true;
+                cleanUp();
+            }
         }
         //if they captured a castle
         if(getCastles().length != numCastles){
@@ -117,7 +103,7 @@ public class BullyBot extends AbstractRuler {
        //Get the list of my knights
        Knight[] myK = getKnights();
        //get the list of all peasants
-       Peasant[] myP = World.getPeasants();
+       Peasant[] myP = World.getAllPeasants();
        //create a minor target variable, set it to null
        Peasant minorTarget = null;
        //for all peasants
@@ -147,17 +133,22 @@ public class BullyBot extends AbstractRuler {
     private void orderPeasants(){
         //get the list of my peasants
         Peasant[] myP = getPeasants();
+        if(CodeRulers.getTurnCount()%10 == 0){
+            chooseDir();
+        }else if(CodeRulers.getTurnCount()%11 == 0){
+            dir = 1;
+        }
         //for every one of my peasants
         for(Peasant p : myP){
             //if the tile they would move to is not captured
-            if(World.getLandOwner(p.getX()+translateDir(dir)[0], p.getY()+translateDir(dir)[1]) != rulerID){
+        //    if(World.getLandOwner(p.getX()+translateDir(dir)[0], p.getY()+translateDir(dir)[1]) != rulerID){
                 //move them there
                 p.move(dir);
             //otherwise
-            }else{
+        //    }else{
                 //move them in another direction
-                p.move(dir/2);
-            }
+        //        p.move(dir/2);
+        //d    }
         }
     }
     private void assignNewTarget(){
@@ -173,7 +164,7 @@ public class BullyBot extends AbstractRuler {
         //the id of the ruler with the least land owned so far
         int lowID = -1;
         //for all of the rulers in the game
-        for(int i=0; i<4; i++){
+        for(int i=0; i<World.getNumRulers(); i++){
             //set a temporary variable to the count of this ruler's land
             int temp = World.getLandCount(i);
             //if the ruler at this index is not Bully
@@ -187,9 +178,9 @@ public class BullyBot extends AbstractRuler {
         //set the target to the ruler with the least land
         target = lowID;
         //get the array of all the castles
-        Castle[] allCastles = World.getCastles();
+        Castle[] otherCastles = getOtherCastles();
         //for every castle
-        for(Castle c: allCastles){
+        for(Castle c: otherCastles){
             //if this castle is owned by the target
             if(c.getRuler() == target)
                 //stick the knights on it
@@ -197,16 +188,89 @@ public class BullyBot extends AbstractRuler {
         }
     }
     
-    
+    private void chooseStartingDir(){
+        //get the starting castle of this ruler
+        Castle first = World.getAllCastles()[0];
+        //if the castle is in the top right
+        if(first.getX() > 32 && first.getY() < 32){
+            //set corner to one, direction of expansion south west
+            corner = 1;
+            dir = 6;
+        //if the castle is in the bottom right
+        }else if(first.getX() > 32 && first.getY() >= 32){
+            //set corner to 2, direction of expansion to north west
+            corner = 2;
+            dir = 8;
+        //if the castle is in the bottom left
+        }else if(first.getX() <= 32 && first.getY() >= 32){
+            //set the corner to 3, direction of expansion north east
+            corner = 3;
+            dir = 2;
+        //otherwise
+        }else{
+            //set the corner to 4, direction of expansion to south east
+            corner = 4;
+            dir = 4;
+        }
+    }
+    private void chooseDir(){
+        //get the list of peasants from the ruler
+        Peasant[] myPeasants = getPeasants();
+        //represents the net position of the peasants, + is to the right, - to the left
+        int netX = 0;
+        //represents the net position of peasants, + is below, - is above
+        int netY = 0;
+        //for every one of my peasant
+        for(Peasant p : myPeasants){
+            //if they are to the right
+            if(p.getX() >= 32){
+                //increment netX
+                netX++;
+            }else{
+                //decrement netX
+                netX--;
+            }
+            //if they are to the bottom
+            if(p.getY() >= 32){
+                //increment netY
+                netY++;
+            //otherwise
+            }else{
+                //decrement netY
+                netY--;
+            }
+        }
+        //if the peasants are to the left
+        if(netX <= 0){
+            //set their direction to the right
+            dir = 3;
+        //otherwise
+        }else{
+            //set their direction to the left
+            dir = 7;
+        }
+        //if the peasants are below
+        if(netY >= 0){
+            //move them diagonally upwards
+            if(dir == 7)dir=8;
+            if(dir ==3)dir=2;
+        //if the peasants are above
+        }else if(netY < 0){
+            //move them diagonally downwards
+            if(dir == 7)dir=6;
+            if(dir ==3)dir=4;
+        }
+    }
 
     @Override
     public String getSchoolName() {
-        return "The FlexQueue Dev. Team";
+        return "NHS CodeRulers -Luke";
     }
 
     @Override
     public String getRulerName() {
-        return "Bender";
+        return "Bully Bot";
     }
+
     
 }

@@ -15,19 +15,22 @@ import java.util.ArrayList;
  *
  * @author Luke
  */
-public abstract class AbstractRuler {
+public abstract class AbstractRuler implements Comparable{
     
 /*Fields and features of the Ruler class*/
     //integer used to identify this ruler in game(roughly equivalent to player number)
     protected int rulerID; //not sure about final or not
     //the number of points this ruler has
-    int points;
+    private int points;
     
+    //this is the default profile URL for any AI.
     protected String profileURL="http://www.havoca.org/wp-content/uploads/2016/03/icon-user-default-300x300.png";
     
     private BufferedImage profileImage;
-    
+    //this is the default profile color for the AI.
     private Color c=Color.WHITE;
+    
+    
     
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
@@ -64,7 +67,7 @@ public abstract class AbstractRuler {
      * @param dir The cardinal direction in which it moves
      */
     public void move(Entity moved, int dir){
-        //test to see if it has movement & is not a castle
+        //tell the entity to move itself. What a lazy ruler
         moved.move(dir);
     }
 
@@ -76,10 +79,10 @@ public abstract class AbstractRuler {
      */
     public void capture(Knight attacking, int dir){
         //check that this knight can attack
-        if(attacking.isAlive() && attacking.hasAction()){
+        if(attacking.hasAction()){
             //see if anything is in that space
             int[] xy = translateDir(dir);
-            Entity attacked = World.getEntityAt(attacking.getX()+xy[1], attacking.getY()+xy[2]);
+            Entity attacked = World.getEntityAt(attacking.getX()+xy[0], attacking.getY()+xy[1]);
             if(attacked != null){
                 //check that it is not one of this ruler's subjects
                 if(attacked.getRuler() != rulerID ){
@@ -133,7 +136,7 @@ public abstract class AbstractRuler {
      */
     public Peasant[] getPeasants(){
         //get the list of all peasants from world
-        Peasant[] all = World.getPeasants();
+        Peasant[] all = World.getAllPeasants();
         ArrayList<Peasant> ours = new ArrayList<>(0);
         //sort through the list, add every peasant that has this ruler to stack?
         for(Peasant p: all){
@@ -141,8 +144,8 @@ public abstract class AbstractRuler {
                 ours.add(p);
             }
         }
-        //convert stack to array
-        Peasant[] returned = (Peasant[])ours.toArray();
+        //convert ArrayList to array
+        Peasant[] returned = ours.toArray(new Peasant[ours.size()]);
         //return array
         return returned;
     }
@@ -153,15 +156,15 @@ public abstract class AbstractRuler {
      */
     public Knight[] getKnights(){
         //get the list of all knights from world
-        Knight[] all = World.getKnights();
+        Knight[] all = World.getAllKnights();
         ArrayList<Knight> ours = new ArrayList<>();
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
             if(k.getRuler() == rulerID)
             ours.add(k);
         }
-        //convert stack to array?
-        Knight[] returned = (Knight[]) ours.toArray();
+        //ArrayList converted to an array.
+        Knight[] returned = ours.toArray(new Knight[ours.size()]);
         //return array
         return returned;
     }
@@ -172,7 +175,7 @@ public abstract class AbstractRuler {
      */
     public Castle[] getCastles(){
         //get the list of all castles from world
-        Castle[] all = World.getCastles();
+        Castle[] all = World.getAllCastles();
         ArrayList<Castle> ours = new ArrayList<>();
         
         //sort through the list, add every castles that has this ruler to stack?
@@ -181,8 +184,8 @@ public abstract class AbstractRuler {
                 ours.add(i);
             }
         }
-        //convert stack to array?
-        Castle[] returned = (Castle[]) ours.toArray();
+        //convert ArrayList to array
+        Castle[] returned = ours.toArray(new Castle[ours.size()]);
         //return array
         return returned;
     }
@@ -195,7 +198,7 @@ public abstract class AbstractRuler {
      */
     public Peasant[] getOtherPeasants(){
         //get the list of all peasants from world
-        Peasant[] all = World.getPeasants();
+        Peasant[] all = World.getAllPeasants();
         ArrayList<Peasant> others = new ArrayList<>();
         //sort through the list, add every peasant that has this ruler to stack?
         for(Peasant p: all){
@@ -203,8 +206,8 @@ public abstract class AbstractRuler {
                 others.add(p);
             }
         }
-        //convert stack to array
-        Peasant[] returned = (Peasant[])others.toArray();
+        //convert ArrayList to array
+        Peasant[] returned = others.toArray(new Peasant[others.size()]);
         //return array
         return returned;
     }
@@ -215,15 +218,15 @@ public abstract class AbstractRuler {
      */
     public Knight[] getOtherKnights(){
         //get the list of all knights from world
-        Knight[] all = World.getKnights();
+        Knight[] all = World.getAllKnights();
         ArrayList<Knight> others = new ArrayList<>();
         //sort through the list, add every knight that has this ruler to stack?
         for(Knight k : all){
             if(k.getRuler() != rulerID)
             others.add(k);
         }
-        //convert stack to array?
-        Knight[] returned = (Knight[]) others.toArray();
+        //convert ArrayList to array
+        Knight[] returned = others.toArray(new Knight[others.size()]);
         //return array
         return returned;
     }
@@ -234,7 +237,7 @@ public abstract class AbstractRuler {
      */
     public Castle[] getOtherCastles(){
         //get the list of all castles from world
-        Castle[] all = World.getCastles();
+        Castle[] all = World.getAllCastles();
         ArrayList<Castle> others = new ArrayList<>();
         
         //sort through the list, add every castles that has this ruler to stack?
@@ -243,8 +246,8 @@ public abstract class AbstractRuler {
                 others.add(i);
             }
         }
-        //convert stack to array?
-        Castle[] returned = (Castle[]) others.toArray();
+        //convert ArrayList to array
+        Castle[] returned = others.toArray(new Castle[others.size()]);
         //return array
         return returned;
     }
@@ -259,7 +262,8 @@ public abstract class AbstractRuler {
      */
     public int getPoints(){
         //grab from game or add field in ruler
-        return points;
+        return points + World.getLandCount(this.getRulerID()) / 10
+                    + this.getCastles().length * 25 + this.getPeasants().length + this.getKnights().length * 2;
     }
     /**
      * Translates an integer direction into a x,y difference. Based on the
@@ -273,40 +277,61 @@ public abstract class AbstractRuler {
         //if the direction involves moving east
         if(dir < 5 && dir >1){
             //set change in x to positive 1
-            xy[1] = 1;
+            xy[0] = 1;
         //otherwise, if the direction involves moving west
         }else if(dir > 5 && dir <9){
             //set change in x to -1
-            xy[1] = -1;
+            xy[0] = -1;
         }
         //if the direction involves moving north (and not west)
         if(dir >0 && dir<3){
             //set the change in y to -1
-            xy[2] = -1;
+            xy[1] = -1;
         //otherwsie, if the direction involves moving northwest    
         }else if(dir == 8){
             //set the change in y to -1
-            xy[2] = -1;
+            xy[1] = -1;
         //otherwise if the direction involves moving south
         }else if(dir > 3 && dir <7){
             //set the change in y to positive 1
-            xy[2] = 1;
+            xy[1] = 1;
         }
         //return the directional coordinates
         return xy;
     }
 
-
+    /**
+     * Gets the Color variable of this ruler
+     * @return The ruler's color.
+     */
     public Color getColor() {
         return c;
     }
-
+    /**
+     * Sets the Color of this ruler.
+     * @param c The ruler's new color.
+     */
     public void setColor(Color c) {
         this.c = c;
     }
-
+    /**
+     * Returns the profile image of this ruler.
+     * @return The profile image of the ruler.
+     */
     public BufferedImage getProfileImage() {
         return profileImage;
     }
+    /**
+     * Sets the ID of this ruler to the given int.
+     * @param rulerID The new rulerID.
+     */
+    public void setRulerID(int rulerID) {
+        this.rulerID = rulerID;
+    }
     
+    
+    @Override
+    public int compareTo(Object o) {
+        return -((Integer)(this.getPoints())).compareTo((Integer)((AbstractRuler)o).getPoints());
+    }
 }

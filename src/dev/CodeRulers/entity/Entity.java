@@ -5,12 +5,17 @@
  */
 package dev.CodeRulers.entity;
 import dev.CodeRulers.ruler.AbstractRuler;
+import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.World;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 /**
  *
  * @author Sean Zhang
  */
 public abstract class Entity {
+    protected BufferedImage entityIcn;
+    
     /**
      * The Constructor. Creates an entity with the following parameters:
      * @param x The x value of the coordinate where the entity is located
@@ -21,7 +26,6 @@ public abstract class Entity {
         this.x = x;
         this.y =y;
         this.ruler = ruler;
-        alive = true;
     }
     
     //this is the super abstract class to all pieces on the playing field. Each piece
@@ -57,17 +61,6 @@ public abstract class Entity {
          */
         public int getY() {
             return y;
-        }
-        
-    //  Alive -> Each entity should return a boolean stating if it has been captured or not.
-        protected boolean alive;
-        
-        /**
-         * Tells whether the piece has been captured or not.
-         * @return Returns true if the piece is alive. False if not.
-         */
-        public boolean isAlive() {
-            return alive;
         }
 
     
@@ -124,25 +117,31 @@ public abstract class Entity {
             //translate the direction into x,y differences
             int[] xy = AbstractRuler.translateDir(dir);
             //check if someone is at the location where they are trying to move
-            Entity inLocation = World.getEntityAt(x+xy[1], y+xy[2]);
+            Entity inLocation = World.getEntityAt(x+xy[0], y+xy[1]);
             if(inLocation != null){
-                if(this instanceof Knight && inLocation instanceof Peasant){
-                    //capture the peasant, and continue to move
-                    inLocation.alive = false;
+                //if this is a knight and it moves into an enemy peasant
+                if(this instanceof Knight && inLocation instanceof Peasant &&
+                        this.ruler != inLocation.ruler){
+                    //create a knight reference to this entity
+                    Knight k = (Knight)this;
+                    //give the knight the action to capture this entity
+                    k.hasAction = true;
+                    //capture the peasant
+                    k.capture((Peasant)inLocation);
                 }else{
-                    //return false, stopping from moving
+                    //return false, stop it from moving into another entity's space
                     return false;
                 }
             }
             
             //Check if the entity would move out of bounds
-            if(x + xy[1] < 0 || x + xy[1] >= 64 || y + xy[2] < 0 || y + xy[2] >= 64) {
+            if(x + xy[0] < 0 || x + xy[0] >= 64 || y + xy[1] < 0 || y + xy[1] >= 64) {
                 return false;
             }
             
             //move the piece in that direction
-            x+=xy[1];
-            y+=xy[2];
+            x+=xy[0];
+            y+=xy[1];
             return true;
         }
         
@@ -190,5 +189,13 @@ public abstract class Entity {
             distance += Math.abs(dx - dy);
             
             return distance;
+        }
+        
+        public void setAction(boolean hasAction){
+            this.hasAction = hasAction;
+        }
+        public void drawEntity(Graphics g,double scaleFactor,int xOffset,int yOffset) {
+            BufferedImage icn =IMAGE.getResizedImage(entityIcn, (int)(12*scaleFactor), (int)(12*scaleFactor));
+            g.drawImage(icn,(int)(x*12*scaleFactor)+xOffset,(int)(y*12*scaleFactor)+yOffset, null);
         }
 }
