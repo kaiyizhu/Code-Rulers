@@ -21,8 +21,9 @@ public class SeanZhang extends AbstractRuler {
     public void orderSubjects() {
         
         //just for testing... These just move the objects north.
-        for (Knight knight : getKnights()) {
-            move(knight, 1);
+        for (Knight knight : this.getKnights()) {
+            move(knight, 5);
+            capture(knight, 5);
         }
         
         for (Peasant peasant : getPeasants()) {
