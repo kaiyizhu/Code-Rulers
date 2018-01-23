@@ -153,8 +153,8 @@ public abstract class Entity {
          */
         public int getDirectionTo(int x, int y) {
             //Calculate the Coordinate
-            double dy = -1;
-            double dx = 1;
+            double dy = x - this.x;
+            double dx = y - this.y;
             
             //Find the angle of from this entity to the tile
             double hypot = Math.sqrt(dy*dy + dx*dx);

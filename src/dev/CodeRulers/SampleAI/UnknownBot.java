@@ -45,14 +45,13 @@ public class UnknownBot extends AbstractRuler {
 
     private void moveKnights() {
         Castle closestCastle = new Castle(150, 150, 150);
+        
         //Find closest castle to attack
         for (Castle castle : eCastles) {
             if (castles[0].getDistanceTo(castle.getX(), castle.getY()) <= castles[0].getDistanceTo(closestCastle.getX(), closestCastle.getY())) {
                 closestCastle = castle;
             }
         }
-        
-        
 
         //Move towards the castle
         for (Knight knight : knights) {
@@ -71,7 +70,6 @@ public class UnknownBot extends AbstractRuler {
                     }
                 }
             }
-
             knight.move(knight.getDirectionTo(closestCastle.getX(), closestCastle.getY()));
         }
     }
@@ -94,7 +92,7 @@ public class UnknownBot extends AbstractRuler {
             for(int x = -1; x <= 1; x ++) {
                 for(int y = -1; y <= 1; y ++) {
                     //If the land owner is not ours, then move onto it
-                    if(World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID && !(peasant.getX() + x < 0 && peasant.getX() + x > 63 && peasant.getY() + y < 0 && peasant.getY() + y < 63)) {
+                    if(World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID && peasant.getX() + x <= 63 && peasant.getX() + x >= 0 && peasant.getY() + y >= 0 && peasant.getY() + y <= 63) {
                         peasant.move(findDir(x,y));
                     }
                 }
@@ -120,12 +118,12 @@ public class UnknownBot extends AbstractRuler {
 
     @Override
     public String getSchoolName() {
-        return "Richard is Bes";
+        return "NHS";
     }
 
     @Override
     public String getRulerName() {
-        return "BesTeam";
+        return "BestTeam";
     }
 
 }
