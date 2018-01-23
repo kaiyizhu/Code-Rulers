@@ -94,9 +94,9 @@ public class BullyBot extends AbstractRuler {
     private void orderPeasants(){
         //get the list of my peasants
         Peasant[] myP = getPeasants();
-        if(CodeRulers.getTurnCount()%20 == 0){
+        if(CodeRulers.getTurnCount()%25 == 0){
             chooseDir();
-        }else if(CodeRulers.getTurnCount()%20 == 19){
+        }else if(CodeRulers.getTurnCount()%25 == 24){
             dir = 1;
         }
         //for every one of my peasants
