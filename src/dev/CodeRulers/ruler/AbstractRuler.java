@@ -299,19 +299,31 @@ public abstract class AbstractRuler {
         return xy;
     }
 
-
+    /**
+     * Gets the Color variable of this ruler
+     * @return The ruler's color.
+     */
     public Color getColor() {
         return c;
     }
-
+    /**
+     * Sets the Color of this ruler.
+     * @param c The ruler's new color.
+     */
     public void setColor(Color c) {
         this.c = c;
     }
-
+    /**
+     * Returns the profile image of this ruler.
+     * @return The profile image of the ruler.
+     */
     public BufferedImage getProfileImage() {
         return profileImage;
     }
-
+    /**
+     * Sets the ID of this ruler to the given int.
+     * @param rulerID The new rulerID.
+     */
     public void setRulerID(int rulerID) {
         this.rulerID = rulerID;
     }
