@@ -30,10 +30,7 @@ public class SeanZhang extends AbstractRuler {
         for (Peasant peasant : getPeasants()) {
             move(peasant, 1);
         }
-        
-        Knight k = null;
-        
-        k.move(rulerID);
+     
     }
 
     @Override
