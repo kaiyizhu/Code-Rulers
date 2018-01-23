@@ -38,13 +38,16 @@ public class Knight extends Entity{
     
     @Override
     public void move(int dir){
-        //if the piece can be move correctly in that direction
-        if(changePos(dir)){
-            //do nothing. Its a knight
-        }else{
-            System.out.println("Illegal Movement attempted by ruler " + ruler +
-                    " and Knight at " + x + " , " + y );
-        }    
+        if(hasAction){
+            //if the piece can be move correctly in that direction
+            if(changePos(dir)){
+                //do nothing. Its a knight
+                hasAction = false;
+            }else{
+                System.out.println("Illegal Movement attempted by ruler " + ruler +
+                        " and Knight at " + x + " , " + y );
+            }
+        }
     }
     /**
      * Returns the strength(health) of this knight. A knights begin with
@@ -65,6 +68,7 @@ public class Knight extends Entity{
         if(this.getDistanceTo(attacked.getX(), attacked.getY()) > 1 || !this.hasAction){
             return 0;
         }
+        hasAction = false;
         //if the attacked entity is a knight
         if(attacked instanceof Knight){
             //create a reference for it as a knight

@@ -39,6 +39,7 @@ public class Peasant extends Entity {
         if (hasAction) {
             if (changePos(dir)) {
                 //claim this peice of land
+                hasAction = false;
                 World.getLandOwned()[x][y] = ruler;
             } else {
                 //if the move was obstructed somehow, print it out to the console

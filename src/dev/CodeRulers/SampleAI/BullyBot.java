@@ -11,6 +11,7 @@ import dev.CodeRulers.entity.Knight;
 import dev.CodeRulers.entity.Peasant;
 
 import dev.CodeRulers.world.World;
+import java.awt.Color;
 import java.util.Random;
 
 /**
@@ -38,7 +39,8 @@ public class BullyBot extends AbstractRuler {
     boolean captured = false;
     @Override
     public void initialize() {
-        
+        profileURL =("http://www.cse.lehigh.edu/~munoz/CSE497/assignments/files/coderuler_files/fig2.gif");
+        setColor(new Color(200,50,50)); 
     }
     @Override
     public void orderSubjects() {
@@ -210,12 +212,12 @@ public class BullyBot extends AbstractRuler {
 
     @Override
     public String getSchoolName() {
-        return "The FlexQueue Dev. Team";
+        return "NHS CodeRulers -Luke";
     }
 
     @Override
     public String getRulerName() {
-        return "Bender";
+        return "Bully Bot";
     }
     
 }
