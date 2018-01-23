@@ -43,9 +43,6 @@ public class Panel extends javax.swing.JPanel {
     BufferedImage pauseButton;
     BufferedImage restartButton;
 
-    //this timer is not our game loop. Instead, it controls the speed of the game (turns/second)
-    Timer t;
-
     /*  These two fonts are the main two fonts that will be used in our program.
         One will be used as a header (for bigger headings)
         And the other will be used for less important things
@@ -91,10 +88,6 @@ public class Panel extends javax.swing.JPanel {
         //It is then resized to the correct size to fit in the dimensions of the side panel.
         sidePanelImage = IMAGE.getResizedImage(IMAGE.getBlurredImage(IMAGE.getBufferedImage("src/resources/images/sidePanelImage.jpg"), 20), sidePanelWidth, panelHeight);
 
-        //This statement creates a new timer. The timer refreshes every 1 second.
-        //This means that the speed of the game happens at 1 cycle of turns per second.
-        t = new Timer(50, new TimerListener());
-
         //initializes the three images
         startButton = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/startButton.png"), 25, 25);
         pauseButton = IMAGE.getResizedImage(IMAGE.getBufferedImage("src/resources/images/pauseButton.png"), 25, 25);
@@ -108,6 +101,7 @@ public class Panel extends javax.swing.JPanel {
         //clears the screen (I think)
         super.paintComponent(g);
 
+        
         //render the world layer graphics first. This statement calls the static
         //render method in the World class.
         World.render(g, r);
@@ -330,9 +324,9 @@ public class Panel extends javax.swing.JPanel {
             initY = evt.getY();
         } else {
             if(evt.getX()>panelHeight+5&&evt.getX()<panelHeight+25+5&&evt.getY()>panelHeight - 60 + 5&&evt.getY()<panelHeight-60+25+5){
-                t.start();
+                r.getTimer().start();
             } else if(evt.getX()>panelHeight+5+25+5&&evt.getX()<panelHeight+25+5+5+25&&evt.getY()>panelHeight - 60 + 5&&evt.getY()<panelHeight-60+25+5) {
-                t.stop();
+                r.getTimer().stop();
             }
                 
         }
@@ -374,53 +368,7 @@ public class Panel extends javax.swing.JPanel {
         repaint();
     }//GEN-LAST:event_formMouseReleased
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    private class TimerListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            
-            //get the array of all castles
-            Castle[] allC = World.getAllCastles();
-            //for every castle
-            for(Castle c : allC){
-                //call its production
-                c.produce();
-            }
-            //get the array of all peasants
-            Peasant[] allP = World.getAllPeasants();
-            //for all peasants
-            for(Peasant p : allP){
-                //give them actions to use this turn
-                p.setAction(true);
-            }
-            //get the array of all knights
-            Knight[] allK = World.getAllKnights();
-            //for every knight
-            for(Knight k : allK){
-                //give them an action for this turn
-                k.setAction(true);
-            }
-            
-            //This updates all the things related to the rulers. Once updated,
-            //the graphics can then be updated.
-
-            //This method is typically called once per cycle.
-            for (AbstractRuler ruler : r.getRulerArray()) {
-                ruler.orderSubjects();
-            }
-
-            //repainted to show new changes to the game.
-            repaint();
-            
-            //add one to the number of turns taken
-            turnsTaken++;
-        }
-        
-        
-
-    }
 
 }

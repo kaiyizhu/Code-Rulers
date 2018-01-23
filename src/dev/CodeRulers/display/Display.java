@@ -54,6 +54,10 @@ public class Display extends JFrame {
         //display the JFrame.
         this.setVisible(true);
     }
+
+    public JPanel getPanel() {
+        return panel1;
+    }
     
     
 
