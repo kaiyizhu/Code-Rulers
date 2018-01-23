@@ -89,39 +89,11 @@ public class UnknownBot extends AbstractRuler {
     private void movePeasants() {
         for (Peasant peasant : peasants) {
             //Search for uncaptured tile
-            if (peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) >= 1
-                    && peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) <= 3) {
-                for (int x = 1; x >= -1; x--) {//Move in general direction of Quandrant 1
-                    for (int y = -1; y <= 1; y++) {
-                        if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(x, y));
-                        }
-                    }
-                }
-            } else if (peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) >= 7
-                    && peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) <= 8) {
-                for (int x = -1; x <= 1; x++) {//Move in general direction of Quandrant 2
-                    for (int y = -1; y <= 1; y++) {
-                        if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(x, y));
-                        }
-                    }
-                }
-            } else if (peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) >= 5
-                    && peasant.getDirectionTo(castles[0].getX(), castles[0].getY()) <= 7) {
-                for (int x = -1; x <= 1; x++) {//Move in general direction of Quandrant 3
-                    for (int y = 1; y >= -1; y--) {
-                        if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(x, y));
-                        }
-                    }
-                }
-            } else {
-                for (int x = 1; x >= -1; x--) {//Move in general direction of Quandrant 4
-                    for (int y = 1; y >= -1; y--) {
-                        if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                            peasant.move(findDir(x, y));
-                        }
+            for(int x = -1; x <= 1; x ++) {
+                for(int y = -1; y <= 1; y ++) {
+                    //If the land owner is not ours, then move onto it
+                    if(World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID && !(peasant.getX() + x < 0 && peasant.getX() + x > 63 && peasant.getY() + y < 0 && peasant.getY() + y < 63)) {
+                        peasant.move(findDir(x,y));
                     }
                 }
             }
