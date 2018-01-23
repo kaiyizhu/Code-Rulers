@@ -17,6 +17,8 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageProducer;
+import java.io.File;
 import javax.swing.Timer;
 
 /**
@@ -66,8 +68,8 @@ public class Panel extends javax.swing.JPanel {
     private int iconOffset = 0;
 
     //int turnLimit this is the number of turns that the game has cycled through.
-    public int turnsTaken=0;
-    
+    public int turnsTaken = 0;
+
     /**
      * The constructor for the Panel Class. Creates new form Panel.
      *
@@ -101,7 +103,6 @@ public class Panel extends javax.swing.JPanel {
         //clears the screen (I think)
         super.paintComponent(g);
 
-        
         //render the world layer graphics first. This statement calls the static
         //render method in the World class.
         World.render(g, r);
@@ -177,6 +178,7 @@ public class Panel extends javax.swing.JPanel {
             //increases the count by one.
             count++;
 
+            
         }
 
         //this section is responsible for drawing the utility bar where the
@@ -188,6 +190,16 @@ public class Panel extends javax.swing.JPanel {
         g.fillRect(panelHeight, panelHeight - 60, sidePanelWidth, 60);
         g.drawImage(startButton, panelHeight + 5, panelHeight - 60 + 5, null);
         g.drawImage(pauseButton, panelHeight + 5 + 5 + 25, panelHeight - 60 + 5, null);
+
+        
+        if (r.isGameEnd()) {
+
+                BufferedImage b = (BufferedImage) createImage(1024, 768);+;
+                if(b==null)
+                    System.out.println("Hello");
+                
+                g.drawImage(IMAGE.getBlurredImage(b, 20), 0, 0, this);
+            }
     }
 
     /**
@@ -300,13 +312,12 @@ public class Panel extends javax.swing.JPanel {
         //sets the offest relative to the position of the old cursor position
         //and new cursor position.
         if (evt.getX() < panelHeight) {
-        World.setxOffset(World.getxOffset() + evt.getX() - initX);
-        World.setyOffset(World.getyOffset() + evt.getY() - initY);
+            World.setxOffset(World.getxOffset() + evt.getX() - initX);
+            World.setyOffset(World.getyOffset() + evt.getY() - initY);
 
-        //sets the original coordinates to the current coordinates.
-        
-        initX = evt.getX();
-        initY = evt.getY();
+            //sets the original coordinates to the current coordinates.
+            initX = evt.getX();
+            initY = evt.getY();
         }
         //refreshes the screen to show the changes made to the world.
         repaint();
@@ -323,12 +334,12 @@ public class Panel extends javax.swing.JPanel {
             initX = evt.getX();
             initY = evt.getY();
         } else {
-            if(evt.getX()>panelHeight+5&&evt.getX()<panelHeight+25+5&&evt.getY()>panelHeight - 60 + 5&&evt.getY()<panelHeight-60+25+5){
+            if (evt.getX() > panelHeight + 5 && evt.getX() < panelHeight + 25 + 5 && evt.getY() > panelHeight - 60 + 5 && evt.getY() < panelHeight - 60 + 25 + 5) {
                 r.getTimer().start();
-            } else if(evt.getX()>panelHeight+5+25+5&&evt.getX()<panelHeight+25+5+5+25&&evt.getY()>panelHeight - 60 + 5&&evt.getY()<panelHeight-60+25+5) {
+            } else if (evt.getX() > panelHeight + 5 + 25 + 5 && evt.getX() < panelHeight + 25 + 5 + 5 + 25 && evt.getY() > panelHeight - 60 + 5 && evt.getY() < panelHeight - 60 + 25 + 5) {
                 r.getTimer().stop();
             }
-                
+
         }
 
     }//GEN-LAST:event_formMousePressed
@@ -370,5 +381,4 @@ public class Panel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
 }

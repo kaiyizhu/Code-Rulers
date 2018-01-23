@@ -27,13 +27,13 @@ public class CodeRulers implements Runnable {
 
     //this boolean states whether this object is running or not.
     private boolean running = false;
-    
+
     //this indicates whether the game has ended or not.
-    private boolean gameEnd=false;
-    
+    private boolean gameEnd = false;
+
     //this is the time/turn counter that will be used to determine when the game
     //ends.
-    private int turnCount=0;
+    private int turnCount = 0;
 
     //creates a thread variable
     private Thread thread;
@@ -188,47 +188,50 @@ public class CodeRulers implements Runnable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            
-            if(!gameEnd) {
+
+            if (!gameEnd) {
                 //get the array of all castles
-            Castle[] allC = World.getAllCastles();
-            //for every castle
-            for (Castle c : allC) {
-                //call its production
-                c.produce();
-            }
-            //get the array of all peasants
-            Peasant[] allP = World.getAllPeasants();
-            //for all peasants
-            for (Peasant p : allP) {
-                //give them actions to use this turn
-                p.setAction(true);
-            }
-            //get the array of all knights
-            Knight[] allK = World.getAllKnights();
-            //for every knight
-            for (Knight k : allK) {
-                //give them an action for this turn
-                k.setAction(true);
-            }
-            //This updates all the things related to the rulers. Once updated,
-            //the graphics can then be updated.
+                Castle[] allC = World.getAllCastles();
+                //for every castle
+                for (Castle c : allC) {
+                    //call its production
+                    c.produce();
+                }
+                //get the array of all peasants
+                Peasant[] allP = World.getAllPeasants();
+                //for all peasants
+                for (Peasant p : allP) {
+                    //give them actions to use this turn
+                    p.setAction(true);
+                }
+                //get the array of all knights
+                Knight[] allK = World.getAllKnights();
+                //for every knight
+                for (Knight k : allK) {
+                    //give them an action for this turn
+                    k.setAction(true);
+                }
+                //This updates all the things related to the rulers. Once updated,
+                //the graphics can then be updated.
 
-            //This method is typically called once per cycle.
-            for (AbstractRuler ruler : r) {
-                ruler.orderSubjects();
+                //This method is typically called once per cycle.
+                for (AbstractRuler ruler : r) {
+                    ruler.orderSubjects();
+                }
+
+                if (display != null) {
+                    display.getPanel().repaint();
+                }
+
+                turnCount++;
+                
+                if(turnCount>100) {
+                    t.stop();
+                    gameEnd=true;
+                }
+
             }
 
-            if (display != null) {
-                display.getPanel().repaint();
-            }
-            
-            turnCount++;
-            
-            } else if(turnCount>1000 && gameEnd ==true) {
-                gameEnd=false;
-            }
-            
         }
 
     }
@@ -237,4 +240,9 @@ public class CodeRulers implements Runnable {
         return t;
     }
 
+    public boolean isGameEnd() {
+        return gameEnd;
+    }
+
+    
 }
