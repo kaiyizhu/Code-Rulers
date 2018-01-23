@@ -88,7 +88,7 @@ public class UnknownBot extends AbstractRuler {
 
     private void movePeasants() {
         for (Peasant peasant : peasants) {
-            //Search for uncaptured tile
+            //Search for uncaptured tile around the peasant
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
                     //Stop searching if the Land Tile is outside of the bounds
@@ -102,12 +102,17 @@ public class UnknownBot extends AbstractRuler {
                     }
                 }
             }
+            
+            //If the peasant can still move, then move in a random direction
+            if(peasant.hasAction()) {
+                peasant.move((int)(Math.random() * 8) + 1);
+            }
         }
     }
 
     private int findDir(int x, int y) {
         //Calculates the direction of the tile
-        double angle = Math.toDegrees(Math.asin(y / Math.sqrt(x + y))) + 360;
+        double angle = Math.toDegrees(Math.asin(-y / Math.sqrt(x*x + y*y))) + 360;
 
         if (x < 0) {
             angle = 180 + 360 - angle;
