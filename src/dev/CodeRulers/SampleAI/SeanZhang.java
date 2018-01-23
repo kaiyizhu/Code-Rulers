@@ -8,6 +8,7 @@ package dev.CodeRulers.SampleAI;
 import dev.CodeRulers.entity.Knight;
 import dev.CodeRulers.entity.Peasant;
 import dev.CodeRulers.ruler.AbstractRuler;
+import dev.CodeRulers.world.World;
 import java.awt.Color;
 
 /**
@@ -30,7 +31,9 @@ public class SeanZhang extends AbstractRuler {
             move(peasant, 1);
         }
         
+        Knight k = null;
         
+        k.move(rulerID);
     }
 
     @Override

@@ -46,16 +46,10 @@ public class BullyBot extends AbstractRuler {
     @Override
     public void orderSubjects() {
         //tell the peasants to expand
-        orderPeasants();
+            orderPeasants();
+        
         //if our castle was captured, move to capture others
-        if(getCastles().length < 1){
-            capture();
-        }
-        //if it is within the first 20 turns
-        if(CodeRulers.getTurnCount() <=1 ){
-            //order starting peasants
-            setUp();
-        }else if( CodeRulers.getTurnCount() < 20){
+        if( CodeRulers.getTurnCount() < 20){
             //generate knights, start moving towards the center
             setUp();
         //if it is the 20th turn
@@ -139,18 +133,22 @@ public class BullyBot extends AbstractRuler {
     private void orderPeasants(){
         //get the list of my peasants
         Peasant[] myP = getPeasants();
-        chooseDir();
+        if(CodeRulers.getTurnCount()%10 == 0){
+            chooseDir();
+        }else if(CodeRulers.getTurnCount()%11 == 0){
+            dir = 1;
+        }
         //for every one of my peasants
         for(Peasant p : myP){
             //if the tile they would move to is not captured
-            if(World.getLandOwner(p.getX()+translateDir(dir)[0], p.getY()+translateDir(dir)[1]) != rulerID){
+        //    if(World.getLandOwner(p.getX()+translateDir(dir)[0], p.getY()+translateDir(dir)[1]) != rulerID){
                 //move them there
                 p.move(dir);
             //otherwise
-            }else{
+        //    }else{
                 //move them in another direction
-                p.move(dir/2);
-            }
+        //        p.move(dir/2);
+        //d    }
         }
     }
     private void assignNewTarget(){
@@ -216,30 +214,51 @@ public class BullyBot extends AbstractRuler {
         }
     }
     private void chooseDir(){
+        //get the list of peasants from the ruler
         Peasant[] myPeasants = getPeasants();
+        //represents the net position of the peasants, + is to the right, - to the left
         int netX = 0;
+        //represents the net position of peasants, + is below, - is above
         int netY = 0;
+        //for every one of my peasant
         for(Peasant p : myPeasants){
+            //if they are to the right
             if(p.getX() >= 32){
-                netX--;
-            }else{
+                //increment netX
                 netX++;
-            }
-            if(p.getY() >= 32){
-                netY++;
             }else{
+                //decrement netX
+                netX--;
+            }
+            //if they are to the bottom
+            if(p.getY() >= 32){
+                //increment netY
+                netY++;
+            //otherwise
+            }else{
+                //decrement netY
                 netY--;
             }
         }
-        if(netX < 0){
-            dir = 7;
-        }else{
+        //if the peasants are to the left
+        if(netX <= 0){
+            //set their direction to the right
             dir = 3;
+        //otherwise
+        }else{
+            //set their direction to the left
+            dir = 7;
         }
-        if(netY < 1){
-            dir++;
-        }else if(netY > 1){
-            dir--;
+        //if the peasants are below
+        if(netY >= 0){
+            //move them diagonally upwards
+            if(dir == 7)dir=8;
+            if(dir ==3)dir=2;
+        //if the peasants are above
+        }else if(netY < 0){
+            //move them diagonally downwards
+            if(dir == 7)dir=6;
+            if(dir ==3)dir=4;
         }
     }
 
