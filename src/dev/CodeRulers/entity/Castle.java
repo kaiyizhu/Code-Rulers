@@ -9,6 +9,7 @@ import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.util.IMAGE;
 import dev.CodeRulers.world.*;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  *
@@ -112,6 +113,8 @@ public class Castle extends Entity{
         numTurns--;
         //if there are no more turns remaining
         if(numTurns <= 0){
+            Random r = new Random();
+            
             //if they want to create peasants
             if(creatingPeasants){
                 //get the peasants list from world
@@ -120,7 +123,7 @@ public class Castle extends Entity{
                 Peasant[] p2 = Arrays.copyOf(p, p.length +1);
                 //set the final element to the newly created peasant
                 //created on top of the castle
-                p2[p2.length-1] = new Peasant(x,y,ruler);
+                p2[p2.length-1] = new Peasant(r.nextInt(64),r.nextInt(64),ruler);
                 //set the World's peasants to this new array
                 World.setPeasants(p2);
                 System.out.println(World.getAllPeasants().length);
@@ -132,7 +135,7 @@ public class Castle extends Entity{
                 //make a larger copy
                 Knight[] k2 = Arrays.copyOf(k, k.length +1);
                 //set the final knight to a new knight
-                k2[k2.length-1] = new Knight(x,y,ruler);
+                k2[k2.length-1] = new Knight(r.nextInt(64),r.nextInt(64),ruler);
                 //set the World's knights to the array
                 World.setKnights(k2);
             }
