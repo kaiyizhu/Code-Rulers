@@ -131,11 +131,19 @@ public abstract class Entity {
             //check if someone is at the location where they are trying to move
             Entity inLocation = World.getEntityAt(x+xy[0], y+xy[1]);
             if(inLocation != null){
-                if(this instanceof Knight && inLocation instanceof Peasant){
+                //if this is a knight and it moves into an enemy peasant
+                if(this instanceof Knight && inLocation instanceof Peasant &&
+                        this.ruler != inLocation.ruler){
                     //capture the peasant, and continue to move
                     inLocation.alive = false;
+                    //create a knight reference to this entity
+                    Knight k = (Knight)this;
+                    //give the knight the action to capture this entity
+                    k.hasAction = true;
+                    //capture the peasant
+                    k.capture((Peasant)inLocation);
                 }else{
-                    //return false, stopping from moving
+                    //return false, stop it from moving into another entity's space
                     return false;
                 }
             }
