@@ -67,7 +67,7 @@ public abstract class AbstractRuler {
      * @param dir The cardinal direction in which it moves
      */
     public void move(Entity moved, int dir){
-        //test to see if it has movement & is not a castle
+        //tell the entity to move itself. What a lazy ruler
         moved.move(dir);
     }
 
