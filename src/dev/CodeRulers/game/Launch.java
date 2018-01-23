@@ -26,9 +26,6 @@ public class Launch {
         CodeRulers game = new CodeRulers(r,true);
         //starts the thread
         game.start();
-        
-        
-       
     }
     
 }
