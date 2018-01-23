@@ -244,7 +244,6 @@ public class World {
             }
         }
 
-        System.out.println("No Entity Found.");
         return null;
     }
 
