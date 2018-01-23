@@ -91,8 +91,13 @@ public class UnknownBot extends AbstractRuler {
             //Search for uncaptured tile
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
+                    //Stop searching if the Land Tile is outside of the bounds
+                    if(peasant.getX() + x <= 63 && peasant.getX() + x >= 0 && peasant.getY() + y >= 0 && peasant.getY() + y <= 63) {
+                        break;
+                    }
+                    
                     //If the land owner is not ours, then move onto it
-                    if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID && peasant.getX() + x <= 63 && peasant.getX() + x >= 0 && peasant.getY() + y >= 0 && peasant.getY() + y <= 63) {
+                    if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
                         peasant.move(findDir(x, y));
                     }
                 }
