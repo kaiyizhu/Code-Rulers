@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageProducer;
 import java.io.File;
+import java.util.Arrays;
 import javax.swing.Timer;
 
 /**
@@ -118,6 +119,8 @@ public class Panel extends javax.swing.JPanel {
             stored in the codeRulers class. Then, it draws every attribute related
             to the ruler. 
          */
+        Arrays.sort(r.getRulerArray());
+        
         for (AbstractRuler ruler : r.getRulerArray()) {
             //this gets the x coordinate of where the player box should go.
             yCoord = count * panelHeight / 12 + 20 + ((count) * 12) + iconOffset;

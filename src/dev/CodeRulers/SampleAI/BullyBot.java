@@ -219,5 +219,6 @@ public class BullyBot extends AbstractRuler {
     public String getRulerName() {
         return "Bully Bot";
     }
+
     
 }

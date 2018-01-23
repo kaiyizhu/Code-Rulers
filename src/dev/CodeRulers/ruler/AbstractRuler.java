@@ -329,7 +329,9 @@ public abstract class AbstractRuler implements Comparable{
         this.rulerID = rulerID;
     }
     
-    public int compareTo(AbstractRuler r) {
-        return ((Integer)(this.getPoints())).compareTo((Integer)r.getPoints());
+    
+    @Override
+    public int compareTo(Object o) {
+        return -((Integer)(this.getPoints())).compareTo((Integer)((AbstractRuler)o).getPoints());
     }
 }
