@@ -53,7 +53,8 @@ public class Display extends JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         startPanel = new javax.swing.JPanel();
         mapPanel = new javax.swing.JPanel();
