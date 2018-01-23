@@ -20,8 +20,7 @@ public class Launch {
     //creates new game object
     
         //this statement is just for testing's sake.
-        AbstractRuler[] r = {new SeanZhang(),new RandomBot(), 
-            new UnknownBot() };
+        AbstractRuler[] r = {new SeanZhang(), new UnknownBot() };
         
         CodeRulers game = new CodeRulers(r,true);
         //starts the thread
