@@ -193,13 +193,9 @@ public class Panel extends javax.swing.JPanel {
 
         
         if (r.isGameEnd()) {
-
-                BufferedImage b = (BufferedImage) createImage(1024, 768);+;
-                if(b==null)
-                    System.out.println("Hello");
-                
-                g.drawImage(IMAGE.getBlurredImage(b, 20), 0, 0, this);
-            }
+            g.setColor(new Color(0,0,0,120));
+            g.fillRect(0, 0, 1024, 768);
+        }
     }
 
     /**
