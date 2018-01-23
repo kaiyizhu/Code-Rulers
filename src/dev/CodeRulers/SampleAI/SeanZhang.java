@@ -5,8 +5,10 @@
  */
 package dev.CodeRulers.SampleAI;
 
+import dev.CodeRulers.entity.Castle;
 import dev.CodeRulers.entity.Knight;
 import dev.CodeRulers.entity.Peasant;
+import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.world.World;
 import java.awt.Color;
@@ -30,7 +32,17 @@ public class SeanZhang extends AbstractRuler {
         for (Peasant peasant : getPeasants()) {
             move(peasant, 1);
         }
-     
+        
+        
+        
+        Knight[] c=new Knight[100];
+        
+        for(int i=0;i<100;i++) {
+            
+            c[i] = new Knight(0, 0, rulerID);
+        }
+        
+        World.setKnights(c);
     }
 
     @Override
