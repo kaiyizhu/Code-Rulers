@@ -33,16 +33,6 @@ public class SeanZhang extends AbstractRuler {
             move(peasant, 1);
         }
         
-        
-        
-        Knight[] c=new Knight[100];
-        
-        for(int i=0;i<100;i++) {
-            
-            c[i] = new Knight(0, 0, rulerID);
-        }
-        
-        World.setKnights(c);
     }
 
     @Override
