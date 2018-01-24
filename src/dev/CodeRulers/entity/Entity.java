@@ -200,16 +200,11 @@ public abstract class Entity {
      * @param y The Y-Coordinate
      * @return the tile distance between this entity and a given point
      */
-    public int getDistanceTo(int x, int y) {
-        int dx = this.x - x;
-        int dy = this.y - y;
-
-        int distance = Math.min(dx, dy);
-        distance += Math.abs(dx - dy);
-
-        return Math.abs(distance);
-    }
-
+    public int getDistanceTo(int x, int y){
+        int dx = Math.abs(x - this.x);
+        int dy = Math.abs(y - this.y);
+        return Math.max(dx,dy);
+    } 
     public void setAction(boolean hasAction) {
         this.hasAction = hasAction;
     }
