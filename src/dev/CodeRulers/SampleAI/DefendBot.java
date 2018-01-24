@@ -22,22 +22,7 @@ import java.util.Random;
 public class DefendBot extends AbstractRuler
 {
 
-    //the ruler ID which is targeted by this AI
-    int target;
-    //the castle owned by the person the AI will be attacking
-    Castle attacking;
-    //represents the location of this castle in relation to the others, 
-    //1 is northeast, 4 northwest
-    int corner;
-    //The direction in which peasants claim land and knights attack
-    int dir;
-    //the current number of castles under this ruler
-    int numCastles = 1;
-    //random number generator for choosing which peasants to kill
     Random r = new Random();
-    //whether the capture phase is complete
-    boolean captured = false;
-
     @Override
     public void initialize()
     {
