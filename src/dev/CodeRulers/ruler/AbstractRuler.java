@@ -88,6 +88,7 @@ public abstract class AbstractRuler implements Comparable{
                     points += attacking.capture((Knight)attacked);
                 } else if(attacked.getClass().isAssignableFrom(Castle.class)) {
                     points += attacking.capture((Castle)attacked);
+                    System.out.println(attacking.capture((Castle)attacked));
                 } else if(attacked.getClass().isAssignableFrom(Peasant.class)) {
                     points += attacking.capture((Peasant)attacked);
                 }

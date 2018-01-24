@@ -27,7 +27,7 @@ public class SeanBot extends AbstractRuler {
         Random r = new Random();
 
         for (Castle castle : this.getOtherCastles()) {
-            if (CodeRulers.getTurnCount() > 500) {
+            if (CodeRulers.getTurnCount() > 00) {
                 castle.createKnights();
             } else {
                 castle.createPeasants();
@@ -35,7 +35,7 @@ public class SeanBot extends AbstractRuler {
 
         }
 
-        for (int k=0;k<this.getKnights().length && k<20;k++) {
+        for (int k=0;k<this.getKnights().length && k<10;k++) {
 
             int[] distances = new int[World.getAllCastles().length];
             for (int i = 0; i < World.getAllCastles().length; i++) {
@@ -57,31 +57,50 @@ public class SeanBot extends AbstractRuler {
             move(this.getKnights()[k], this.getKnights()[k].getDirectionTo(World.getAllCastles()[smallestCastle].getX(), World.getAllCastles()[smallestCastle].getY()));
         }
         
-        //===================
-        //capture and move
-        for (Knight knight : this.getKnights()) {
-            //peasant.move(findDir(peasant.getClosestUnownedTile(peasant)[0], peasant.getClosestUnownedTile(peasant)[1]));
-
-            //Search for uncaptured tile around the peasant
-            for (int x = -1; x <= 1; x++) {
-                for (int y = -1; y <= 1; y++) {
-                    //Stop searching if the Land Tile is outside of the bounds
-                    if (!(knight.getX() + x <= 63 && knight.getX() + x >= 0 && knight.getY() + y >= 0 && knight.getY() + y <= 63)) {
-                        break;
-                    }
-
-                    //If the land owner is not ours, then move onto it
-                    if (World.getLandOwner(knight.getX() + x, knight.getY() + y) != rulerID) {
-                        this.move(knight, findDir(x, y));
-                    }
+        for(int k=20;k<this.getKnights().length ;k++) {
+            int[] distances = new int[this.getOtherCastles().length];
+            for (int i = 0; i < this.getOtherCastles().length; i++) {
+                distances[i] = this.getKnights()[k].getDistanceTo(this.getOtherCastles()[i].getX(), this.getOtherCastles()[i].getY());
+            }
+            for (int dirC = 1; dirC < 9; dirC++) {
+                capture(this.getKnights()[k], dirC);
+            }
+            
+            int smallestCastle=0;
+            int smallestD=9999999;
+            
+            for(int i=0;i<distances.length;i++) {
+                if(smallestD>distances[i]) {
+                    smallestD = distances[i];
+                    smallestCastle=i;
                 }
             }
-
-            //If the peasant can still move, then move towards the bottom right
-            if (knight.hasAction()) {
-                this.move(knight, (int) (Math.random() * 8));
+            
+            
+            
+            if(this.getOtherCastles().length!=0) {
+                move(this.getKnights()[k], this.getKnights()[k].getDirectionTo(this.getOtherCastles()[smallestCastle].getX(), this.getOtherCastles()[smallestCastle].getY()));
             }
+            
         }
+        
+        for(Knight k : this.getKnights()) {
+            if(this.getCastles().length!=0)
+            move(k,k.getDirectionTo(this.getCastles()[0].getX(), this.getCastles()[0].getY()));
+        }
+        for(Knight k : this.getKnights()) {
+            if(this.getOtherKnights().length!=0)
+            move(k,k.getDirectionTo(this.getOtherKnights()[0].getX(), this.getOtherKnights()[0].getY()));
+        }
+        
+        for(Knight k : this.getKnights()) {
+            if(this.getOtherPeasants().length!=0)
+            move(k,k.getDirectionTo(this.getOtherPeasants()[0].getX(), this.getOtherPeasants()[0].getY()));
+        }
+        
+        
+        
+        
 
         //===================
         //capture and move
