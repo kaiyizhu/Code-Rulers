@@ -27,48 +27,63 @@ public class SeanBot extends AbstractRuler {
         Random r = new Random();
 
         for (Castle castle : this.getOtherCastles()) {
-            if(CodeRulers.getTurnCount()>500) {
+            if (CodeRulers.getTurnCount() > 500) {
                 castle.createKnights();
             } else {
                 castle.createPeasants();
             }
-            
-            for (Knight knight : this.getKnights()) {
-                
-                for (int dirC = 1; dirC < 9; dirC++) {
-                    capture(knight, dirC);
-                }
-                move(knight, knight.getDirectionTo(castle.getX(), castle.getY()));
+
+        }
+
+        for (Knight knight : this.getKnights()) {
+
+            int[] distances = new int[World.getAllCastles().length];
+            for (int i = 0; i < World.getAllCastles().length; i++) {
+                distances[i] = knight.getDistanceTo(World.getAllCastles()[i].getX(), World.getAllCastles()[i].getY());
             }
+            for (int dirC = 1; dirC < 9; dirC++) {
+                capture(knight, dirC);
+            }
+            
+            int smallestCastle=0;
+            int smallestD=9999999;
+            
+            for(int i=0;i<distances.length;i++) {
+                if(smallestD>distances[i]) {
+                    smallestD = distances[i];
+                    smallestCastle=i;
+                }
+            }
+            move(knight, knight.getDirectionTo(World.getAllCastles()[smallestCastle].getX(), World.getAllCastles()[smallestCastle].getY()));
         }
 
         //===================
         //capture and move
         for (Peasant peasant : this.getPeasants()) {
             //peasant.move(findDir(peasant.getClosestUnownedTile(peasant)[0], peasant.getClosestUnownedTile(peasant)[1]));
-            
+
             //Search for uncaptured tile around the peasant
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
                     //Stop searching if the Land Tile is outside of the bounds
-                    if(!(peasant.getX() + x <= 63 && peasant.getX() + x >= 0 && peasant.getY() + y >= 0 && peasant.getY() + y <= 63)) {
+                    if (!(peasant.getX() + x <= 63 && peasant.getX() + x >= 0 && peasant.getY() + y >= 0 && peasant.getY() + y <= 63)) {
                         break;
                     }
-                    
+
                     //If the land owner is not ours, then move onto it
                     if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                        this.move(peasant, findDir(x,y));
+                        this.move(peasant, findDir(x, y));
                     }
                 }
             }
-            
+
             //If the peasant can still move, then move towards the bottom right
-            if(peasant.hasAction()) {
-                this.move(peasant,(int)(Math.random() * 8));
+            if (peasant.hasAction()) {
+                this.move(peasant, (int) (Math.random() * 8));
             }
         }
     }
-    
+
     private int findDir(int x, int y) {
         //Calculates the direction of the tile
         double angle = Math.toDegrees(Math.asin(-y / Math.sqrt(x * x + y * y))) + 360;
@@ -93,6 +108,7 @@ public class SeanBot extends AbstractRuler {
         //this is the preferred color for my AI. This color will be the main 
         //color scheme displayed in the GUI ` for this AI.
         setColor(new Color(139, 91, 183, 178));
+        setColor(Color.orange);
     }
 
     @Override
