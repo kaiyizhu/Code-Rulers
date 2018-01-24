@@ -49,7 +49,11 @@ public class BullyBot extends AbstractRuler {
             assignNewTarget();
             //move to attack it
             capture();
-        //if it is after turn 20    
+        //if we have more knights than other rulers do
+        }else if(getOtherKnights().length < getKnights().length){
+            //send the knights to bully them
+            attackKnights();
+        //otherwise, try to capture a castle
         }else if(getOtherCastles().length != 0){
             //assign a new castle as a target
             capture();
@@ -58,10 +62,6 @@ public class BullyBot extends AbstractRuler {
             //send the knights to bully them
             attackPeasants();
         //otherwise, if there are still other knights
-        }else if(getOtherKnights().length != 0){
-            //send the knights to bully them
-            attackKnights();
-        //otherwise
         }else{
             //tell the castles to create peasants
             Castle[] myC = getCastles();
