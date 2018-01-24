@@ -36,6 +36,7 @@ public class DefendBot extends AbstractRuler
     public void orderSubjects()
     {
         //Move peasants in random order
+        for(int i = 0; i < 10000; i ++){
         for (Peasant peasant : this.getPeasants())
         {
             int randomPeasantMove = r.nextInt(2);
@@ -47,6 +48,7 @@ public class DefendBot extends AbstractRuler
             {
                 //Does nothing so the peasant stays in his original land
             }
+        }
         }
         for (Castle castle : this.getCastles())
         {
