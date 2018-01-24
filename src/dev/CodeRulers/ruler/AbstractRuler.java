@@ -31,8 +31,6 @@ public abstract class AbstractRuler implements Comparable{
     //this is the default profile color for the AI.
     private Color c=Color.WHITE;
     
-    
-    
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
      * initialize() method within implementing classes.
