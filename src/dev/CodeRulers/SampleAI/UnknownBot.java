@@ -86,6 +86,9 @@ public class UnknownBot extends AbstractRuler {
 
     private void movePeasants() {
         for (Peasant peasant : peasants) {
+            peasant.move(findDir(peasant.getClosestUnownedTile()[0], peasant.getClosestUnownedTile()[1]));
+            
+            /*
             //Search for uncaptured tile around the peasant
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
@@ -105,8 +108,7 @@ public class UnknownBot extends AbstractRuler {
             if(peasant.hasAction()) {
                 peasant.move(4);
             }
-            
-            System.out.println(peasant.getClosestUnownedTile()[0] + " " + peasant.getClosestUnownedTile()[1]);
+*/
         }
     }
 
