@@ -50,33 +50,26 @@ public class BullyBot extends AbstractRuler {
             //move to attack it
             capture();
         //if it is after turn 20    
-        }else if( !captured){
-            //attempt to capture the target's castle
+        }else if(getOtherCastles().length != 0){
+            //assign a new castle as a target
             capture();
-        //if another castle was captured
+        //otherwise, if there are still peasants
+        }else if(getOtherPeasants().length != 0){
+            //send the knights to bully them
+            attackPeasants();
+        //otherwise, if there are still other knights
+        }else if(getOtherKnights().length != 0){
+            //send the knights to bully them
+            attackKnights();
+        //otherwise
         }else{
-            //if there are still other castles remaining
-            if(getOtherCastles().length != 0){
-                //assign a new castle as a target
-                assignNewTarget();
-            //otherwise, if there are still peasants
-            }else if(getOtherPeasants().length != 0){
-                //send the knights to bully them
-                attackPeasants();
-            //otherwise, if there are still other knights
-            }else if(getOtherKnights().length != 0){
-                //send the knights to bully them
-                attackKnights();
-            //otherwise
-            }else{
-                //tell the castles to create peasants
-                Castle[] myC = getCastles();
-                for(Castle c: myC){
-                    c.createPeasants();
-                }
+            //tell the castles to create peasants
+            Castle[] myC = getCastles();
+            for(Castle c: myC){
+                c.createPeasants();
             }
-                
-        }    
+        }
+                    
     }
     
     private void setUp(){
@@ -86,9 +79,12 @@ public class BullyBot extends AbstractRuler {
         for(Knight k : myK){
             //move the knights in direction of expansion protect peasants
             k.move(dir);
-        }
+        } 
     }
     private void capture(){
+        if(attacking == null){
+            assignNewTarget();
+        }
         //get the array of the AIs knights
         Knight[] myK = getKnights();
         //for every one of our knights
@@ -99,9 +95,10 @@ public class BullyBot extends AbstractRuler {
                 if(k.getDistanceTo(attacking.getX(), attacking.getY()) == 1){
                     //capture the castle
                     capture(k, k.getDirectionTo(attacking.getX(), attacking.getY()));
+                }else{
+                    //move towards the castle (to prevent backups of knights)
+                    k.move(k.getDirectionTo(attacking.getX(), attacking.getY()));
                 }
-                //move towards the castle (to prevent backups of knights)
-                k.move(k.getDirectionTo(attacking.getX(), attacking.getY()));
             //otherwise
             }else{
                 //set captured to true
@@ -248,7 +245,7 @@ public class BullyBot extends AbstractRuler {
     }
     @Override
     public String getSchoolName() {
-        return "NHS CodeRulers -Luke";
+        return "NHS CodeRulers";
     }
 
     @Override
