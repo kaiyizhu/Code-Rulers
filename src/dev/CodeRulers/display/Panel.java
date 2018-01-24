@@ -308,7 +308,6 @@ public class Panel extends javax.swing.JPanel {
                 && evt.getWheelRotation() > 0) {
             //sets the scale factor based on how much the wheel has moved.
             World.setScaleFactor(World.getScaleFactor() - ((double) evt.getWheelRotation() / 20));
-            System.out.println(World.getScaleFactor());
         } /*
             This case is for when the user wants to zoom into the world.
             It will restrict the user to a limited amount of zooming 
@@ -319,7 +318,6 @@ public class Panel extends javax.swing.JPanel {
                 && evt.getWheelRotation() < 0) {
             //sets the scale factor based on how much the wheel has moved.
             World.setScaleFactor(World.getScaleFactor() - ((double) evt.getWheelRotation() / 20));
-            System.out.println(World.getScaleFactor());
         }
 
         //refreshes the screen to display the changes made to the GUI.

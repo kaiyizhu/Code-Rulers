@@ -227,6 +227,8 @@ public class CodeRulers implements Runnable {
                     try {
                         ruler.orderSubjects();
                     } catch (Exception ex) {
+                        ex.printStackTrace();
+                        
                         if (!stopMessages) {
                             int confirmed = JOptionPane.showConfirmDialog(null,
                                     ruler.getRulerName() + " committed a game-breaking error! Exit game?", "Error Message",
@@ -255,7 +257,6 @@ public class CodeRulers implements Runnable {
                     Arrays.sort(rulerArr);
                     System.out.println("LEADERBOARD:");
                     for(int i =0;i<rulerArr.length;i++) {
-                        try {Thread.sleep(1000);} catch (InterruptedException ex) {}
                         
                         System.out.println(i+1+". "+rulerArr[i].getRulerName() +": "+rulerArr[i].getPoints() + " points.");
                     }

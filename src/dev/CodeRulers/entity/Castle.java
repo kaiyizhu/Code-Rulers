@@ -142,4 +142,8 @@ public class Castle extends Entity{
             numTurns = tempMax;
         }
     }
+    
+    public String toString() {
+        return x + ","+y;
+    }
 }
