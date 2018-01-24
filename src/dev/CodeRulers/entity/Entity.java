@@ -203,11 +203,21 @@ public abstract class Entity {
     public int getDistanceTo(int x, int y) {
         return Math.max(x - this.x, y - this.y);
     }
-
+    /**
+     * This is method for internal uses only. Sets the value of this entity's
+     * has action.
+     * @param hasAction The boolean value that hasAction is set to. 
+     */
     public void setAction(boolean hasAction) {
         this.hasAction = hasAction;
     }
-    
+    /**
+     * Draws the on the game board.
+     * @param g The graphical component that it is drawn to
+     * @param scaleFactor The zoom factor of the panel
+     * @param xOffset The horizontal offset of the panel
+     * @param yOffset The vertical offset of the panel
+     */
     public void drawEntity(Graphics g, double scaleFactor, int xOffset, int yOffset) {
         BufferedImage icn = IMAGE.getResizedImage(entityIcn, (int) (12 * scaleFactor), (int) (12 * scaleFactor));
         g.drawImage(icn, (int) (x * 12 * scaleFactor) + xOffset, (int) (y * 12 * scaleFactor) + yOffset, null);
