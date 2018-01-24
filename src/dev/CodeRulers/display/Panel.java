@@ -193,9 +193,6 @@ public class Panel extends javax.swing.JPanel {
         //this section is responsible for drawing the utility bar where the
         //user can add more AIs, stop the game, increase the speed of the game,
         //or start the game. 
-        //====================
-        //THIS PART IS NOT DONE.
-        
         //leaderBoard
         if(iconOffset<40) {
             g.setColor(new Color(157, 144, 165, 200));
