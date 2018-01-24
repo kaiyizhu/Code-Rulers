@@ -38,7 +38,7 @@ public class BullyBot extends AbstractRuler {
         //tell the peasants to expand
             orderPeasants();
         
-        if(getOtherKnights().length < getKnights().length){
+        if(getOtherKnights().length < getKnights().length && getOtherKnights().length >0){
             //send the knights to bully them
             attackKnights();
         //otherwise, try to capture a castle
@@ -185,7 +185,6 @@ public class BullyBot extends AbstractRuler {
             if(otherK.length > i){
                 //if the knight at this index is close enough to attack, attack
                 if(myK[i].getDistanceTo(otherK[i].getX(), otherK[i].getY()) == 1){
-   //                 myK[i].capture(otherK[i]);
                     capture(myK[i], myK[i].getDirectionTo(otherK[i].getX(), otherK[i].getY()));
                 //otherwise, move them towards the other knights
                 }else{
@@ -198,7 +197,6 @@ public class BullyBot extends AbstractRuler {
                     capture(myK[i], myK[i].getDirectionTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()));
                 //otherwise, move towards it
                 }else{
-            //        myK[i].move(myK[i].getDirectionTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()));
                     move(myK[i], myK[i].getDirectionTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()));
                 }
             }
