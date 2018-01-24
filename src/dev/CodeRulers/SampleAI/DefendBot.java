@@ -48,6 +48,22 @@ public class DefendBot extends AbstractRuler
     @Override
     public void orderSubjects()
     {
+        for(int i = 0; i < 1000; i++)
+        {
+            for (Peasant peasant : this.getPeasants())
+            {
+                int randomPeasantMove = r.nextInt(2);
+                if (randomPeasantMove == 1)
+                {
+                    int peasantDir = r.nextInt(8) + 1;
+                    this.move(peasant, peasantDir);
+                } else
+                {
+                    //Does nothing so the peasant stays in his original land
+                }
+            }
+        }
+        /*
         for (Peasant peasant : this.getPeasants())
         {
             int randomPeasantMove = r.nextInt(2);
@@ -78,6 +94,7 @@ public class DefendBot extends AbstractRuler
                 knight.capture(getOtherKnights()[getOtherKnights().length - 1]);
             }
         }
+         */
     }
 
     @Override
