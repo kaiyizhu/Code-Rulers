@@ -5,7 +5,7 @@
  */
 package dev.CodeRulers.game;
 
-import dev.CodeRulers.SampleAI.AttackBot;
+import dev.CodeRulers.SampleAI.DefendBot;
 import dev.CodeRulers.SampleAI.BullyBot;
 import dev.CodeRulers.SampleAI.RandomBot;
 import dev.CodeRulers.SampleAI.SeanZhang;
