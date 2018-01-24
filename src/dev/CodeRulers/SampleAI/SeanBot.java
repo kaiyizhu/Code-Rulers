@@ -26,14 +26,18 @@ public class SeanBot extends AbstractRuler {
     public void orderSubjects() {
         Random r = new Random();
 
-        System.out.println("I just went");
-        System.out.println(Arrays.toString(this.getCastles()));
-        System.out.println(this.getCastles().length);
-        System.out.println(Arrays.toString(this.getKnights()));
-        System.out.println(this.getKnights().length);
-
-        for (Castle castle : this.getCastles()) {
+        for (Castle castle : this.getOtherCastles()) {
+            if(CodeRulers.getTurnCount()>200) {
+                castle.createKnights();
+            } else {
+                castle.createKnights();
+            }
+            
+            
             for (Knight knight : this.getKnights()) {
+                if(r.nextBoolean()) {
+                    move(knight, knight.getDirectionTo(castle.getX(), castle.getY()));
+                }
                 for (int dirC = 1; dirC < 9; dirC++) {
                     capture(knight, dirC);
                 }
@@ -46,9 +50,40 @@ public class SeanBot extends AbstractRuler {
         //===================
         //capture and move
         for (Peasant peasant : this.getPeasants()) {
-            int peasantDir = r.nextInt(8) + 1;
-            this.move(peasant, peasantDir);
+            //peasant.move(findDir(peasant.getClosestUnownedTile(peasant)[0], peasant.getClosestUnownedTile(peasant)[1]));
+            
+            //Search for uncaptured tile around the peasant
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    //Stop searching if the Land Tile is outside of the bounds
+                    if(!(peasant.getX() + x <= 63 && peasant.getX() + x >= 0 && peasant.getY() + y >= 0 && peasant.getY() + y <= 63)) {
+                        break;
+                    }
+                    
+                    //If the land owner is not ours, then move onto it
+                    if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
+                        this.move(peasant, findDir(x,y));
+                    }
+                }
+            }
+            
+            //If the peasant can still move, then move towards the bottom right
+            if(peasant.hasAction()) {
+                this.move(peasant,(int)(Math.random() * 8));
+            }
         }
+    }
+    
+    private int findDir(int x, int y) {
+        //Calculates the direction of the tile
+        double angle = Math.toDegrees(Math.asin(-y / Math.sqrt(x * x + y * y))) + 360;
+
+        if (x < 0) {
+            angle = 180 + 360 - angle;
+        }
+        angle %= 360;
+
+        return (11 - (int) Math.round(angle / 45)) % 8;
     }
 
     @Override
