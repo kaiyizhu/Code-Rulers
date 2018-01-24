@@ -38,7 +38,7 @@ public class BullyBot extends AbstractRuler {
     public void orderSubjects() {
         //tell the peasants to expand
             orderPeasants();
-        
+        Knight[] myK = getKnights();
         //if our castle was captured, move to capture others
         if( CodeRulers.getTurnCount() < 20){
             //generate knights, start moving towards the center
