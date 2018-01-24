@@ -78,7 +78,7 @@ public class SeanBot extends AbstractRuler {
                     for(Castle c :World.getAllCastles()) {
                         
                     }
-                    move(this.getKnights()[i],this.getKnights()[i].getDirectionTo(castle.getX(), castle.getY()));
+                  //  move(this.getKnights()[i],this.getKnights()[i].getDirectionTo(castle.getX(), castle.getY()));
                 }
         }
 
