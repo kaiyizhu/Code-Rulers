@@ -69,16 +69,17 @@ public class Knight extends Entity {
      * captured)
      */
     public int capture(Knight attacked) {
-        if (Math.abs(attacked.getX() - this.getX()) > 1 || Math.abs(attacked.getY() - this.getX()) > 1 || !this.hasAction || this.getRuler() == attacked.getRuler()) {
-            if (!this.hasAction) {
-                System.out.println("no action");
-            }
-            if (this.getRuler() == attacked.getRuler()) {
-                System.out.println(this.getRuler()+" - same ruler - " + attacked.getRuler());
-            }
+        if (getDistanceTo(attacked.getX(), attacked.getY()) > 1) {
+            if (!this.hasAction || this.getRuler() == attacked.getRuler()) {
+                if (!this.hasAction) {
+                    System.out.println("no action");
+                }
+                if (this.getRuler() == attacked.getRuler()) {
+                    System.out.println(this.getRuler() + " - same ruler - " + attacked.getRuler());
+                }
 
-            return 0;
-
+                return 0;
+            }
         }
         hasAction = false;
         //if the attacked entity is a knight
