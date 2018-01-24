@@ -21,8 +21,6 @@ import java.util.Random;
  */
 public class BullyBot extends AbstractRuler {
     
-    //the ruler ID which is targeted by this AI
-    int target;
     //the castle owned by the person the AI will be attacking
     Castle attacking;
     //The direction in which peasants claim land and knights attack
@@ -57,13 +55,21 @@ public class BullyBot extends AbstractRuler {
             capture();
         //if another castle was captured
         }else{
+            //if there are still other castles remaining
             if(getOtherCastles().length != 0){
+                //assign a new castle as a target
                 assignNewTarget();
+            //otherwise, if there are still peasants
             }else if(getOtherPeasants().length != 0){
+                //send the knights to bully them
                 attackPeasants();
+            //otherwise, if there are still other knights
             }else if(getOtherKnights().length != 0){
+                //send the knights to bully them
                 attackKnights();
+            //otherwise
             }else{
+                //tell the castles to create peasants
                 Castle[] myC = getCastles();
                 for(Castle c: myC){
                     c.createPeasants();
@@ -195,33 +201,45 @@ public class BullyBot extends AbstractRuler {
         }
     }
     private void attackPeasants(){
+        //get an array of my knights
         Knight[] myK = getKnights();
+        //get the array of other peasants
         Peasant[] otherP = getOtherPeasants();
+        //for all of my knights
         for(int i=0; i<myK.length;i++){
+            //if there are more peasants to assign knights to attacking
             if(otherP.length > i){
+                //move the knight towards the next peasant in the array
                 myK[i].move(myK[i].getDirectionTo(otherP[i].getX(), otherP[i].getY()));
+            //otherwise
             }else{
-                if(myK[i].getDistanceTo(otherP[otherP.length-1].getX(), otherP[otherP.length-1].getY()) == 1){
-                    myK[i].capture(otherP[otherP.length-1]);
-                }else{
-                    myK[i].move(myK[i].getDirectionTo(otherP[otherP.length-1].getX(), otherP[otherP.length-1].getY()));
-                }
+                //move the knight towards the peasant at the end of the array
+                myK[i].move(myK[i].getDirectionTo(otherP[otherP.length-1].getX(), otherP[otherP.length-1].getY()));
             }
         }
     }
     private void attackKnights(){
+        //get the array of my knights
         Knight[] myK = getKnights();
+        //get the array of other knights
         Knight[] otherK = getOtherKnights();
+        //for every one of my knights
         for(int i=0; i<myK.length;i++){
+            //if there are more knights to attack
             if(otherK.length > i){
+                //if the knight at this index is close enough to attack, attack
                 if(myK[i].getDistanceTo(otherK[i].getX(), otherK[i].getY()) == 1){
                     myK[i].capture(otherK[i]);
+                //otherwise, move them towards the other knights
                 }else{
                     myK[i].move(myK[i].getDirectionTo(otherK[i].getX(), otherK[i].getY()));
                 }
+            //if there are no more knights in the knight array
             }else{
+                //if this knight is close enough to attack the knight at the end of the array, attack
                 if(myK[i].getDistanceTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()) == 1){
                     myK[i].capture(otherK[otherK.length-1]);
+                //otherwise, move towards it
                 }else{
                     myK[i].move(myK[i].getDirectionTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()));
                 }
