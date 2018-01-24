@@ -36,42 +36,48 @@ public class DefendBot extends AbstractRuler
     public void orderSubjects()
     {
         //Move peasants in random order
-        for(int i = 0; i < 10000; i ++){
-        for (Peasant peasant : this.getPeasants())
+        for (int i = 0; i < 10000; i++)
         {
-            int randomPeasantMove = r.nextInt(2);
-            if (randomPeasantMove == 1)
+            for (Peasant peasant : this.getPeasants())
             {
-                int peasantDir = r.nextInt(8) + 1;
-                this.move(peasant, peasantDir);
-            } else
-            {
-                //Does nothing so the peasant stays in his original land
+                int randomPeasantMove = r.nextInt(2);
+                if (randomPeasantMove == 1)
+                {
+                    int peasantDir = r.nextInt(8) + 1;
+                    this.move(peasant, peasantDir);
+                } else
+                {
+                    //Does nothing so the peasant stays in his original land
+                }
             }
-        }
         }
         for (Castle castle : this.getCastles())
         {
             castle.createKnights();
-        }
 
-        //Rush knights to aid my starting castle
-        for (Knight knight : this.getKnights())
-        {
-
-            for (int x = -1; x < 1; x++)
+            //Rush knights to aid my starting castle
+            for (Knight knight : this.getKnights())
             {
-                for (int y = 1; y > -1; y--)
+
+                for (int x = -1; x < 1; x++)
                 {
-                    if(getCastles().length >= 1){
-                    this.move(knight, knight.getDirectionTo(this.getCastles()[getCastles().length-1].getX() + x, this.getCastles()[getCastles().length-1].getY() + y));
-                    }
-                    else{
-                        //DO NOTHING OK
+                    for (int y = 1; y > -1; y--)
+                    {
+                        if (getCastles().length >= 1)
+                        {
+                            this.move(knight, knight.getDirectionTo(this.getCastles()[getCastles().length - 1].getX() + x, this.getCastles()[getCastles().length - 1].getY() + y));
+                        } else
+                        {
+                            move(knight, knight.getDirectionTo(castle.getX(), castle.getY()));
+                            for (int dirC = 1; dirC < 9; dirC++)
+                            {
+                                capture(knight, dirC);
+                            }
+                        }
                     }
                 }
-            }
 
+            }
         }
 
         /*
