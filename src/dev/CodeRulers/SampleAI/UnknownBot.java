@@ -26,8 +26,6 @@ public class UnknownBot extends AbstractRuler {
     Peasant[] ePeasants;
     Castle[] eCastles;
 
-    boolean creatingKnights = true;
-
     @Override
     public void orderSubjects() {
         knights = this.getKnights();
@@ -74,23 +72,20 @@ public class UnknownBot extends AbstractRuler {
         }
     }
 
+    //Creates entities
     private void createEntities() {
         for (Castle castle : castles) {
-            if (creatingKnights) {
-                castle.createKnights();
-                creatingKnights = false;
-            } else {
+            //creates peasants if there isn't enough
+            if(peasants.length < 15) {
                 castle.createPeasants();
-                creatingKnights = true;
+            } else {
+                castle.createKnights();
             }
         }
     }
 
     private void movePeasants() {
         for (Peasant peasant : peasants) {
-            //peasant.move(findDir(peasant.getClosestUnownedTile()[0] + peasant.getX(), peasant.getClosestUnownedTile()[1] + peasant.getY()));
-
-            ///*
             //Search for uncaptured tile around the peasant
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
@@ -106,11 +101,12 @@ public class UnknownBot extends AbstractRuler {
                 }
             }
             
-            //If the peasant can still move, then move in a random direction
+            //If the peasant can still move, then move towards the bottom right
             if(peasant.hasAction()) {
-                peasant.move((int)(Math.random() * 8) + 1);
+                peasant.move(4);
             }
-            // */
+            
+            System.out.println(peasant.getClosestUnownedTile()[0] + " " + peasant.getClosestUnownedTile()[1]);
         }
     }
 
