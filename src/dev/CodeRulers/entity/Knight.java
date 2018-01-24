@@ -87,8 +87,6 @@ public class Knight extends Entity {
         //reduce its strength by a random number from 1-25
         k.strength -= (int) Math.ceil(Math.random() * 25);
 
-        System.out.println(k.strength);
-
         //if it is out of strength, remove it
         if (k.strength < 1) {
             //set up an arrayList of the knights
