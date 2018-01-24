@@ -61,8 +61,10 @@ public class Knight extends Entity {
     }
 
     /**
-     * Attempts to capture the given entity. Should only be called by the
-     * AbstractRuler class.
+     * Attempts to capture the given Knight. Should only be called by the
+     * AbstractRuler class. Knights have 100 health upon initialization, and
+     * their strength is reduced by a random number from 1-25 each attack. If
+     * strength is less than 1, the knight is removed from the board.
      *
      * @param attacked The entity which is to be attacked
      * @return The number of points earned in attack (0 indicates no Entity
@@ -74,11 +76,10 @@ public class Knight extends Entity {
                 System.out.println("no action");
             }
             if (this.getRuler() == attacked.getRuler()) {
-                System.out.println(this.getRuler()+" - same ruler - " + attacked.getRuler());
+                System.out.println(this.getRuler() + " - same ruler - " + attacked.getRuler());
             }
 
             return 0;
-
         }
         hasAction = false;
         //if the attacked entity is a knight
@@ -105,8 +106,9 @@ public class Knight extends Entity {
     }
 
     /**
-     * Attempts to capture the given entity. Should only be called by the
-     * AbstractRuler class.
+     * Attempts to capture the given Peasant. Should only be called by the
+     * AbstractRuler class. Peasants are immediately removed from the board
+     * if captured.
      *
      * @param attacked The entity which is to be attacked
      * @return The number of points earned in attack (0 indicates no Entity
@@ -138,8 +140,8 @@ public class Knight extends Entity {
     }
 
     /**
-     * Attempts to capture the given entity. Should only be called by the
-     * AbstractRuler class.
+     * Attempts to capture the given castle. Should only be called by the
+     * AbstractRuler class. Castles change ruler possession with a single capture.
      *
      * @param attacked The entity which is to be attacked
      * @return The number of points earned in attack (0 indicates no Entity

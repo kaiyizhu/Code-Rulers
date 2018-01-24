@@ -207,12 +207,15 @@ public abstract class Entity {
     public void setAction(boolean hasAction) {
         this.hasAction = hasAction;
     }
-
+    
     public void drawEntity(Graphics g, double scaleFactor, int xOffset, int yOffset) {
         BufferedImage icn = IMAGE.getResizedImage(entityIcn, (int) (12 * scaleFactor), (int) (12 * scaleFactor));
         g.drawImage(icn, (int) (x * 12 * scaleFactor) + xOffset, (int) (y * 12 * scaleFactor) + yOffset, null);
     }
-    
+    /**
+     * Returns the location of the entity as a string
+     * @return The entities location as x,y
+     */
     public String toString() {
         return x + ","+y;
     }
