@@ -18,7 +18,7 @@ import java.awt.Color;
  *
  * @author Sean Zhang
  */
-public class SeanZhang extends AbstractRuler {
+public class SeanBot extends AbstractRuler {
 
     @Override
     public void orderSubjects() {
@@ -26,14 +26,20 @@ public class SeanZhang extends AbstractRuler {
         if (this.getCastles().length == 1 && this.getKnights().length<20) {
             for (Castle castle : this.getCastles()) {
                 for (Knight knight : this.getKnights()) {
-                    knight.getDirectionTo(castle.getX(), castle.getY());
+                    move(knight,knight.getDirectionTo(castle.getX(), castle.getY()));
                 }
             }
         } else if(this.getCastles().length==1 && this.getKnights().length>=20) {
             for(Castle castle: this.getCastles()) {
-                for (int i=0;i<this.getKnights().length;i++) {
-                    this.getKnights();
+                for (int i=0;i<20;i++) {
+                    move(this.getKnights()[i],this.getKnights()[i].getDirectionTo(castle.getX(), castle.getY()));
+                    capture(this.getKnights()[i],this.getKnights()[i].getDirectionTo(castle.getX(), castle.getY()));
+                    
                 }
+            }
+            
+            for(int i=20;i<this.getKnights().length;i++) {
+                
             }
         }
 
