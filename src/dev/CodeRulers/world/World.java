@@ -322,20 +322,20 @@ public class World {
         for (Peasant p : peasants) {
             p.drawEntity(g, scaleFactor, xOffset, yOffset);
             g.setColor(r.getRulerArray()[p.getRuler()].getColor());
-            g.fillRect((int)(p.getX()*12*scaleFactor)+xOffset,(int)(p.getY()*12*scaleFactor)+yOffset, widthOfIndicator,widthOfIndicator);
+            g.fillRect((int)(p.getX()*12*scaleFactor)+xOffset,(int)(p.getY()*12*scaleFactor)+yOffset, (int)(widthOfIndicator*scaleFactor), (int)(widthOfIndicator*scaleFactor));
         }
 
         for (Knight k : knights) {
             k.drawEntity(g, scaleFactor, xOffset, yOffset);
             g.setColor(r.getRulerArray()[k.getRuler()].getColor());
-            g.fillRect((int)(k.getX()*12*scaleFactor)+xOffset,(int)(k.getY()*12*scaleFactor)+yOffset,widthOfIndicator,widthOfIndicator);
+            g.fillRect((int)(k.getX()*12*scaleFactor)+xOffset,(int)(k.getY()*12*scaleFactor)+yOffset,(int)(widthOfIndicator*scaleFactor), (int)(widthOfIndicator*scaleFactor));
         }
         
 
         for (Castle c : castles) {
             c.drawEntity(g, scaleFactor, xOffset, yOffset);
             g.setColor(r.getRulerArray()[c.getRuler()].getColor());
-            g.fillRect((int)(c.getX()*12*scaleFactor)+xOffset,(int)(c.getY()*12*scaleFactor)+yOffset,widthOfIndicator,widthOfIndicator);
+            g.fillRect((int)(c.getX()*12*scaleFactor)+xOffset,(int)(c.getY()*12*scaleFactor)+yOffset,(int)(widthOfIndicator*scaleFactor), (int)(widthOfIndicator*scaleFactor));
         }
 
         lastScaleFactor = scaleFactor;
