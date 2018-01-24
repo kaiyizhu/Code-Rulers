@@ -61,15 +61,14 @@ public class UnknownBot extends AbstractRuler {
                     //If the nearby entity is a knight and it has lower strength than this knight, then attack it
                     if (entity instanceof Knight) {
                         if (((Knight) entity).getStrength() < knight.getStrength()) {
-                            knight.capture(entity);
+                            this.capture(knight, findDir(x,y));
                         }
                     } else if (entity instanceof Peasant || entity instanceof Castle) {
-                        knight.capture(entity);
-                        
+                        this.capture(knight,findDir(x,y));
                     }
                 }
             }
-            knight.move(knight.getDirectionTo(closestCastle.getX(), closestCastle.getY()));
+            this.move(knight, knight.getDirectionTo(closestCastle.getX(), closestCastle.getY()));
         }
     }
 
@@ -77,7 +76,7 @@ public class UnknownBot extends AbstractRuler {
     private void createEntities() {
         for (Castle castle : castles) {
             //creates peasants if there isn't enough
-            if(peasants.length < 15) {
+            if(peasants.length < 40) {
                 castle.createPeasants();
             } else {
                 castle.createKnights();
@@ -99,14 +98,14 @@ public class UnknownBot extends AbstractRuler {
                     
                     //If the land owner is not ours, then move onto it
                     if (World.getLandOwner(peasant.getX() + x, peasant.getY() + y) != rulerID) {
-                        peasant.move(findDir(x, y));
+                        this.move(peasant, findDir(x,y));
                     }
                 }
             }
             
             //If the peasant can still move, then move towards the bottom right
             if(peasant.hasAction()) {
-                peasant.move(4);
+                this.move(peasant,(int)(Math.random() * 8));
             }
         }
     }
@@ -161,7 +160,6 @@ public class UnknownBot extends AbstractRuler {
                 }
             }
         }
-        
         return null;
     }
 
