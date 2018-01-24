@@ -25,7 +25,7 @@ import javax.swing.Timer;
  */
 public class CodeRulers implements Runnable {
     //this is the amount of turns a player makes before the game ends.
-    private final int turnLimit=5000;
+    private final int turnLimit=50;
     
     //this is the name of the window and the file directory of where the logo image is
     private String title = "CodeRulers: An AI Program for Noobs", logo = "logo.png";
@@ -81,7 +81,7 @@ public class CodeRulers implements Runnable {
         w = new World(this);
 
         //creates a new timer object that loops every 10 miliseconds.
-        t = new Timer(100, new TimerListener());
+        t = new Timer(1, new TimerListener());
 
         if (graphics) {
             //creates a new JFrame display to display all the graphics in the game.

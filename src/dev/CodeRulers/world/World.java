@@ -330,6 +330,7 @@ public class World {
             g.setColor(r.getRulerArray()[k.getRuler()].getColor());
             g.fillRect((int)(k.getX()*12*scaleFactor)+xOffset,(int)(k.getY()*12*scaleFactor)+yOffset,widthOfIndicator,widthOfIndicator);
         }
+        
 
         for (Castle c : castles) {
             c.drawEntity(g, scaleFactor, xOffset, yOffset);
