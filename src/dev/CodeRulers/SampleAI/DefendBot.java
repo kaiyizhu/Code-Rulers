@@ -34,7 +34,7 @@ public class DefendBot extends AbstractRuler
     //the current number of castles under this ruler
     int numCastles = 1;
     //random number generator for choosing which peasants to kill
-    Random rd = new Random();
+    Random r = new Random();
     //whether the capture phase is complete
     boolean captured = false;
 
@@ -42,30 +42,44 @@ public class DefendBot extends AbstractRuler
     public void initialize()
     {
         profileURL = ("http://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg");
-        setColor(new Color(200, 50, 50));
+        setColor(new Color(147, 112, 219));
     }
 
     @Override
     public void orderSubjects()
     {
-        Castle[] myC = getCastles();
-        //tell the peasants to expand
-        for (Castle c : myC)
+        for (Peasant peasant : this.getPeasants())
         {
-            //get them to produce knights
-            c.createKnights();
+            int randomPeasantMove = r.nextInt(2);
+            if (randomPeasantMove == 1)
+            {
+                int peasantDir = r.nextInt(8) + 1;
+                this.move(peasant, peasantDir);
+            } else
+            {
+                //Does nothing so the peasant stays in his original land
+            }
+        }
+        for (Castle castle : this.getCastles())
+        {
+
+            castle.createKnights();
         }
         int count = 0;
         for (Knight knight : this.getKnights())
         {
-            this.move(knight, count);
-            count++;
-            if(count == 8){
-                count = 0;
+            this.move(knight, knight.getDirectionTo(this.getCastles()[0].getX(), this.getCastles()[0].getY()));
+            if (knight.getDistanceTo(getOtherPeasants()[getOtherPeasants().length - 1].getX(), getOtherPeasants()[getOtherPeasants().length - 1].getY()) == 1)
+            {
+                //capture(knight, getOtherPeasants()[getOtherPeasants().length - 1].getX(), getOtherPeasants()[getOtherPeasants().length - 1].getY());
+            }
+            else
+            {
+                knight.capture(getOtherKnights()[getOtherKnights().length - 1]);
             }
         }
     }
-    
+
     @Override
     public String getSchoolName()
     {
