@@ -27,8 +27,7 @@ public class BullyBot extends AbstractRuler {
     int dir;
     //random number generator for choosing which peasants to kill
     Random rd = new Random();
-    //whether the capture phase is complete
-    boolean captured = false;
+
     @Override
     public void initialize() {
         profileURL =("http://www.cse.lehigh.edu/~munoz/CSE497/assignments/files/coderuler_files/fig2.gif");
@@ -38,23 +37,12 @@ public class BullyBot extends AbstractRuler {
     public void orderSubjects() {
         //tell the peasants to expand
             orderPeasants();
-        Knight[] myK = getKnights();
-        //if our castle was captured, move to capture others
-        if( CodeRulers.getTurnCount() < 20){
-            //generate knights, start moving towards the center
-            setUp();
-        //if it is the 20th turn
-        }else if( CodeRulers.getTurnCount() ==20){
-            //get the target to bully
-            assignNewTarget();
-            //move to attack it
-            capture();
-        //if we have more knights than other rulers do
-        }else if(getOtherKnights().length < getKnights().length){
+        
+        if(getOtherKnights().length < getKnights().length){
             //send the knights to bully them
             attackKnights();
         //otherwise, try to capture a castle
-        }else if(getOtherCastles().length != 0){
+        }else if(getOtherCastles().length > 0){
             //assign a new castle as a target
             capture();
         //otherwise, if there are still peasants
@@ -72,17 +60,11 @@ public class BullyBot extends AbstractRuler {
                     
     }
     
-    private void setUp(){
-        //get a list of my knights
-        Knight[] myK = getKnights();
-        //for all of the knights
-        for(Knight k : myK){
-            //move the knights in direction of expansion protect peasants
-            k.move(dir);
-        } 
-    }
     private void capture(){
         if(attacking == null){
+            assignNewTarget();
+        }
+        if(attacking.getRuler() == rulerID){
             assignNewTarget();
         }
         //get the array of the AIs knights
@@ -97,13 +79,9 @@ public class BullyBot extends AbstractRuler {
                     capture(k, k.getDirectionTo(attacking.getX(), attacking.getY()));
                 }else{
                     //move towards the castle (to prevent backups of knights)
-                    k.move(k.getDirectionTo(attacking.getX(), attacking.getY()));
+                    move(k, k.getDirectionTo(attacking.getX(), attacking.getY()));
                 }
             //otherwise
-            }else{
-                //set captured to true
-                captured = true;
-                break;
             }
         }
     }
@@ -127,26 +105,7 @@ public class BullyBot extends AbstractRuler {
         }
     }
     private void assignNewTarget(){
-        //get a list of my castles
-        Castle[] myC = getCastles();
-        //for all of my castles
-        for(Castle c: myC){
-            //get them to produce knights
-            c.createKnights();
-        }
-        //get the list of all other castles
-        Castle[] otherCastles = getOtherCastles();
-        //for every castle
-        for(Castle c: otherCastles){
-            //if this castle is owned by the target
-            if(c.getRuler() != rulerID){
-                //stick the knights on it
-                attacking = c;
-                //break the for loop
-                break;
-            }
-        }
-        captured = false;
+        attacking = getOtherCastles()[0];
     }
 
     private void chooseDir(){
@@ -207,11 +166,11 @@ public class BullyBot extends AbstractRuler {
             //if there are more peasants to assign knights to attacking
             if(otherP.length > i){
                 //move the knight towards the next peasant in the array
-                myK[i].move(myK[i].getDirectionTo(otherP[i].getX(), otherP[i].getY()));
+                move(myK[i], myK[i].getDirectionTo(otherP[i].getX(), otherP[i].getY()));
             //otherwise
             }else{
                 //move the knight towards the peasant at the end of the array
-                myK[i].move(myK[i].getDirectionTo(otherP[otherP.length-1].getX(), otherP[otherP.length-1].getY()));
+                move(myK[i], myK[i].getDirectionTo(otherP[otherP.length-1].getX(), otherP[otherP.length-1].getY()));
             }
         }
     }
@@ -226,19 +185,21 @@ public class BullyBot extends AbstractRuler {
             if(otherK.length > i){
                 //if the knight at this index is close enough to attack, attack
                 if(myK[i].getDistanceTo(otherK[i].getX(), otherK[i].getY()) == 1){
-                    myK[i].capture(otherK[i]);
+   //                 myK[i].capture(otherK[i]);
+                    capture(myK[i], myK[i].getDirectionTo(otherK[i].getX(), otherK[i].getY()));
                 //otherwise, move them towards the other knights
                 }else{
-                    myK[i].move(myK[i].getDirectionTo(otherK[i].getX(), otherK[i].getY()));
+                    move(myK[i], myK[i].getDirectionTo(otherK[i].getX(), otherK[i].getY()));
                 }
             //if there are no more knights in the knight array
             }else{
                 //if this knight is close enough to attack the knight at the end of the array, attack
                 if(myK[i].getDistanceTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()) == 1){
-                    myK[i].capture(otherK[otherK.length-1]);
+                    capture(myK[i], myK[i].getDirectionTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()));
                 //otherwise, move towards it
                 }else{
-                    myK[i].move(myK[i].getDirectionTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()));
+            //        myK[i].move(myK[i].getDirectionTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()));
+                    move(myK[i], myK[i].getDirectionTo(otherK[otherK.length-1].getX(), otherK[otherK.length-1].getY()));
                 }
             }
         }
