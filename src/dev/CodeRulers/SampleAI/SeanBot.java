@@ -23,9 +23,15 @@ public class SeanBot extends AbstractRuler {
 
     @Override
     public void orderSubjects() {
+        System.out.println("I just went");
+        System.out.println(Arrays.toString(this.getCastles()));
+        System.out.println(this.getCastles().length);
+        System.out.println(Arrays.toString(this.getKnights()));
+        System.out.println(this.getKnights().length);
+        
+        
         if (this.getCastles().length == 1 && this.getKnights().length<20) {
             System.out.println("I have castles and less than 20 knights");
-            
             for (Castle castle : this.getCastles()) {
                 for (Knight knight : this.getKnights()) {
                     for (Castle otherCastle : World.getAllCastles()) {

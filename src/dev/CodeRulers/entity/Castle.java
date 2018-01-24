@@ -126,7 +126,7 @@ public class Castle extends Entity{
                 p2[p2.length-1] = new Peasant(r.nextInt(64),r.nextInt(64),ruler);
                 //set the World's peasants to this new array
                 World.setPeasants(p2);
-                System.out.println(World.getAllPeasants().length);
+                //System.out.println(World.getAllPeasants().length);
             //if they are creating knights
             }else{
                 //get the knights list
@@ -143,7 +143,5 @@ public class Castle extends Entity{
         }
     }
     
-    public String toString() {
-        return x + ","+y;
-    }
+    
 }
