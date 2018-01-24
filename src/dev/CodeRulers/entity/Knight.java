@@ -62,7 +62,7 @@ public class Knight extends Entity{
      * @return  The number of points earned in attack (0 indicates no Entity captured)
      */
     public int capture(Entity attacked){
-        if(Math.abs(attacked.getX()-this.getX())>1 || Math.abs(attacked.getY()-this.getX()) > 1 || !this.hasAction || this.getRuler() != attacked.getRuler()){
+        if(Math.abs(attacked.getX()-this.getX())>1 || Math.abs(attacked.getY()-this.getX()) > 1 || !this.hasAction || this.getRuler() == attacked.getRuler()){
             if(!this.hasAction) {
                 System.out.println("no action");
             } if(this.getRuler() == attacked.getRuler()) {
