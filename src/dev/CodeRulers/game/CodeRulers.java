@@ -272,14 +272,26 @@ public class CodeRulers implements Runnable {
 
     }
 
+    /**
+     * This method returns the timer that is responsible for controlling the flow of the game.
+     * @return the timer that is responsible for cycling the turns in the game.
+     */
     public Timer getTimer() {
         return t;
     }
 
+    /**
+     * This method tells the user whether the game has ended or not. This is determined by how many turns has passed.
+     * @return the boolean indicates whether the game has ended or not.
+     */
     public boolean isGameEnd() {
         return gameEnd;
     }
 
+    /**
+     * This method returns the number of turns that has elapsed.
+     * @return the number of turns that has elapsed.
+     */
     public static int getTurnCount() {
         return turnCount;
     }

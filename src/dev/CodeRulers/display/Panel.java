@@ -6,7 +6,6 @@
 package dev.CodeRulers.display;
 
 //Import statements
-import dev.CodeRulers.entity.*;
 import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.util.IMAGE;
@@ -14,13 +13,8 @@ import dev.CodeRulers.world.World;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageProducer;
-import java.io.File;
 import java.util.Arrays;
-import javax.swing.Timer;
 
 /**
  * This class will be responsible for handling all drawing to the screen and

@@ -402,6 +402,11 @@ public class World {
     public static void setyOffset(int yOffset) {
         World.yOffset = yOffset;
     }
+    
+    /**
+     * This method returns the number of rulers that are playing in the game.
+     * @return the number of rulers that are playing in the game.
+     */
     public static int getNumRulers(){
         return r.getRulerArray().length;
     }
