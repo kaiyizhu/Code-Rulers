@@ -105,7 +105,7 @@ public class UnknownBot extends AbstractRuler {
             
             //If the peasant can still move, then move towards the bottom right
             if(peasant.hasAction()) {
-                this.move(peasant,4);
+                this.move(peasant,(int)(Math.random() * 8));
             }
         }
     }
