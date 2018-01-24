@@ -31,8 +31,6 @@ public abstract class AbstractRuler implements Comparable{
     //this is the default profile color for the AI.
     private Color c=Color.WHITE;
     
-    
-    
     /**
      * Initializes a new Abstract Ruler, based upon the implementation of the
      * initialize() method within implementing classes.
@@ -83,9 +81,7 @@ public abstract class AbstractRuler implements Comparable{
         if(attacking.hasAction()){
             //see if anything is in that space
             int[] xy = translateDir(dir);
-            Entity attacked = World.getEntityAt(attacking.getX()+xy[0], attacking.getY()+xy[1]);
-            //System.out.println(attacked.equals(attacking));
-            
+            Entity attacked = World.getEntityAt(attacking.getX()+xy[0], attacking.getY()+xy[1]);    
             if(attacked != null){
                 //call the attack
                 if(attacked.getClass().isAssignableFrom(Knight.class)) {
