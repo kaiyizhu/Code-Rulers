@@ -23,6 +23,7 @@ public class DefendBot extends AbstractRuler
 {
 
     Random r = new Random();
+
     @Override
     public void initialize()
     {
@@ -50,25 +51,22 @@ public class DefendBot extends AbstractRuler
         {
 
             castle.createKnights();
-
+        }
         int max = 1;
         for (Knight knight : this.getKnights())
         {
-            
-            for(int x = -1; x < 1; x++){
-                for(int y = 1; y < -1; y--){
-            if(x < 2){
-            this.move(knight, knight.getDirectionTo(castle.getX() + x, castle.getY() + y));
-            }
+
+            for (int x = -1; x < 1; x++)
+            {
+                for (int y = 1; y > -1; y--)
+                {
+                    this.move(knight, knight.getDirectionTo(this.getCastles()[0].getX() + x, this.getCastles()[0].getY() + y));
                 }
             }
-            
-            
-            
-            
-            
-            
-            
+
+        }
+
+        /*
             if (knight.getDistanceTo(getOtherCastles()[getOtherCastles().length - 1].getX(), getOtherCastles()[getOtherCastles().length - 1].getY()) == 1)
             {
                 capture(knight, knight.getDirectionTo(getOtherKnights()[getOtherKnights().length-1].getX(), getOtherKnights()[getOtherKnights().length-1].getY()));
@@ -78,9 +76,7 @@ public class DefendBot extends AbstractRuler
             {
                 knight.capture(getOtherKnights()[getOtherKnights().length - 1]);
             }
-*/
-        }
-                }
+         */
     }
 
     @Override
