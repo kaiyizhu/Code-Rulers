@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author seanz
+ * @author Sean Zhang
  */
 public class IMAGE {
     /**
