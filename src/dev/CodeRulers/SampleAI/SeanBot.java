@@ -59,21 +59,12 @@ public class SeanBot extends AbstractRuler {
                 for (int dirC = 1; dirC < 9; dirC++) {
                     capture(knight, dirC);
                 }
-                move(knight, knight.getDirectionTo(this.getCastles()[0].getX(), this.getCastles()[0].getY()));
+                move(knight, knight.getDirectionTo(targetCastle.getX(), targetCastle.getY()));
             }
 
             
-
-   
         }
 
-        this.getOtherKnights();
-        this.getOtherPeasants();
-        this.getOtherCastles();
-
-        this.getPeasants();
-        this.getCastles();
-        this.getKnights();
     }
 
     @Override

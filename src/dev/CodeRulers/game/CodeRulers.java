@@ -149,41 +149,6 @@ public class CodeRulers implements Runnable {
     }
 
     /**
-     * Calculates the number of points the ruler has.
-     */
-    public void endGameNoDisplay() {
-        //create an array to represent final points
-        int[] finalPoints = new int[r.length];
-        //for every ruler
-        for (int i = 0; i < r.length; i++) {
-            //calculate the final points at that index
-            finalPoints[i] = r[i].getPoints()
-                    + World.getLandCount(r[i].getRulerID()) / 10 + r[i].getCastles().length * 25
-                    + r[i].getPeasants().length + r[i].getKnights().length * 2;
-        }
-        //for every ruler (every place in standings)
-        for (int i = 0; i < r.length; i++) {
-            //initailize a highest points and index of highest points
-            int highest = 0;
-            int highIndex = 0;
-            //for all the rulers
-            for (int j = 0; j < r.length; j++) {
-                //if this ruler has more points than the last
-                if (finalPoints[j] > highest) {
-                    //set highest and highest index accordingly
-                    highest = finalPoints[j];
-                    highIndex = j;
-                }
-            }
-            //print out the place that the ruler cam in, along with their points
-            System.out.println(i + ". " + r[highIndex].getRulerName() + " with"
-                    + highest + " points.");
-            //set their final points to 0 (so that it doesn't get printed out)
-            finalPoints[highIndex] = 0;
-        }
-    }
-
-    /**
      * This method provides access to the array of rulers in the game.
      *
      * @return the array of ruler objects in the game.
