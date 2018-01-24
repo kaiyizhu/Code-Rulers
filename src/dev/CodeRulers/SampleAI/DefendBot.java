@@ -23,6 +23,7 @@ public class DefendBot extends AbstractRuler
 {
 
     Random r = new Random();
+
     @Override
     public void initialize()
     {
@@ -34,22 +35,6 @@ public class DefendBot extends AbstractRuler
     @Override
     public void orderSubjects()
     {
-        for(int i = 0; i < 1000; i++)
-        {
-            for (Peasant peasant : this.getPeasants())
-            {
-                int randomPeasantMove = r.nextInt(2);
-                if (randomPeasantMove == 1)
-                {
-                    int peasantDir = r.nextInt(8) + 1;
-                    this.move(peasant, peasantDir);
-                } else
-                {
-                    //Does nothing so the peasant stays in his original land
-                }
-            }
-        }
-        /*
         for (Peasant peasant : this.getPeasants())
         {
             int randomPeasantMove = r.nextInt(2);
@@ -67,19 +52,30 @@ public class DefendBot extends AbstractRuler
 
             castle.createKnights();
         }
-        int count = 0;
+        int max = 1;
         for (Knight knight : this.getKnights())
         {
-            this.move(knight, knight.getDirectionTo(this.getCastles()[0].getX(), this.getCastles()[0].getY()));
-            if (knight.getDistanceTo(getOtherPeasants()[getOtherPeasants().length - 1].getX(), getOtherPeasants()[getOtherPeasants().length - 1].getY()) == 1)
+
+            for (int x = -1; x < 1; x++)
             {
-                //capture(knight, getOtherPeasants()[getOtherPeasants().length - 1].getX(), getOtherPeasants()[getOtherPeasants().length - 1].getY());
+                for (int y = 1; y > -1; y--)
+                {
+                    this.move(knight, knight.getDirectionTo(this.getCastles()[0].getX() + x, this.getCastles()[0].getY() + y));
+                }
             }
+
+        }
+
+        /*
+            if (knight.getDistanceTo(getOtherCastles()[getOtherCastles().length - 1].getX(), getOtherCastles()[getOtherCastles().length - 1].getY()) == 1)
+            {
+                capture(knight, knight.getDirectionTo(getOtherKnights()[getOtherKnights().length-1].getX(), getOtherKnights()[getOtherKnights().length-1].getY()));
+            } 
+            /*
             else
             {
                 knight.capture(getOtherKnights()[getOtherKnights().length - 1]);
             }
-        }
          */
     }
 
