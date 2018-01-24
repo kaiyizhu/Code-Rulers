@@ -132,7 +132,7 @@ public abstract class Entity {
         //translate the direction into x,y differences
         int[] xy = AbstractRuler.translateDir(dir);
         //check if someone is at the location where they are trying to move
-        Entity inLocation = World.getEntityAt(x + xy[0], y + xy[1]);
+        Entity inLocation = World.getEntityAt(x + xy[0], y + xy[0]);
         if (inLocation != null) {
             //if this is a knight and it moves into an enemy peasant
             if (this instanceof Knight && inLocation instanceof Peasant

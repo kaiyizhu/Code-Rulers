@@ -61,7 +61,12 @@ public class DefendBot extends AbstractRuler
             {
                 for (int y = 1; y > -1; y--)
                 {
-                    this.move(knight, knight.getDirectionTo(this.getCastles()[getCastles().length-1].getX() + x, this.getCastles()[getCastles().length-1].getY() + y));
+                    if(getCastles().length == 0){
+                    
+                    }
+                    else{
+                        this.move(knight, knight.getDirectionTo(this.getCastles()[getCastles().length-1].getX() + x, this.getCastles()[getCastles().length-1].getY() + y));
+                    }
                 }
             }
 
