@@ -36,15 +36,11 @@ public class BullyBot extends AbstractRuler {
     @Override
     public void orderSubjects() {
         //tell the peasants to expand
-            orderPeasants();
-        if(getOtherKnights().length < getKnights().length && getOtherKnights().length >0){
-            //send the knights to bully them
-            attackKnights();
-        //otherwise, try to capture a castle
-        }else 
-            if(getOtherCastles().length > 0){
-            //assign a new castle as a target
-            capture();
+        orderPeasants();
+        //if there are other castles to capture
+        if(getOtherCastles().length > 0){
+        //capture them
+        capture();
         //otherwise, if there are still peasants
         }else if(getOtherPeasants().length != 0){
             //send the knights to bully them
