@@ -74,7 +74,7 @@ public class Knight extends Entity {
                 System.out.println("no action");
             }
             if (this.getRuler() == attacked.getRuler()) {
-                System.out.println("same ruler");
+                System.out.println(this.getRuler()+" - same ruler - " + attacked.getRuler());
             }
 
             return 0;
