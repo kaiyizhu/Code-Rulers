@@ -84,6 +84,8 @@ public abstract class AbstractRuler implements Comparable{
             //see if anything is in that space
             int[] xy = translateDir(dir);
             Entity attacked = World.getEntityAt(attacking.getX()+xy[0], attacking.getY()+xy[1]);
+            //System.out.println(attacked.equals(attacking));
+            
             if(attacked != null){
                 //call the attack
                 if(attacked.getClass().isAssignableFrom(Knight.class)) {
