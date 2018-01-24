@@ -319,6 +319,8 @@ public class World {
 
         int widthOfIndicator=4;
         
+        
+        
         for (Peasant p : peasants) {
             p.drawEntity(g, scaleFactor, xOffset, yOffset);
             g.setColor(r.getRulerArray()[p.getRuler()].getColor());

@@ -28,6 +28,7 @@ public class DefendBot extends AbstractRuler
     {
         profileURL = ("http://i.dailymail.co.uk/i/pix/2017/04/20/13/3F6B966D00000578-4428630-image-m-80_1492690622006.jpg");
         setColor(new Color(147, 112, 219));
+        setColor(Color.BLUE);
     }
 
     @Override
@@ -49,15 +50,15 @@ public class DefendBot extends AbstractRuler
         {
 
             castle.createKnights();
-        }
+
         int max = 1;
         for (Knight knight : this.getKnights())
         {
             
-            for(int x = -1; x < max; x++){
-                for(int y = -1; y < max; y++){
-            if(x < max){
-            this.move(knight, knight.getDirectionTo(this.getCastles()[0].getX() + x, this.getCastles()[0].getY() + y));
+            for(int x = -1; x < 1; x++){
+                for(int y = 1; y < -1; y--){
+            if(x < 2){
+            this.move(knight, knight.getDirectionTo(castle.getX() + x, castle.getY() + y));
             }
                 }
             }
@@ -79,6 +80,7 @@ public class DefendBot extends AbstractRuler
             }
 */
         }
+                }
     }
 
     @Override

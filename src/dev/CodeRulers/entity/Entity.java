@@ -218,4 +218,9 @@ public abstract class Entity {
         BufferedImage icn = IMAGE.getResizedImage(entityIcn, (int) (12 * scaleFactor), (int) (12 * scaleFactor));
         g.drawImage(icn, (int) (x * 12 * scaleFactor) + xOffset, (int) (y * 12 * scaleFactor) + yOffset, null);
     }
+    
+    public String toString() {
+        return x + ","+y;
+    }
+    
 }

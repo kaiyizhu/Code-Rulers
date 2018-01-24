@@ -174,7 +174,6 @@ public abstract class AbstractRuler implements Comparable{
     public Castle[] getCastles(){
         //get the list of all castles from world
         Castle[] all = World.getAllCastles();
-        System.out.println(Arrays.toString(all));
         ArrayList<Castle> ours = new ArrayList<>();
         
         //sort through the list, add every castles that has this ruler to stack?
@@ -186,7 +185,6 @@ public abstract class AbstractRuler implements Comparable{
         //convert ArrayList to array
         Castle[] returned = ours.toArray(new Castle[ours.size()]);
         
-        System.out.println(Arrays.toString(returned));
         
         //return array
         return returned;
