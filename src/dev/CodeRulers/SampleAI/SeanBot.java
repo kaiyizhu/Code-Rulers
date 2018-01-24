@@ -23,12 +23,21 @@ public class SeanBot extends AbstractRuler {
 
     @Override
     public void orderSubjects() {
-        
-        
-        
         if (this.getCastles().length == 1 && this.getKnights().length<20) {
             for (Castle castle : this.getCastles()) {
                 for (Knight knight : this.getKnights()) {
+                    for (Castle otherCastle : World.getAllCastles()) {
+                        knight.capture(otherCastle);
+                    }
+                    
+                    for(Knight knightss:this.getOtherKnights()){
+                        knight.capture(knightss);
+                    }
+                    
+                    for(Peasant p : this.getOtherPeasants()) {
+                        knight.capture(p);
+                    }
+                    
                     move(knight,knight.getDirectionTo(castle.getX(), castle.getY()));
                 }
             }
@@ -52,7 +61,27 @@ public class SeanBot extends AbstractRuler {
             }
             
             for(int i=20;i<this.getKnights().length;i++) {
-                
+                int avgx=0,avgy=0;
+                    for(Knight k : this.getKnights()) {
+                        avgx+=k.getX();
+                        avgy+=k.getY();
+                    }
+                    
+                    avgx/=this.getKnights().length;
+                    avgy/=this.getKnights().length;
+                    
+                    
+                    int smallestDistance=100000;
+                    
+                    Castle targetCastle=null;
+                    for(Castle c :this.getOtherCastles()) {
+                        if(c.getDistanceTo(avgx, avgy)<=smallestDistance) {
+                            targetCastle=c;
+                            smallestDistance=c.getDistanceTo(avgx, avgy);
+                        }
+                    }
+                    
+                    move(this.getKnights()[i],this.getKnights()[i].getDirectionTo(targetCastle.getX(), targetCastle.getY()));
             }
         } else if(this.getCastles().length==0) {
             for (int i=0;i<this.getCastles().length;i++) {
@@ -68,17 +97,27 @@ public class SeanBot extends AbstractRuler {
                         this.getKnights()[i].capture(p);
                     }
                     
+                    int avgx=0,avgy=0;
+                    for(Knight k : this.getKnights()) {
+                        avgx+=k.getX();
+                        avgy+=k.getY();
+                    }
+                    
+                    avgx/=this.getKnights().length;
+                    avgy/=this.getKnights().length;
+                    
+                    
                     int smallestDistance=100000;
                     
-                    int avgx,avgy;
-                    for(Knight k : this.getKnights()) {
-                        
+                    Castle targetCastle=null;
+                    for(Castle c :this.getOtherCastles()) {
+                        if(c.getDistanceTo(avgx, avgy)<=smallestDistance) {
+                            targetCastle=c;
+                            smallestDistance=c.getDistanceTo(avgx, avgy);
+                        }
                     }
                     
-                    for(Castle c :World.getAllCastles()) {
-                        
-                    }
-                    move(this.getKnights()[i],this.getKnights()[i].getDirectionTo(castle.getX(), castle.getY()));
+                    move(this.getKnights()[i],this.getKnights()[i].getDirectionTo(targetCastle.getX(), targetCastle.getY()));
                 }
         }
 
