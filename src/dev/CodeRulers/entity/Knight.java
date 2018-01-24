@@ -73,10 +73,9 @@ public class Knight extends Entity {
     public int capture(Knight attacked) {
         if (this.getDistanceTo(x, y) > 1 || !this.hasAction || this.getRuler() == attacked.getRuler()) {
             if (!this.hasAction) {
-                System.out.println("no action");
             }
             if (this.getRuler() == attacked.getRuler()) {
-                System.out.println(this.getRuler() + " - same ruler - " + attacked.getRuler());
+
             }
 
             return 0;
@@ -115,17 +114,6 @@ public class Knight extends Entity {
      * captured)
      */
     public int capture(Peasant attacked) {
-        if (this.getDistanceTo(x, y) > 1|| !this.hasAction || this.getRuler() == attacked.getRuler()) {
-            if (!this.hasAction) {
-                System.out.println("no action");
-            }
-            if (this.getRuler() == attacked.getRuler()) {
-                System.out.println("same ruler");
-            }
-
-            return 0;
-
-        }
         hasAction = false;
         //create a peasant reference to it
         Peasant p = (Peasant) attacked;
@@ -148,17 +136,6 @@ public class Knight extends Entity {
      * captured)
      */
     public int capture(Castle attacked) {
-        if (this.getDistanceTo(x, y) > 1 || !this.hasAction || this.getRuler() == attacked.getRuler()) {
-            if (!this.hasAction) {
-                System.out.println("no action");
-            }
-            if (this.getRuler() == attacked.getRuler()) {
-                System.out.println("same ruler");
-            }
-
-            return 0;
-
-        }
         //create a castle reference
         Castle c = (Castle) attacked;
         //set this ruler to own the castle

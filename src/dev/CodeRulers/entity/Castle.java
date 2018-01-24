@@ -69,13 +69,7 @@ public class Castle extends Entity{
      * decrements the number of turns remaining until production.
      */
     public void produce(){
-        
-        if(lastCall == CodeRulers.getTurnCount()){
-            //System.out.println("Ruler " + ruler + " attempted to cheat castle production");
-            return;
-        }
-        lastCall = CodeRulers.getTurnCount();
-        
+        lastCall = CodeRulers.getTurnCount();     
         //get the count of land under this ruler
         int land = World.getLandCount(ruler);
         //initialize a new variable, to represent change in maxToCreation
