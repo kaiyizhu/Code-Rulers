@@ -28,105 +28,43 @@ public class SeanBot extends AbstractRuler {
         System.out.println(this.getCastles().length);
         System.out.println(Arrays.toString(this.getKnights()));
         System.out.println(this.getKnights().length);
-        
-        
-        if (this.getCastles().length == 1 && this.getKnights().length<20) {
+
+        if (this.getCastles().length == 1 && this.getKnights().length < 20) {
             System.out.println("I have castles and less than 20 knights");
-            for (Castle castle : this.getCastles()) {
-                for (Knight knight : this.getKnights()) {
-                    for (Castle otherCastle : World.getAllCastles()) {
-                        knight.capture(otherCastle);
-                    }
-                    
-                    for(Knight knightss:this.getOtherKnights()){
-                        knight.capture(knightss);
-                    }
-                    
-                    for(Peasant p : this.getOtherPeasants()) {
-                        knight.capture(p);
-                    }
-                    
-                    move(knight,knight.getDirectionTo(castle.getX(), castle.getY()));
+
+            //target castles
+            int avgx = 0, avgy = 0;
+            for (Knight k : this.getKnights()) {
+                avgx += k.getX();
+                avgy += k.getY();
+            }
+
+            avgx /= this.getKnights().length;
+            avgy /= this.getKnights().length;
+
+            int smallestDistance = 100000;
+
+            Castle targetCastle = null;
+            for (Castle c : this.getOtherCastles()) {
+                if (c.getDistanceTo(avgx, avgy) <= smallestDistance) {
+                    targetCastle = c;
+                    smallestDistance = c.getDistanceTo(avgx, avgy);
                 }
             }
-        } else if(this.getCastles().length==1 && this.getKnights().length>=20) {
-            for(Castle castle: this.getCastles()) {
-                for (int i=0;i<20;i++) {
-                    for (Castle otherCastle : World.getAllCastles()) {
-                        this.getKnights()[i].capture(otherCastle);
-                    }
-                    
-                    for(Knight knight:this.getOtherKnights()){
-                        this.getKnights()[i].capture(knight);
-                    }
-                    
-                    for(Peasant p : this.getOtherPeasants()) {
-                        this.getKnights()[i].capture(p);
-                    }
-                    
-                    move(this.getKnights()[i],this.getKnights()[i].getDirectionTo(castle.getX(), castle.getY()));
-                }
-            }
+
+            //===================
             
-            for(int i=20;i<this.getKnights().length;i++) {
-                int avgx=0,avgy=0;
-                    for(Knight k : this.getKnights()) {
-                        avgx+=k.getX();
-                        avgy+=k.getY();
-                    }
-                    
-                    avgx/=this.getKnights().length;
-                    avgy/=this.getKnights().length;
-                    
-                    
-                    int smallestDistance=100000;
-                    
-                    Castle targetCastle=null;
-                    for(Castle c :this.getOtherCastles()) {
-                        if(c.getDistanceTo(avgx, avgy)<=smallestDistance) {
-                            targetCastle=c;
-                            smallestDistance=c.getDistanceTo(avgx, avgy);
-                        }
-                    }
-                    
-                    move(this.getKnights()[i],this.getKnights()[i].getDirectionTo(targetCastle.getX(), targetCastle.getY()));
-            }
-        } else if(this.getCastles().length==0) {
-            for (int i=0;i<this.getCastles().length;i++) {
-                    for (Castle otherCastle : World.getAllCastles()) {
-                        this.getKnights()[i].capture(otherCastle);
-                    }
-                    
-                    for(Knight knight:this.getOtherKnights()){
-                        this.getKnights()[i].capture(knight);
-                    }
-                    
-                    for(Peasant p : this.getOtherPeasants()) {
-                        this.getKnights()[i].capture(p);
-                    }
-                    
-                    int avgx=0,avgy=0;
-                    for(Knight k : this.getKnights()) {
-                        avgx+=k.getX();
-                        avgy+=k.getY();
-                    }
-                    
-                    avgx/=this.getKnights().length;
-                    avgy/=this.getKnights().length;
-                    
-                    
-                    int smallestDistance=100000;
-                    
-                    Castle targetCastle=null;
-                    for(Castle c :this.getOtherCastles()) {
-                        if(c.getDistanceTo(avgx, avgy)<=smallestDistance) {
-                            targetCastle=c;
-                            smallestDistance=c.getDistanceTo(avgx, avgy);
-                        }
-                    }
-                    
-                    move(this.getKnights()[i],this.getKnights()[i].getDirectionTo(targetCastle.getX(), targetCastle.getY()));
+            //capture and move
+            for (Knight knight : this.getKnights()) {
+                for (int dirC = 1; dirC < 9; dirC++) {
+                    capture(knight, dirC);
                 }
+                move(knight, knight.getDirectionTo(this.getCastles()[0].getX(), this.getCastles()[0].getY()));
+            }
+
+            
+
+   
         }
 
         this.getOtherKnights();

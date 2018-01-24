@@ -71,6 +71,7 @@ public class Knight extends Entity {
     public int capture(Entity attacked) {
         if (getDistanceTo(attacked.getX(), attacked.getY()) > 1 || !this.hasAction || this.getRuler() == attacked.getRuler()) {
             return 0;
+            
         }
         hasAction = false;
         //if the attacked entity is a knight
