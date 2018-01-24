@@ -6,7 +6,6 @@
 package dev.CodeRulers.display;
 
 //Import statements
-import dev.CodeRulers.entity.*;
 import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.util.IMAGE;
@@ -14,13 +13,8 @@ import dev.CodeRulers.world.World;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageProducer;
-import java.io.File;
 import java.util.Arrays;
-import javax.swing.Timer;
 
 /**
  * This class will be responsible for handling all drawing to the screen and
@@ -66,7 +60,7 @@ public class Panel extends javax.swing.JPanel {
 
     //the iconOffset is used later to offset where things are drawn to enable 
     //the scrolling feature in this program.
-    private int iconOffset = 0;
+    private int iconOffset = 50;
 
     //int turnLimit this is the number of turns that the game has cycled through.
     public int turnsTaken = 0;
@@ -172,6 +166,14 @@ public class Panel extends javax.swing.JPanel {
             //are. 
             g.drawString(ruler.getSchoolName(), xCoord + panelHeight / 12 - 2, yCoord + (g.getFontMetrics(header).getHeight()) + g.getFontMetrics(subHeader).getHeight());
 
+            g.setFont(new Font("Myriad",Font.BOLD,11));
+            
+            //draws ruler ID number
+            g.drawString("ID# " + ruler.getRulerID(), panelWidth-g.getFontMetrics(new Font("Myriad",Font.BOLD,11)).stringWidth("ID# " + ruler.getRulerID())-15
+                    , yCoord+ g.getFontMetrics(new Font("Myriad",Font.BOLD,11)).getHeight());
+            
+            
+            g.setFont(subHeader);
             //This draws the points of the AI followed by the amount of land the 
             //AI owns, spaced apart by 5 spaces. Every AI starts out with 
             //21 tiles of land by default.
@@ -184,12 +186,26 @@ public class Panel extends javax.swing.JPanel {
 
             
         }
+        
+
+        
 
         //this section is responsible for drawing the utility bar where the
         //user can add more AIs, stop the game, increase the speed of the game,
         //or start the game. 
         //====================
         //THIS PART IS NOT DONE.
+        
+        //leaderBoard
+        if(iconOffset<40) {
+            g.setColor(new Color(157, 144, 165, 200));
+            g.fillRect(panelHeight, 0, sidePanelWidth, 60);
+        }
+        
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial",Font.BOLD,30));
+        g.drawString("Leaderboard",panelHeight+10,50);
+        //utility bar
         g.setColor(new Color(157, 144, 165, 200));
         g.fillRect(panelHeight, panelHeight - 60, sidePanelWidth, 60);
         g.drawImage(startButton, panelHeight + 5, panelHeight - 60 + 5, null);
@@ -198,12 +214,14 @@ public class Panel extends javax.swing.JPanel {
         
         if (r.isGameEnd()) {
             g.setColor(new Color(0,0,0,120));
-            g.fillRect(0, 0, 1024, 768);
+            g.fillRect(0, 0, 768, 768);
             
             
-            //g.fillRoundRect(1024/2, 768/2, WIDTH, HEIGHT, WIDTH, HEIGHT);
+            g.fillRoundRect(768/2-100, 768/2-25, 200, 50, 10, 10);
             
-            
+            g.setFont(new Font("Consolas",Font.BOLD,20));
+            g.setColor(Color.WHITE);
+            g.drawString("Game Over", 768/2-g.getFontMetrics(new Font("Consolas",Font.BOLD,20)).stringWidth("Game Over")/2, 768/2+6);
         }
     }
 

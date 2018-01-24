@@ -330,6 +330,7 @@ public class World {
             g.setColor(r.getRulerArray()[k.getRuler()].getColor());
             g.fillRect((int)(k.getX()*12*scaleFactor)+xOffset,(int)(k.getY()*12*scaleFactor)+yOffset,widthOfIndicator,widthOfIndicator);
         }
+        
 
         for (Castle c : castles) {
             c.drawEntity(g, scaleFactor, xOffset, yOffset);
@@ -401,6 +402,11 @@ public class World {
     public static void setyOffset(int yOffset) {
         World.yOffset = yOffset;
     }
+    
+    /**
+     * This method returns the number of rulers that are playing in the game.
+     * @return the number of rulers that are playing in the game.
+     */
     public static int getNumRulers(){
         return r.getRulerArray().length;
     }
