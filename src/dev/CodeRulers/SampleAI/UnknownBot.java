@@ -86,9 +86,8 @@ public class UnknownBot extends AbstractRuler {
 
     private void movePeasants() {
         for (Peasant peasant : peasants) {
-            peasant.move(findDir(peasant.getClosestUnownedTile()[0], peasant.getClosestUnownedTile()[1]));
+            //peasant.move(findDir(peasant.getClosestUnownedTile(peasant)[0], peasant.getClosestUnownedTile(peasant)[1]));
             
-            /*
             //Search for uncaptured tile around the peasant
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
@@ -108,7 +107,6 @@ public class UnknownBot extends AbstractRuler {
             if(peasant.hasAction()) {
                 peasant.move(4);
             }
-*/
         }
     }
 
@@ -122,6 +120,48 @@ public class UnknownBot extends AbstractRuler {
         angle %= 360;
 
         return (11 - (int) Math.round(angle / 45)) % 8;
+    }
+    
+    /**
+     * Gets the closest tile that is not owned by this ruler
+     * @return an array of integers, the array's first number ([0]) is the x coordinate and the second number ([1]) is the y-coordinate
+     * It will return null if there are no more unowned tiles
+     */
+    private int[] getClosestUnownedTile(Entity e) {
+        //Checks until all tiles are checked
+        for(int i = 1; i < 63; i ++) {
+            for(int x = -i; x < i; x ++) {
+                //Checks if the tile is within boundaries
+                if(x + e.getX() < 0 || x + e.getX() > 63 || e.getY() + i < 0 || e.getY() + i > 63 || e.getY() - i < 0 || e.getY() + i > 63) {
+                    break;
+                }
+                //Finds the landowner and if it is owned by this ruler
+                if(World.getLandOwner(x + e.getX(), e.getY() + i) != e.getRuler()) {
+                    int[] a = {e.getX() + x, e.getY() + i};
+                    return a;
+                } else if (World.getLandOwner(x + e.getX(), e.getY() - i) != e.getRuler()) {
+                    int[] a = {e.getX() + x, e.getY() - i};
+                    return a;
+                }
+            }
+            
+            for(int y = -i; y < i; y ++) {
+                //Checks if the tile is within boundaries
+                if(y + e.getY() < 0 || y + e.getY() > 63 || e.getX() + i < 0 || e.getX() + i > 63 || e.getX() - i < 0 || e.getX() + i > 63) {
+                    break;
+                }
+                //Finds the landowner and if it is owned by this ruler
+                if(World.getLandOwner(e.getX() + i, e.getY() + y) != e.getRuler()) {
+                    int[] a = {e.getX() + i, e.getY() + y};
+                    return a;
+                } else if (World.getLandOwner(e.getX() - i, e.getY() + y) != e.getRuler()) {
+                    int[] a = {e.getX() - i, e.getY() + y};
+                    return a;
+                }
+            }
+        }
+        
+        return null;
     }
 
     @Override
