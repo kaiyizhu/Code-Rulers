@@ -26,8 +26,6 @@ public class UnknownBot extends AbstractRuler {
     Peasant[] ePeasants;
     Castle[] eCastles;
 
-    boolean creatingKnights = true;
-
     @Override
     public void orderSubjects() {
         knights = this.getKnights();
@@ -74,14 +72,14 @@ public class UnknownBot extends AbstractRuler {
         }
     }
 
+    //Creates entities
     private void createEntities() {
         for (Castle castle : castles) {
-            if (creatingKnights) {
-                castle.createKnights();
-                creatingKnights = false;
-            } else {
+            //creates peasants if there isn't enough
+            if(peasants.length < 15) {
                 castle.createPeasants();
-                creatingKnights = true;
+            } else {
+                castle.createKnights();
             }
         }
     }
@@ -92,7 +90,7 @@ public class UnknownBot extends AbstractRuler {
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
                     //Stop searching if the Land Tile is outside of the bounds
-                    if(peasant.getX() + x <= 63 && peasant.getX() + x >= 0 && peasant.getY() + y >= 0 && peasant.getY() + y <= 63) {
+                    if(!(peasant.getX() + x <= 63 && peasant.getX() + x >= 0 && peasant.getY() + y >= 0 && peasant.getY() + y <= 63)) {
                         break;
                     }
                     
@@ -103,16 +101,18 @@ public class UnknownBot extends AbstractRuler {
                 }
             }
             
-            //If the peasant can still move, then move in a random direction
+            //If the peasant can still move, then move towards the bottom right
             if(peasant.hasAction()) {
-                peasant.move((int)(Math.random() * 8) + 1);
+                peasant.move(4);
             }
+            
+            System.out.println(peasant.getClosestUnownedTile()[0] + " " + peasant.getClosestUnownedTile()[1]);
         }
     }
 
     private int findDir(int x, int y) {
         //Calculates the direction of the tile
-        double angle = Math.toDegrees(Math.asin(-y / Math.sqrt(x*x + y*y))) + 360;
+        double angle = Math.toDegrees(Math.asin(-y / Math.sqrt(x * x + y * y))) + 360;
 
         if (x < 0) {
             angle = 180 + 360 - angle;
