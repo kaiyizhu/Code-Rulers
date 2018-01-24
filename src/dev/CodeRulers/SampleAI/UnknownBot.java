@@ -46,6 +46,10 @@ public class UnknownBot extends AbstractRuler {
 
         //Find closest castle to attack
         for (Castle castle : eCastles) {
+            if(castles[0] == null) {
+                closestCastle = eCastles[0];
+                break;
+            }
             if (castles[0].getDistanceTo(castle.getX(), castle.getY()) <= castles[0].getDistanceTo(closestCastle.getX(), closestCastle.getY())) {
                 closestCastle = castle;
             }
