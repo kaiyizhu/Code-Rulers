@@ -219,5 +219,45 @@ public abstract class Entity {
         g.drawImage(icn, (int) (x * 12 * scaleFactor) + xOffset, (int) (y * 12 * scaleFactor) + yOffset, null);
     }
     
-    
+    /**
+     * Gets the closest tile that is not owned by this ruler
+     * @return an array of integers, the array's first number ([0]) is the x coordinate and the second number ([1]) is the y-coordinate
+     * It will return null if there are no more unowned tiles
+     */
+    public int[] getClosestUnownedTile() {
+        //Checks until all tiles are checked
+        for(int i = 1; i < 63; i ++) {
+            for(int x = -i; x < i; x ++) {
+                //Checks if the tile is within boundaries
+                if(x + this.x < 0 || x + this.x > 63 || this.y + i < 0 || this.y + i > 63 || this.y - i < 0 || this.y + i > 63) {
+                    break;
+                }
+                //Finds the landowner and if it is owned by this ruler
+                if(World.getLandOwner(x + this.x, this.y + i) != ruler) {
+                    int[] a = {this.x + x, this.y + i};
+                    return a;
+                } else if (World.getLandOwner(x + this.x, this.y - i) != ruler) {
+                    int[] a = {this.x + x, this.y - i};
+                    return a;
+                }
+            }
+            
+            for(int y = -i; y < i; y ++) {
+                //Checks if the tile is within boundaries
+                if(y + this.y < 0 || y + this.y > 63 || this.x + i < 0 || this.x + i > 63 || this.x - i < 0 || this.x + i > 63) {
+                    break;
+                }
+                //Finds the landowner and if it is owned by this ruler
+                if(World.getLandOwner(this.x + i, this.y + y) != ruler) {
+                    int[] a = {this.x + i, this.y + y};
+                    return a;
+                } else if (World.getLandOwner(this.x - i, this.y + y) != ruler) {
+                    int[] a = {this.x - i, this.y + y};
+                    return a;
+                }
+            }
+        }
+        
+        return null;
+    }
 }
