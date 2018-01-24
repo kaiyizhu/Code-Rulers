@@ -37,12 +37,12 @@ public class BullyBot extends AbstractRuler {
     public void orderSubjects() {
         //tell the peasants to expand
             orderPeasants();
-        
         if(getOtherKnights().length < getKnights().length && getOtherKnights().length >0){
             //send the knights to bully them
             attackKnights();
         //otherwise, try to capture a castle
-        }else if(getOtherCastles().length > 0){
+        }else 
+            if(getOtherCastles().length > 0){
             //assign a new castle as a target
             capture();
         //otherwise, if there are still peasants
@@ -101,7 +101,7 @@ public class BullyBot extends AbstractRuler {
         //for every one of my peasants
         for(Peasant p : myP){
             //move them in that direction
-            p.move(dir);
+            move(p, dir);
         }
     }
     private void assignNewTarget(){
