@@ -63,15 +63,27 @@ public class Knight extends Entity{
      */
     public int capture(Entity attacked){
         if(Math.abs(attacked.getX()-this.getX())>1 || Math.abs(attacked.getY()-this.getX()) > 1 || !this.hasAction || this.getRuler() != attacked.getRuler()){
+            if(!this.hasAction) {
+                System.out.println("no action");
+            } if(this.getRuler() == attacked.getRuler()) {
+                System.out.println("same ruler");
+            }
+            
             return 0;
+            
         }
         hasAction = false;
         //if the attacked entity is a knight
-        if(attacked instanceof Knight){
+        if(attacked.getClass() == this.getClass()){
             //create a reference for it as a knight
             Knight k = (Knight)attacked;
             //reduce its strength by a random number from 1-25
             k.strength -= (int)Math.ceil(Math.random()*25);
+            
+            
+            System.out.println(k.strength);
+            
+
             //if it is out of strength, remove it
             if(k.strength <1){
                 //set up an arrayList of the knights
