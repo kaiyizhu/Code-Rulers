@@ -81,13 +81,14 @@ public class CodeRulers implements Runnable {
         w = new World(this);
 
         //creates a new timer object that loops every 10 miliseconds.
-        t = new Timer(10, new TimerListener());
+        t = new Timer(100, new TimerListener());
 
         if (graphics) {
             //creates a new JFrame display to display all the graphics in the game.
             display = new Display(title, logo, this);
         } else {
             //start simulation
+            t = new Timer(1, new TimerListener());
             t.start();
         }
 

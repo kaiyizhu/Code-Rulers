@@ -43,9 +43,6 @@ public class Knight extends Entity{
             if(changePos(dir)){
                 //do nothing. Its a knight
                 hasAction = false;
-            }else{
-                System.out.println("Illegal Movement attempted by ruler " + ruler +
-                        " and Knight at " + x + " , " + y );
             }
         }
     }
@@ -65,7 +62,7 @@ public class Knight extends Entity{
      * @return  The number of points earned in attack (0 indicates no Entity captured)
      */
     public int capture(Entity attacked){
-        if(this.getDistanceTo(attacked.getX(), attacked.getY()) > 1 || !this.hasAction){
+        if(this.getDistanceTo(attacked.getX(), attacked.getY()) > 1 || !this.hasAction && this.getRuler() != attacked.getRuler()){
             return 0;
         }
         hasAction = false;

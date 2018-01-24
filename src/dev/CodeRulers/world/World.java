@@ -242,7 +242,7 @@ public class World {
      */
     public static Entity getEntityAt(int x, int y) {
         if (x > 63 || y > 63 || x < 0 || y < 0) {
-            System.out.println("Coordinates out of bounds.");
+            //System.out.println("Coordinates out of bounds.");
             return null;
         }
 
