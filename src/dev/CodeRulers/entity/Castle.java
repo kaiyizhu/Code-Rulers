@@ -64,7 +64,9 @@ public class Castle extends Entity{
     }
     
     /**
-     * Produces Peasants or Knights
+     * Moves the Castle through another production cycle. Changes the number
+     * of turns remaining until production according to land ownership and 
+     * decrements the number of turns remaining until production.
      */
     public void produce(){
         
