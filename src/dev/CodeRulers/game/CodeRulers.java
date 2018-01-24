@@ -25,7 +25,7 @@ import javax.swing.Timer;
  */
 public class CodeRulers implements Runnable {
     //this is the amount of turns a player makes before the game ends.
-    private final int turnLimit=50;
+    private final int turnLimit=5000;
     
     //this is the name of the window and the file directory of where the logo image is
     private String title = "CodeRulers: An AI Program for Noobs", logo = "logo.png";
@@ -227,6 +227,8 @@ public class CodeRulers implements Runnable {
                     try {
                         ruler.orderSubjects();
                     } catch (Exception ex) {
+                        ex.printStackTrace();
+                        
                         if (!stopMessages) {
                             int confirmed = JOptionPane.showConfirmDialog(null,
                                     ruler.getRulerName() + " committed a game-breaking error! Exit game?", "Error Message",
@@ -255,7 +257,6 @@ public class CodeRulers implements Runnable {
                     Arrays.sort(rulerArr);
                     System.out.println("LEADERBOARD:");
                     for(int i =0;i<rulerArr.length;i++) {
-                        try {Thread.sleep(1000);} catch (InterruptedException ex) {}
                         
                         System.out.println(i+1+". "+rulerArr[i].getRulerName() +": "+rulerArr[i].getPoints() + " points.");
                     }

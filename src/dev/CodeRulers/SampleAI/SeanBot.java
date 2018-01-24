@@ -12,6 +12,7 @@ import dev.CodeRulers.game.CodeRulers;
 import dev.CodeRulers.ruler.AbstractRuler;
 import dev.CodeRulers.world.World;
 import java.awt.Color;
+import java.util.Arrays;
 
 /**
  * I am using this class for graphical testing. I also added a game-breaking bug
@@ -22,7 +23,8 @@ public class SeanBot extends AbstractRuler {
 
     @Override
     public void orderSubjects() {
-        this.getCastles()[0].createKnights();
+        System.out.println(Arrays.toString(getCastles()));
+        
         if (this.getCastles().length == 1 && this.getKnights().length<20) {
             for (Castle castle : this.getCastles()) {
                 for (Knight knight : this.getKnights()) {
