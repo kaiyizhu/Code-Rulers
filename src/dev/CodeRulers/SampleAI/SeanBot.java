@@ -27,24 +27,19 @@ public class SeanBot extends AbstractRuler {
         Random r = new Random();
 
         for (Castle castle : this.getOtherCastles()) {
-            if(CodeRulers.getTurnCount()>200) {
+            if(CodeRulers.getTurnCount()>500) {
                 castle.createKnights();
             } else {
-                castle.createKnights();
+                castle.createPeasants();
             }
             
-            
             for (Knight knight : this.getKnights()) {
-                if(r.nextBoolean()) {
-                    move(knight, knight.getDirectionTo(castle.getX(), castle.getY()));
-                }
+                
                 for (int dirC = 1; dirC < 9; dirC++) {
                     capture(knight, dirC);
                 }
                 move(knight, knight.getDirectionTo(castle.getX(), castle.getY()));
             }
-
-            break;
         }
 
         //===================
