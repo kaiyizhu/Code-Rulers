@@ -69,12 +69,12 @@ public class Knight extends Entity {
      * captured)
      */
     public int capture(Knight attacked) {
-        if (Math.abs(attacked.getX() - this.getX()) > 1 || Math.abs(attacked.getY() - this.getX()) > 1 || !this.hasAction || this.getRuler() == attacked.getRuler()) {
+        if (this.getDistanceTo(x, y) > 1 || !this.hasAction || this.getRuler() == attacked.getRuler()) {
             if (!this.hasAction) {
                 System.out.println("no action");
             }
             if (this.getRuler() == attacked.getRuler()) {
-                System.out.println("same ruler");
+                System.out.println(this.getRuler()+" - same ruler - " + attacked.getRuler());
             }
 
             return 0;
