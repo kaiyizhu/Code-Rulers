@@ -27,7 +27,11 @@ public class SeanZhang extends AbstractRuler {
         for (Knight knight : this.getKnights()) {
             move(knight, 5);
             capture(knight, 5);
+            
+            
         }
+        
+        this.getOtherCastles();
         
         for (Peasant peasant : getPeasants()) {
             move(peasant, 1);
