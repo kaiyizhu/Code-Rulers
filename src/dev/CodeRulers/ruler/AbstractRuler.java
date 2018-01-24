@@ -338,7 +338,11 @@ public abstract class AbstractRuler implements Comparable{
         this.rulerID = rulerID;
     }
     
-    
+    /**
+     * Compares the rulers by point value. 
+     * @param o The object being compared to this ruler
+     * @return An integer representing the difference between the points of the objects
+     */
     @Override
     public int compareTo(Object o) {
         return -((Integer)(this.getPoints())).compareTo((Integer)((AbstractRuler)o).getPoints());
