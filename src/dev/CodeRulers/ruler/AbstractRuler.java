@@ -85,11 +85,8 @@ public abstract class AbstractRuler implements Comparable{
             int[] xy = translateDir(dir);
             Entity attacked = World.getEntityAt(attacking.getX()+xy[0], attacking.getY()+xy[1]);
             if(attacked != null){
-                //check that it is not one of this ruler's subjects
-                if(attacked.getRuler() != rulerID ){
                 //call the attack
-                    points += attacking.capture(attacked);
-                }
+                points += attacking.capture(attacked);
             }
         }
     }
