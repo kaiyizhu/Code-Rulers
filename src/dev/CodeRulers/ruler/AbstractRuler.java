@@ -86,9 +86,7 @@ public abstract class AbstractRuler implements Comparable{
             Entity attacked = World.getEntityAt(attacking.getX()+xy[0], attacking.getY()+xy[1]);
             if(attacked != null){
                 //call the attack
-                System.out.println(attacked.getClass().getName());
                 if(attacked.getClass().isAssignableFrom(Knight.class)) {
-                    
                     points += attacking.capture((Knight)attacked);
                 } else if(attacked.getClass().isAssignableFrom(Castle.class)) {
                     points += attacking.capture((Castle)attacked);
