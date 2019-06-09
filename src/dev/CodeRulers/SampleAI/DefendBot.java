@@ -52,7 +52,6 @@ public class DefendBot extends AbstractRuler
         }
         for (Castle castle : this.getCastles())
         {
-            castle.createKnights();
 
             //Rush knights to aid my starting castle
             for (Knight knight : this.getKnights())
@@ -76,6 +75,7 @@ public class DefendBot extends AbstractRuler
                 }
 
             }
+            castle.createKnights();
         }
 
         /*
